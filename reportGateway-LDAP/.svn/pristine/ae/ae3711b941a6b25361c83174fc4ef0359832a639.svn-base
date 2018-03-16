@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.AdminUser" table="admin_user" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="adminRole" class="com.kunj.freshfeed.domain.AdminRole" fetch="select">
+            <column name="admin_role_id" not-null="true" />
+        </many-to-one>
+        <property name="username" type="string">
+            <column name="user_name" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="firstName" type="string">
+            <column name="first_name" length="50" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="50" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="10" not-null="true" />
+        </property>
+        <property name="createdDatetime" type="timestamp">
+            <column name="created_datetime" length="19" not-null="true" />
+        </property>
+        <property name="updatedDatetime" type="timestamp">
+            <column name="updated_datetime" length="19" />
+        </property>
+        <set name="vendorProductAudits" table="vendor_product_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="updated_by" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorProductAudit" />
+        </set>
+        <set name="vendors" table="vendor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Vendor" />
+        </set>
+        <set name="categoryAudits" table="category_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="updated_by" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.CategoryAudit" />
+        </set>
+        <set name="orderAudits" table="order_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="updated_by" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderAudit" />
+        </set>
+        <set name="productAudits" table="product_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="updated_by" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.ProductAudit" />
+        </set>
+        <set name="subCategoryAudits" table="sub_category_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="updated_by" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.SubCategoryAudit" />
+        </set>
+        <set name="orders" table="order_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="driver_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderDetail" />
+        </set>
+        <set name="orderQueries" table="order_query" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="updayed_by" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderQuery" />
+        </set>
+        <set name="users" table="user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="admin_user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.User" />
+        </set>
+    </class>
+</hibernate-mapping>

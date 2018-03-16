@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<project name="freshfeed" basedir="." >
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+	<property name="target.dir" value="target"/>
+    <property name="web.dir" value="war"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+    <property name="name" value="freshfeed"/>
+
+	<target name="deploywar"  description="Deploy application as a WAR file">
+    	<antcall target="undeploywar"></antcall> 
+		<copy file="target/freshfeed.war" tofile="${deploy.path}/freshfeed.war"/>
+    </target>
+ 
+    <target name="undeploywar" description="Un-Deploy application">
+    	<delete dir="${deploy.path}/freshfeed/"/>
+    	<delete file="${deploy.path}/freshfeed.war"/>
+    </target>  	
+
+</project>

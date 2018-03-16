@@ -1,0 +1,184 @@
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html ng-app="appcomApp">
+    <head>
+        <title>Easy-Market</title>
+        <!-- Bootstrap -->
+      
+      <!-- date and time bootstrap by me -->
+      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+  
+      <!-- -->
+      
+	        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	        <link rel="stylesheet" type="text/css" href="assets/dataTables.bootstrap.min.css">
+	        <link rel="stylesheet" type="text/css" href="vendors/easypiechart/jquery.easy-pie-chart.css">
+			<link rel="stylesheet" type="text/css" href="assets/responsive.bootstrap.min.css">
+	        <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+	        <link href="bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet" media="screen">
+	        <link href="assets/styles.css" rel="stylesheet" media="screen">
+	        <link href="assets/custom.css" rel="stylesheet" media="screen">
+	        <link href="assets/DT_bootstrap.css" rel="stylesheet" media="screen">
+	        <link href="bootstrap/bootstrap-new/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+		    <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+		    <link rel="stylesheet" type="text/css" href="vendors/easypiechart/jquery.easy-pie-chart.css">
+		    <link rel="stylesheet" type="text/css" href="assets/dataTables.bootstrap.min.css">
+		    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.common-material.min.css" />
+		    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.material.min.css" />
+		    <link rel="stylesheet" href="//kendo.cdn.telerik.com/2016.3.914/styles/kendo.material.mobile.min.css" />
+	   
+       <link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.css">
+        <script src="https://unpkg.com/flatpickr"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+        <script src="assets/js/angular/angular.min.js"></script>
+        <script src="http://static.fusioncharts.com/code/latest/fusioncharts.js?cacheBust=8232"></script> 
+      
+		<script src="vendors/datatables/jquery.dataTables.js"></script>
+		<script src="assets/js/angular/angular-fusioncharts.min.js"></script>
+		
+		<script src="assets/js/angular/angular-fusioncharts.min.js"></script>
+        <!-- Firebase -->
+		<script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+		<!-- AngularFire -->
+		<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+		
+        <script src="assets/js/json2.js"></script>
+        
+        <script src="assets/js/angular/angular-resource.min.js"></script>
+        <script src="vendors/easypiechart/jquery.easy-pie-chart.js"></script>
+        <script src="assets/js/angular/angular-route.min.js"></script>
+        <script src="assets/js/angular/angular-cookies.min.js"></script>
+        <script src="assets/js/angular/angular-sanitize.min.js"></script>
+        <script src="assets/js/angular/angular-touch.min.js"></script>
+        <script src="assets/js/angular/angular-animate.min.js"></script>
+        <script src="assets/js/angular/jquery.fileupload-angular.js"></script>
+        <script src="bootstrap/bootstrap-new/js/ui-bootstrap-tpls-1.3.3.min.js"></script>
+        <script src="assets/js/ng-infinite-scroll.min.js"></script>
+        <script src="assets/js/custom.js"></script>               
+        <script src="assets/js/app.js"></script>
+        <script src="assets/js/services/authentication.js"></script>
+        <script src="assets/js/services/admin.js"></script>
+        <script src="assets/js/services/infiniteScroll.js"></script>
+        <script src="assets/js/services/common.js"></script>        
+        <script src="assets/js/directives/ngHover.js"></script>
+		<script src="assets/js/services/categoryService.js"></script>
+		<script src="assets/js/services/subcategoryService.js"></script>
+		<script src="assets/js/services/productService.js"></script>
+		<script src="assets/js/services/pickupService.js"></script>
+		<script src="assets/js/services/locationService.js"></script>
+		<script src="assets/js/services/vendorService.js"></script>
+		<script src="assets/js/services/userService.js"></script>
+		<script src="assets/js/services/orderService.js"></script>
+		<script src="assets/js/services/vendorCategoryService.js"></script>
+		<script src="assets/js/services/vendorSubCategoryService.js"></script>
+		<script src="assets/js/services/vendorProductService.js"></script>
+		<script src="assets/js/services/dashboardAdminService.js"></script>
+		<script src="assets/js/services/dashboardVendorService.js"></script>
+		<script src="assets/js/services/promotionalOfferService.js"></script>
+		<script src="assets/js/services/vendorPromotionalOfferService.js"></script>
+		<script src="assets/js/services/orderQueryService.js"></script>
+		<script src="assets/js/services/deliverychargeService.js"></script>
+		<script src="assets/js/services/vendorOfferSchedulerService.js"></script>
+        <script src="assets/js/controller/appcom.js"></script>        
+        <script src="assets/js/controller/anonymous.js"></script>
+        <script src="assets/js/controller/login.js"></script>
+        <script src="assets/js/controller/dashboard.js"></script>
+        <script src="assets/js/controller/dashBoardController.js"></script>
+		<script src="assets/js/controller/categoryController.js"></script>
+		<script src="assets/js/controller/subcategoryController.js"></script>
+		<script src="assets/js/controller/productController.js"></script>
+		<script src="assets/js/controller/locationController.js"></script>
+		<script src="assets/js/controller/pickupController.js"></script>
+		<script src="assets/js/controller/vendorController.js"></script>
+		<script src="assets/js/controller/userController.js"></script>
+		<script src="assets/js/controller/orderController.js"></script>
+		<script src="assets/js/controller/promotionalOfferController.js"></script>
+		<script src="assets/js/controller/vendorPromotionalOfferController.js"></script>
+		<script src="assets/js/controller/vendorCategoryController.js"></script>
+		<script src="assets/js/controller/vendorSubcategoryController.js"></script>
+		<script src="assets/js/controller/vendorProductController.js"></script>
+		<script src="assets/js/controller/vendorLocationController.js"></script>
+		<script src="assets/js/controller/orderQueryController.js"></script>
+		<script src="assets/js/controller/deliverychargeController.js"></script>
+		<script src="assets/js/controller/vendorOfferSchedulerController.js"></script>
+		<script src="assets/js/controller/deliveryTimeScheduleController.js"></script>
+		<script src="assets/js/controller/notificationController.js"></script>
+		<script src="assets/js/services/deliveryTimeScheduleService.js"></script>
+		<script src="assets/js/controller/pushNotificationController.js"></script>
+		<script src="assets/js/services/pushNotificationService.js"></script>
+		<script src="assets/js/controller/productWiseSalesController.js"></script>
+		<script src="assets/js/controller/vendorWiseSalesController.js"></script>
+		
+		<script type="text/javascript" src="assets/site.js?_=fdce5da0aafc74f877db6a1772eccba9"></script>
+		<script type="text/javascript" language="javascript" src="assets/dataTables.responsive.min.js"></script>
+		<script type="text/javascript" language="javascript" src="assets/dataTables.bootstrap.min.js"></script>
+       <script src="bootstrap/js/bootstrap.min.js"></script> 
+       <script src="bootstrap/js/bootstrap-dialog.min.js"></script>
+       
+       <script src="http://kendo.cdn.telerik.com/2016.3.914/js/kendo.all.min.js"></script>
+        <script src="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.js"></script>
+    
+    
+
+
+     <script type="text/javascript">
+          var timeout = '<%=request.getSession().getMaxInactiveInterval()%>';
+     </script>
+
+        <style>
+	   .fileinput-button 
+{
+	position: relative;
+	overflow: hidden;
+}
+
+.fileinput-button input 
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	transform: translate(134px, 0px) scale(1);
+	font-size: 23px;
+	direction: ltr;
+	cursor: pointer;
+}
+/* img{
+margin-top: 400px;
+
+}
+	 */   
+	 
+	 </style>
+
+    </head>
+	<body ng-controller="appcomCtrl">
+	
+	<div class="appcomPageLoader" ng-show="isShowPageLoader">
+		<div class="appcomPageLoaderWrap">
+			<img title="Loading" src="images/loader1.gif" width="64" height="64" alt="Loading" align="middle">
+		</div>
+	</div> 
+	
+	<div ng-include="'view/header.jsp'" include-replace ng-show="showHeader"></div>
+
+<div class="container-fluid">    
+	<div ng-view></div>
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js"></script>
+
+  <script src="vendors/angular-chosen.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.css" />
+  <link rel="stylesheet" type="text/css" href="vendors/chosen-spinner.css" />
+	<div ng-include="'view/footer.html'" include-replace ng-show="showFooter"></div>
+  </div>
+    </body>

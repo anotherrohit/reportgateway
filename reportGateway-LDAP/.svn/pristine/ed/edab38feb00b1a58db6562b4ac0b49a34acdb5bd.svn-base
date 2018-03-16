@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 27, 2016 5:05:16 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.DeliveryCharge" table="delivery_charge" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="weightThreshold" type="java.lang.Double">
+            <column name="weight_threshold" precision="8" />
+        </property>
+        <property name="charges" type="java.lang.Double">
+            <column name="charges" precision="8" />
+        </property>
+        <property name="isWarehouse" type="boolean">
+            <column name="is_warehouse" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

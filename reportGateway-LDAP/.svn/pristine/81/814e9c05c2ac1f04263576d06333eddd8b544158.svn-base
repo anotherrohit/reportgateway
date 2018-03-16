@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="baseHibernateDao" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="addressDAO" class="com.kunj.freshfeed.dao.AddressDAO" parent="baseHibernateDao"/>
+	<bean id="addressTypeDAO" class="com.kunj.freshfeed.dao.AddressTypeDAO" parent="baseHibernateDao" />
+	<bean id="applicationDAO" class="com.kunj.freshfeed.dao.ApplicationDAO" parent="baseHibernateDao"/>
+	<bean id="authorizationTokenDAO" class="com.kunj.freshfeed.dao.AuthorizationTokenDAO" parent="baseHibernateDao"/>
+	<bean id="cartDetailDAO" class="com.kunj.freshfeed.dao.CartDetailDAO" parent="baseHibernateDao" />
+	<bean id="cartProductDAO" class="com.kunj.freshfeed.dao.CartProductDAO" parent="baseHibernateDao" />
+	<bean id="categoryDAO" class="com.kunj.freshfeed.dao.CategoryDAO" parent="baseHibernateDao" />
+	<bean id="deviceDAO" class="com.kunj.freshfeed.dao.DeviceDAO" parent="baseHibernateDao" />
+	<bean id="favouriteProductDAO" class="com.kunj.freshfeed.dao.FavouriteProductDAO" parent="baseHibernateDao" />
+	<bean id="locationDAO" class="com.kunj.freshfeed.dao.LocationDAO" parent="baseHibernateDao" />
+	<bean id="productAttributesDAO" class="com.kunj.freshfeed.dao.ProductAttributesDAO" parent="baseHibernateDao" />
+	<bean id="productDAO" class="com.kunj.freshfeed.dao.ProductDAO" parent="baseHibernateDao" />
+	<bean id="subCategoryDAO" class="com.kunj.freshfeed.dao.SubCategoryDAO" parent="baseHibernateDao" />
+	<bean id="userDAO" class="com.kunj.freshfeed.dao.UserDAO" parent="baseHibernateDao" />
+	<bean id="userOtpCodeDAO" class="com.kunj.freshfeed.dao.UserOtpCodeDAO" parent="baseHibernateDao" />
+	<bean id="utilDAO" class="com.kunj.freshfeed.dao.UtilDAO" parent="baseHibernateDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
+	</bean>
+	<bean id="vendorCategoryDAO" class="com.kunj.freshfeed.dao.VendorCategoryDAO" parent="baseHibernateDao" />
+	<bean id="vendorDAO" class="com.kunj.freshfeed.dao.VendorDAO" parent="baseHibernateDao" />
+	<bean id="visitorDAO" class="com.kunj.freshfeed.dao.VisitorDAO" parent="baseHibernateDao" />
+	<bean id="vendorLocationDAO" class="com.kunj.freshfeed.dao.VendorLocationDAO" parent="baseHibernateDao" />
+	<bean id="vendorProductDAO" class="com.kunj.freshfeed.dao.VendorProductDAO" parent="baseHibernateDao" />
+	<bean id="vendorSubCategoryDAO" class="com.kunj.freshfeed.dao.VendorSubCategoryDAO" parent="baseHibernateDao" />
+	<bean id="driverDetailsDAO" class="com.kunj.freshfeed.dao.DriverDetailsDAO" parent="baseHibernateDao" />	
+	<bean id="deliveryTimeScheduleDAO" class="com.kunj.freshfeed.dao.DeliveryTimeScheduleDAO" parent="baseHibernateDao"/>
+	<bean id="promotedCategoryDAO" class="com.kunj.freshfeed.dao.PromotedCategoryDAO" parent="baseHibernateDao"/>
+	<bean id="promotionalOfferDAO" class="com.kunj.freshfeed.dao.PromotionalOfferDAO" parent="baseHibernateDao"/>
+	<bean id="orderDetailDAO" class="com.kunj.freshfeed.dao.OrderDetailDAO" parent="baseHibernateDao" />
+	<bean id="orderPaymentDAO" class="com.kunj.freshfeed.dao.OrderPaymentDAO" parent="baseHibernateDao" />
+	<bean id="orderRefundDAO" class="com.kunj.freshfeed.dao.OrderRefundDAO" parent="baseHibernateDao" />
+	<bean id="productOfferSchedulerDAO" class="com.kunj.freshfeed.dao.ProductOfferSchedulerDAO" parent="baseHibernateDao" />
+	<bean id="orderStatusDAO" class="com.kunj.freshfeed.dao.OrderStatusDAO" parent="baseHibernateDao" />
+	<bean id="deliveryChargeDAO" class="com.kunj.freshfeed.dao.DeliveryChargeDAO" parent="baseHibernateDao" />
+	<bean id="orderProductsDAO" class="com.kunj.freshfeed.dao.OrderProductsDAO" parent="baseHibernateDao" />
+	<bean id="applicationConfigDAO" class="com.kunj.freshfeed.dao.ApplicationConfigDAO" parent="baseHibernateDao" />
+	<bean id="pickupDAO" class="com.kunj.freshfeed.dao.PickupDAO" parent="baseHibernateDao" />
+	<bean id="categoryAuditDAO" class="com.kunj.freshfeed.dao.CategoryAuditDAO" parent="baseHibernateDao" />
+	<bean id="adminUserDAO" class="com.kunj.freshfeed.dao.AdminUserDAO" parent="baseHibernateDao" />
+	<bean id="adminRoleDAO" class="com.kunj.freshfeed.dao.AdminRoleDAO" parent="baseHibernateDao" />
+	<bean id="subCategoryAuditDAO" class="com.kunj.freshfeed.dao.SubCategoryAuditDAO" parent="baseHibernateDao" />
+	<bean id="productAuditDAO" class="com.kunj.freshfeed.dao.ProductAuditDAO" parent="baseHibernateDao" />
+	<bean id="attributeMasterDAO" class="com.kunj.freshfeed.dao.AttributeMasterDAO" parent="baseHibernateDao" />
+	<bean id="unitMasterDAO" class="com.kunj.freshfeed.dao.UnitMasterDAO" parent="baseHibernateDao" />
+	<bean id="vendorProductAuditDAO" class="com.kunj.freshfeed.dao.VendorProductAuditDAO" parent="baseHibernateDao" />
+	<bean id="orderQueryDAO" class="com.kunj.freshfeed.dao.OrderQueryDAO" parent="baseHibernateDao"/>
+	<bean id="userRolePermissionDAO" class="com.kunj.freshfeed.dao.UserRolePermissionDAO" parent="baseHibernateDao"/>
+	<bean id="manualPushNotificationDAO" class="com.kunj.freshfeed.dao.ManualPushNotificationDAO" parent="baseHibernateDao" />
+	
+	<bean id="orderDetailAuditDAO" class="com.kunj.freshfeed.dao.audit.OrderDetailAuditDAO" parent="baseHibernateDao" />
+	<bean id="orderProductsAuditDAO" class="com.kunj.freshfeed.dao.audit.OrderProductsAuditDAO" parent="baseHibernateDao" />
+	
+</beans>

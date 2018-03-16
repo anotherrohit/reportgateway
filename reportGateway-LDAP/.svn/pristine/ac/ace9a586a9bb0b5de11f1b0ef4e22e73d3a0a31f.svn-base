@@ -1,0 +1,195 @@
+var ebuxx = angular.module('ebuxx', [ 'ui.router', 'ncy-angular-breadcrumb', 'ngTable', 'ui-notification', 'angular.chosen', 'angular-loading-bar', 'angular.chosen', 'ds.objectDiff', 'ui.bootstrap', 'ng-weekday-selector', 'ui.bootstrap.datetimepicker', 'ngIdle' ]);
+
+function urlHelper(url) {
+	return '/ebuxx/' + url;
+}
+ebuxx.config([ 'cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+	// cfpLoadingBarProvider.includeSpinner = true;
+	cfpLoadingBarProvider.spinnerTemplate = '<div id="loading-bar"><div class="spinner"><img src="/ebuxx/assets/img/processing.gif" class="spinner-img"/><div><p style="margin-top:-10px">Loading...</p></div></div></div>';
+} ]);
+ebuxx.constant('Server', {
+	"loginUrl" : 'http://' + location.host + '/ebuxx/',
+	"url" : 'http://' + location.host + '/ebuxx/services/',
+	"host" : location.host
+});
+ebuxx.constant('Var', {
+	"token" : "UgCgBQABSpFcPwPJVgWvNDOgVFGhSyCbQaLQSjHhAlGiYRFqDRJs",
+	"isSuperAdmin" : "GbSxLXNBHgNhIoMXKfVkBGToHAXkObSaLiEXSiDcSyEcMUJhXQGb",
+	"q" : "HnApODAMYdPlNgADRnBxUEDgSTTeQsXbDpGPTfApIiBmRKJyHWKv",
+
+	"s" : "IhXbLKPAEfTlUiJYIbKkNMBpUAKqBdVyWfCNEuLxDhWdQKCrADWi",
+	"f" : "XwYyYJDUEoPgTcUPPaVhTKLqXOWeIkQkCnDEVcIhAhOgBWSqJVMy"
+});
+
+ebuxx.factory('_localStorage', function(Var) {
+	return {
+		getItem : function(key) {
+			return localStorage.getItem(Var[key]);
+		},
+		setItem : function(key, value) {
+			localStorage.setItem(Var[key], value);
+		},
+		removeItem : function(key) {
+			localStorage.removeItem(Var[key]);
+		}
+	};
+});
+
+ebuxx.factory('httpRequestInterceptor', function(_localStorage) {
+	return {
+		request : function(config) {
+			config.headers['access_token'] = _localStorage.getItem("token");
+			config.headers['Accept'] = 'application/json;';
+			return config;
+		}
+	};
+});
+ebuxx.config(function($httpProvider) {
+	$httpProvider.interceptors.push('httpRequestInterceptor');
+
+	$httpProvider.interceptors.push(function($q, Server, $injector, _localStorage) {
+		return {
+			'request' : function(config) {
+				return config;
+			},
+			'response' : function(response) {
+				if (response.data.fault && (response.data.fault.fault_code === 1006 || response.data.fault.fault_code === 1007)) {
+					var Notification = $injector.get('Notification');
+					Notification.error(response.data.fault.fault_message);
+					_localStorage.removeItem("token");
+					$injector.get('$state').go('root');
+					$injector.get('Idle').unwatch();
+					response.data = {};
+				}
+				return response;
+			},
+			'responseError' : function(rejection) {
+				$injector.get('Notification').error('A System error occurred, retry or contact tech support');
+				return $q.reject(rejection);
+			}
+		};
+	});
+
+});
+ebuxx.config([ "$breadcrumbProvider", function($breadcrumbProvider) {
+	$breadcrumbProvider.setOptions({
+		prefixStateName : 'dashboard.main',
+		template : 'bootstrap3'
+	});
+} ]);
+ebuxx.config([ 'KeepaliveProvider', 'IdleProvider', function(KeepaliveProvider, IdleProvider) {
+	IdleProvider.idle(60 * 10);
+	IdleProvider.timeout(15);
+} ]);
+ebuxx.run(function($rootScope, $filter, mainService, $uibModal, $state, $injector, _localStorage, Notification) {
+
+	function closeModals() {
+		if ($rootScope.warning) {
+			$rootScope.warning.close();
+			$rootScope.warning = null;
+		}
+	}
+
+	$rootScope.$on('IdleStart', function() {
+		closeModals();
+		$rootScope.warning = $uibModal.open({
+			templateUrl : 'warning-dialog.html',
+			windowClass : 'modal-warning'
+		});
+	});
+
+	$rootScope.$on('IdleTimeout', function() {
+		closeModals();
+		localStorage.clear();
+		$state.go('root');
+		$rootScope.user.username = $rootScope.user.userName;
+		$rootScope.timedout = $uibModal.open({
+			templateUrl : 'timedout-dialog.html',
+			windowClass : 'modal-info'
+		}).closed.then(function() {
+			document.title = "Freshfeed";
+		});
+		;
+	});
+
+	$rootScope.viewImage = function(imageUrl, size, title) {
+		$uibModal.open({
+			animation : !0,
+			template : '<div class="col-sm-12 text-center"> <div class="thumbnail"> <div class="caption text-right" style="border-bottom: 1px solid #96a1ab;"> <span class="pull-left" ng-bind="::title"></span> <button class="btn btn-xs" ng-click="close()" type="button"><span class="glyphicon glyphicon-remove"></span></button> </div> <img style="width:100%" ng-src="{{imageUrl}}" alt="{{imageUrl}}"> </div> </div>',
+			size : size || 'lg',
+			resolve : {
+				imageUrl : function() {
+					return imageUrl;
+				},
+				title : function() {
+					return size == 'md' && !title ? 'Icon' : title;
+				}
+			},
+			controller : [ '$scope', '$uibModalInstance', 'imageUrl', 'title', function($scope, $uibModalInstance, imageUrl, title) {
+				$scope.imageUrl = imageUrl;
+				$scope.title = title || 'Image';
+
+				$scope.close = function() {
+					$uibModalInstance.dismiss(false);
+				};
+			} ]
+		});
+	};
+
+	$rootScope.getFaultMessage = function(data) {
+		return $filter('faults')(data);
+	};
+	$rootScope.isFault = function(data) {
+		return data.fault && Notification.warning(data.fault.fault_message);
+	};
+	$rootScope.hasError = function(form, attribute) {
+		return form && attribute && form.$submitted && attribute.$invalid;
+	};
+	$rootScope.dateFormat = "mediumDate";
+	$rootScope.dateTimeFormat = "medium";
+	$rootScope.searchDelay = 800;
+	$rootScope.state = $state;
+	$rootScope.isSuperAdmin = _localStorage.getItem('isSuperAdmin') == 'true';
+	if (_localStorage.getItem("token") != null && _localStorage.getItem("token") != "") {
+		mainService.getAuthenticatedUserDetails().then(function(response) {
+			if (response.data.admin_user != undefined) {
+				$rootScope.user = response.data.admin_user;
+				if ($rootScope.user.admin_role.name === 'ROLE_ADMIN') {
+				
+				}
+			}
+		})
+	}
+
+});
+ebuxx.config(function($stateProvider, $urlRouterProvider) {
+
+	$urlRouterProvider.otherwise('/');
+
+	$stateProvider.state('root', {
+		url : '/',
+		templateUrl : urlHelper('/app/pages/login.html'),
+		controller : 'loginController'
+	}).state('dashboard', {
+		abstract : true,
+		templateUrl : urlHelper('/app/pages/header.html'),
+		controller : function($scope, $state, Idle, _localStorage) {
+			if (!_localStorage.getItem('token')) {
+				$state.go('root');
+			}
+			$scope.logout = function() {
+				_localStorage.removeItem('token');
+				_localStorage.removeItem('isSuperAdmin');
+				$state.go('root');
+				Idle.unwatch();
+			}
+		}
+	}).state('dashboard.main', {
+		url : '/dashboard',
+		templateUrl : urlHelper('/app/pages/dashboard.html'),
+		controller : 'dashboardController',
+		ncyBreadcrumb : {
+			label : 'Dashboard'
+		}
+	});
+});

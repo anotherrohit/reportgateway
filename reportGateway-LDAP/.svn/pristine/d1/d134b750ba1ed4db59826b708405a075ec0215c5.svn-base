@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.OrderDetail" table="order_detail" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="pickup" class="com.kunj.freshfeed.domain.Pickup" fetch="select">
+            <column name="pickup_id" />
+        </many-to-one>
+        <many-to-one name="userByUserId" class="com.kunj.freshfeed.domain.User" fetch="select">
+            <column name="user_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userByDriverId" class="com.kunj.freshfeed.domain.User" fetch="select">
+            <column name="driver_id" />
+        </many-to-one>
+        <many-to-one name="address" class="com.kunj.freshfeed.domain.Address" fetch="select">
+            <column name="user_address_id" />
+        </many-to-one>
+        <many-to-one name="orderStatus" class="com.kunj.freshfeed.domain.OrderStatus" fetch="select">
+            <column name="order_status_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="promotionalOffer" class="com.kunj.freshfeed.domain.PromotionalOffer" fetch="select">
+            <column name="promotional_offer_id" />
+        </many-to-one>
+        <many-to-one name="updatedBy" class="com.kunj.freshfeed.domain.AdminUser" fetch="select">
+            <column name="updated_by" not-null="true" />
+        </many-to-one>
+        <property name="deliveryDate" type="timestamp">
+            <column name="delivery_date" length="19" />
+        </property>
+        <property name="orderTotal" type="double">
+            <column name="order_total" precision="8" not-null="true" />
+        </property>
+        <property name="finalTotal" type="java.lang.Double">
+            <column name="final_total" precision="8" />
+        </property>
+        <property name="deliveryCharge" type="java.lang.Double">
+            <column name="delivery_charge" precision="8" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="19" not-null="true" />
+        </property>
+        <property name="updatedDate" type="timestamp">
+            <column name="updated_date" length="19" not-null="true" />
+        </property>
+        <set name="orderAudits" table="order_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="order_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderAudit" />
+        </set>
+        <set name="vendorOrderRatings" table="vendor_order_rating" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="order_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorOrderRating" />
+        </set>
+        <set name="orderProductses" table="order_products" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="order_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderProducts" />
+        </set>
+        <set name="orderQueries" table="order_query" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="order_detail_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderQuery" />
+        </set>
+        <property name="discount" type="java.lang.Double">
+            <column name="discount" precision="8" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

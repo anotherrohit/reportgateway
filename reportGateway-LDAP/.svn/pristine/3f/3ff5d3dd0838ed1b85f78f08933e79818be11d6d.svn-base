@@ -1,0 +1,11 @@
+/**
+ * created By Bhavesh Patel
+ */
+ebuxx.service('mainService', function($http, Server) {
+	this.checkAuthentication = function(data) {
+		return $http.post(Server.loginUrl + "login", data);
+	};
+	this.getAuthenticatedUserDetails = function() {
+		return $http.post(Server.url + "admin/user/getAuthenticatedUserDetails");
+	};
+});

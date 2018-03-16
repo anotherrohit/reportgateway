@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 22, 2016 6:32:07 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.OrderQuery" table="order_query">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="adminUser" class="com.kunj.freshfeed.domain.AdminUser" fetch="select">
+            <column name="updated_by" />
+        </many-to-one>
+        <many-to-one name="orderDetail" class="com.kunj.freshfeed.domain.OrderDetail" fetch="select">
+            <column name="order_detail_id" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" length="15" not-null="true" />
+        </property>
+        <property name="query" type="string">
+            <column name="query" length="1500" not-null="true" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="image_url" length="300" />
+        </property>
+        <property name="createdDatetime" type="timestamp">
+            <column name="created_datetime" length="19" not-null="true" />
+        </property>
+        <property name="updatedDatetime" type="timestamp">
+            <column name="updated_datetime" length="19" />
+        </property>
+        <property name="comments" type="string">
+            <column name="comments" length="1000" />
+        </property>
+        <property name="status" type="string">
+            <column name="status" length="9" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

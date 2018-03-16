@@ -1,0 +1,295 @@
+package com.kunj.ebuxx.service;
+
+import static com.kunj.ebuxx.util.FreshFeedUtil.getString;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONObject;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
+
+import com.kunj.ebuxx.config.security.model.AuthenticatedUser;
+import com.kunj.ebuxx.util.Constant;
+import com.kunj.ebuxx.util.FaultEnum;
+import com.kunj.ebuxx.view.json.FaultJson;
+import com.kunj.ebuxx.view.json.FaultsJson;
+import com.kunj.ebuxx.view.json.Status;
+
+@Component
+public class UtilService {
+
+	private final Log logger = LogFactory.getLog(getClass());
+
+	private String smsBaseUrl;
+
+	private String dropboxAppAccesstoken;
+
+	public void setSmsBaseUrl(String smsBaseUrl) {
+		this.smsBaseUrl = smsBaseUrl;
+	}
+
+	public void setDropboxAppAccesstoken(String dropboxAppAccesstoken) {
+		this.dropboxAppAccesstoken = dropboxAppAccesstoken;
+	}
+
+	// TODO fault array not give response
+	// public FaultsJson getFaultsJsonObject(FaultEnum faultEnum) {
+	// FaultsJson faults = new FaultsJson();
+	// ArrayList<FaultJson> faultList = new ArrayList<FaultJson>();
+	// FaultJson faultJSON = FaultConverter.convertToFaultJson(faultEnum);
+	// faultList.add(faultJSON);
+	// faults.setFault(faultList);
+	// return faults;
+	// }
+
+	public FaultJson getFaultsObject(FaultEnum faultEnum) {
+		FaultJson fault = new FaultJson();
+
+		fault.setErrorCode(faultEnum.getFaultCode());
+		fault.setErrorType(getString(faultEnum.getFaultType()));
+		fault.setMessage(faultEnum.getFaultMessage());
+
+		return fault;
+	}
+
+	public static FaultsJson generateFaultsJsonfromResponse(JSONObject jsonObject) {
+		FaultsJson faultsJson = new FaultsJson();
+		List<FaultJson> faultList = new ArrayList<FaultJson>();
+		FaultJson faultJson = new FaultJson();
+
+		faultJson.setErrorCode(jsonObject.getInt("errorCode"));
+		faultJson.setErrorType(jsonObject.getString("errorType"));
+		faultJson.setMessage(jsonObject.getString("message"));
+		faultList.add(faultJson);
+
+		faultsJson.setFault(faultList);
+		return faultsJson;
+	}
+
+	public static AuthenticatedUser getAuthenticatedUser(Authentication authentication) {
+		return (AuthenticatedUser) authentication.getPrincipal();
+	}
+
+	public Integer getIntegerFromBoolean(boolean value) {
+		Integer i;
+		if (value) {
+			i = 1;
+		} else {
+			i = 0;
+		}
+		return i;
+	}
+
+	public void sendSMS(String mobileNumber, String msgText) {
+
+		HashMap<String, String> requestParams = new HashMap<String, String>();
+		requestParams.put("user", "olafone");
+		requestParams.put("pass", "qwerty");
+		requestParams.put("priority", "ndnd");
+		requestParams.put("type", "unicode");
+		requestParams.put("sender", "SNSNOW");
+		requestParams.put("phone", mobileNumber);
+		requestParams.put("text", msgText);
+
+		this.apiJSONRequest(smsBaseUrl, null, "GET", null, requestParams);
+
+	}
+
+	public static void trustSelfSignedSSL() {
+		try {
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			X509TrustManager tm = new X509TrustManager() {
+
+				@Override
+				public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
+				}
+
+				@Override
+				public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
+				}
+
+				@Override
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+			};
+			ctx.init(null, new TrustManager[] { tm }, null);
+			SSLContext.setDefault(ctx);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public String apiJSONRequest(String apiUrl, String body, String requestMethod, HashMap<String, String> extraHeaders,
+			HashMap<String, String> requestParams) {
+		String result = "";
+		try {
+			UtilService.trustSelfSignedSSL();
+
+			if (requestParams != null) {
+				StringBuilder params = new StringBuilder();
+				boolean first = true;
+				for (Map.Entry<String, String> entry : requestParams.entrySet()) {
+					if (first) {
+						first = false;
+						params.append("?");
+					} else {
+						params.append("&");
+					}
+
+					params.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+					params.append("=");
+					params.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+				}
+				apiUrl += params.toString();
+			}
+
+			logger.info("API URL:=" + apiUrl);
+
+			URL url = new URL(apiUrl);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+			UtilService.disableSslVerification();
+
+			urlConnection.setRequestMethod(requestMethod);
+			urlConnection.setRequestProperty("Content-Type", "application/json");
+			urlConnection.setRequestProperty("Accept", "application/json");
+
+			if (extraHeaders != null) {
+				for (Map.Entry<String, String> entry : extraHeaders.entrySet()) {
+					// System.out.println("Key = " + entry.getKey() + ", Value =
+					// " + entry.getValue());
+					urlConnection.setRequestProperty(entry.getKey(), entry.getValue());
+				}
+			}
+
+			if (body != null) {
+				urlConnection.setDoOutput(true);
+
+				OutputStream os = urlConnection.getOutputStream();
+				os.write(body.toString().getBytes());
+				os.close();
+			}
+
+			urlConnection.getResponseCode();
+
+			InputStream is = urlConnection.getErrorStream();
+			if (is == null) {
+				is = urlConnection.getInputStream();
+			}
+			InputStreamReader isr = new InputStreamReader(is);
+
+			int numCharsRead;
+			char[] charArray = new char[1024];
+			StringBuffer sb = new StringBuffer();
+			while ((numCharsRead = isr.read(charArray)) > 0) {
+				sb.append(charArray, 0, numCharsRead);
+			}
+
+			result = sb.toString();
+
+		} catch (MalformedURLException e) {
+			logger.error("MalformedURLException", e);
+		} catch (IOException e) {
+			logger.error("IOException", e);
+		} catch (Exception e) {
+			logger.error("Exception", e);
+
+		}
+		return result;
+	}
+
+	private static void disableSslVerification() {
+		try {
+			// Create a trust manager that does not validate certificate chains
+			TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+				@Override
+				public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+
+				@Override
+				public void checkClientTrusted(X509Certificate[] certs, String authType) {
+				}
+
+				@Override
+				public void checkServerTrusted(X509Certificate[] certs, String authType) {
+				}
+			} };
+
+			// Install the all-trusting trust manager
+			SSLContext sc = SSLContext.getInstance("SSL");
+			sc.init(null, trustAllCerts, new java.security.SecureRandom());
+			HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+			// Create all-trusting host name verifier
+			HostnameVerifier allHostsValid = new HostnameVerifier() {
+				@Override
+				public boolean verify(String hostname, javax.net.ssl.SSLSession session) {
+					return true;
+				}
+
+			};
+
+			// Install the all-trusting host verifier
+			HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (KeyManagementException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Integer getRandomNumber() {
+		return 1000000 + (int) (Math.random() * 900000);
+	}
+
+	public static Long getRandomNumberForOrder() {
+		return 10000000l + (long) (Math.random() * 90000000l);
+	}
+
+	/**
+	 * @return Returns random alphanumeric string based on value passed in count
+	 * @param count
+	 *            - Number of Alphanumeric random numbers to be returned
+	 */
+	public static String getRandomAlphanumericByCount(int count) {
+		return RandomStringUtils.randomAlphanumeric(count).toUpperCase();
+	}
+
+	/**
+	 * This method returns Status json with 200 status code
+	 * 
+	 * @return Status(200)
+	 */
+	public Status getOKStatus() {
+		Status status = new Status();
+		status.setStatusCode(Constant.STATUS_CODE_SUCCESS);
+		status.setStatusMessage(Constant.STATUS_SUCCESS);
+		return status;
+	}
+}

@@ -1,0 +1,5 @@
+# Ant properties for building the springapp
+
+appserver.home=C:/Tomcat7
+appserver.lib=${appserver.home}/lib
+deploy.path=${appserver.home}/webapps

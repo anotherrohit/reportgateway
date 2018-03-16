@@ -1,0 +1,40 @@
+/**
+ * 
+ */
+package com.kunj.ebuxx.util;
+
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.databind.util.Converter;
+
+/**
+ * @author Sagar Panchasara
+ *
+ */
+public class JsonDoubleSerializer implements Converter<Double, String> {
+
+	/* (non-Javadoc)
+	 * @see com.fasterxml.jackson.databind.util.Converter#convert(java.lang.Object)
+	 */
+	@Override
+	public String convert(Double value) {
+		return NumberUtil.twoDecimalFormat(value);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.fasterxml.jackson.databind.util.Converter#getInputType(com.fasterxml.jackson.databind.type.TypeFactory)
+	 */
+	@Override
+	public JavaType getInputType(TypeFactory typeFactory) {
+		return typeFactory.constructType(Double.class);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.fasterxml.jackson.databind.util.Converter#getOutputType(com.fasterxml.jackson.databind.type.TypeFactory)
+	 */
+	@Override
+	public JavaType getOutputType(TypeFactory typeFactory) {
+		return typeFactory.constructType(String.class);
+	}
+
+}

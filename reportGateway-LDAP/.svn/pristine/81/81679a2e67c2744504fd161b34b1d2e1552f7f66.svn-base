@@ -1,0 +1,13 @@
+/**
+ * created By Bhavesh Patel
+ */
+ebuxx.controller('dashboardController', [ '$scope', 'Notification', 'NgTableParams', '$filter', '$rootScope', 'dashboardService', function($scope, Notification, NgTableParams, $filter, $rootScope, dashboardService) {
+	$scope.init = function() {
+		$scope.getDashboardDetails();
+	};
+	$scope.getDashboardDetails = function() {
+
+	};
+
+	$scope.init();
+} ]);

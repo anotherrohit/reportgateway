@@ -1,0 +1,77 @@
+package com.kunj.ebuxx.spring;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+import org.springframework.stereotype.Component;
+
+import com.kunj.ebuxx.converter.FaultConverter;
+import com.kunj.ebuxx.util.Constant;
+import com.kunj.ebuxx.util.FaultEnum;
+
+@Component
+public class CorsFilter implements Filter {
+
+	private final static String[] URL_MAPPING = new String[] { "/freshfeed/dish/"};
+
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+
+		if (response instanceof HttpServletResponse) {
+			HttpServletResponse alteredResponse = (HttpServletResponse) response;
+			addCorsHeader(alteredResponse);
+			if (request instanceof HttpServletRequest) {
+				HttpServletRequest httpRequest = (HttpServletRequest) request;
+				String url = httpRequest.getRequestURI();
+				for (String prefix : URL_MAPPING) {
+					if (url.startsWith(prefix)) {
+						String appKey = httpRequest.getHeader(Constant.HEADER_APP_KEY);
+						String uuid = httpRequest.getHeader(Constant.HEADER_UUID);
+						JSONObject json = null;
+						if (appKey == null || appKey.isEmpty()) {
+							json = FaultConverter.convertToJson(FaultEnum.PROVIDE_APP_KEY);
+						} else if (!appKey.equals(Constant.APP_KEY)) {
+							json = FaultConverter.convertToJson(FaultEnum.INVALID_APP_KEY);
+						} else if (uuid == null || uuid.isEmpty()) {
+							json = FaultConverter.convertToJson(FaultEnum.PROVIDE_UUID);
+						}
+						if (json != null) {
+							response.setContentType(Constant.JSON_CONTENT_TYPE);
+							response.getWriter().print(json);
+							return;
+						}
+						break;
+					}
+				}
+			}
+
+		}
+
+		filterChain.doFilter(request, response);
+	}
+
+	private void addCorsHeader(HttpServletResponse response) {
+		// TODO: externalize the Allow-Origin
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, HEAD");
+		response.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
+		response.addHeader("Access-Control-Max-Age", "1728000");
+	}
+
+	@Override
+	public void destroy() {
+	}
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+	}
+}

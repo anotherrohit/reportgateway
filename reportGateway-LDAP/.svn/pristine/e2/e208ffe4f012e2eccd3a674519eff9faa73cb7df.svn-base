@@ -1,0 +1,6 @@
+/**
+ * created By Bhavesh Patel
+ */
+ebuxx.service('dashboardService', function($http, Server) {
+	
+});

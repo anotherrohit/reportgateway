@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 7, 2016 3:36:29 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.Address" table="address" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="addressType" class="com.kunj.freshfeed.domain.AddressType" fetch="select">
+            <column name="address_type_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="com.kunj.freshfeed.domain.User" fetch="select">
+            <column name="user_id" />
+        </many-to-one>
+        <many-to-one name="location" class="com.kunj.freshfeed.domain.Location" fetch="select">
+            <column name="location_id" not-null="true" />
+        </many-to-one>
+        <property name="addressLine1" type="string">
+            <column name="address_line1" length="200" not-null="true" />
+        </property>
+        <property name="addressLine2" type="string">
+            <column name="address_line2" length="200" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="30" not-null="true" />
+        </property>
+        <set name="cartDetails" table="cart_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_address_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.CartDetail" />
+        </set>
+        <set name="orders" table="order_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_address_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

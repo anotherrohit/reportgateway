@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"/>    	
+    	<property name="hibernateProperties">
+      		<value>hibernate.dialect=org.hibernate.dialect.MySQLDialect</value>
+    	</property>
+    	<property name="packagesToScan" value="com.openDJ.domain" />
+  	</bean>
+
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    	<property name="url" value="${database.url}" />
+    	<property name="username" value="root" />
+		<property name="password" value="root" />
+    	<property name="maxActive" value="15" />
+		<property name="maxIdle" value="10" />
+    	<property name="minIdle" value="10" />
+    	<property name="testOnBorrow" value="true" />
+    	<property name="validationQuery" value="select 1" />
+    	<property name="validationInterval" value="90000" />
+    	<property name="removeAbandoned" value="true" />
+    	<property name="removeAbandonedTimeout" value="500" />
+    	<property name="logAbandoned" value="true" />
+    	<property name="suspectTimeout" value="500" />
+    	<property name="timeBetweenEvictionRunsMillis" value="90000" />
+    	<property name="minEvictableIdleTimeMillis" value="180000" />    	
+ 	</bean>	
+ 		
+	<bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+			
+	<tx:advice id="txAdvice" transaction-manager="hibernateTransactionManager">
+		<tx:attributes>
+ 			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*" rollback-for="java.lang.Exception" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config proxy-target-class="true">  
+		<aop:pointcut id="services" expression="execution(* com.openDJ.service..*(..))"/>  
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="services"/>
+	</aop:config>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>

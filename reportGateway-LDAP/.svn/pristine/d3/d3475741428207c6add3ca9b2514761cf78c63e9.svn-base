@@ -1,0 +1,36 @@
+///**
+// * 
+// */
+//package com.kunj.freshfeed.spring;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//import org.springframework.core.annotation.Order;
+//import org.springframework.util.AntPathMatcher;
+//import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+//import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+//
+///**
+// * @author Sagar Panchasara
+// *
+// */
+////@Configuration
+////@EnableWebMvc
+////@Order(2)
+//public class IntercepterConfig extends WebMvcConfigurerAdapter {
+//
+//	@Bean
+//	public HeaderInterceptor headerInterceptor() {
+//		return new HeaderInterceptor();
+//	}
+//
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(headerInterceptor()).addPathPatterns("/user/address/list").addPathPatterns("/dish/list").addPathPatterns("/dish/detail").pathMatcher(new AntPathMatcher());
+//		// registry.addWebRequestInterceptor(new
+//		// HeaderInterceptor()).addPathPatterns("/services/**/*").addPathPatterns("/dish/list").addPathPatterns("/dish/detail").pathMatcher(new
+//		// AntPathMatcher());
+//	}
+//
+//}

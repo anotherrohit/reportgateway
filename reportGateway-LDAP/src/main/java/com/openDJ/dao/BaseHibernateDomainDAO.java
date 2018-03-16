@@ -1,0 +1,58 @@
+package com.openDJ.dao;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import com.openDJ.pojo.FindInfo;
+
+public interface BaseHibernateDomainDAO {
+
+//	public void save(T object);
+//
+//	public void detachFromSession(T object);
+//
+//	public void delete(T object);
+//
+//	public T get(Long id);
+//
+//	public T get(final FindInfo findInfo);
+//
+//	public List<T> getList(FindInfo findInfo);
+
+	public long getCount(FindInfo findInfo);
+
+	public String generateUnique(String propertyName, int length);
+
+	public boolean isUnique(String propertyName, String value);
+
+	public void delete(FindInfo findInfo);
+
+//	public void deleteAll(Collection<T> collection);
+
+	public <Q> Q getList(FindInfo findInfo, final String propertyName);
+
+	/**
+	 * Same as {@link BaseHibernateDomainDAO#getList(FindInfo, String)}, but returns list of distinct property
+	 * 
+	 * @param findInfo
+	 * @param propertyName
+	 * @return
+	 */
+	public List getListDistinct(final FindInfo findInfo, final String propertyName, final Map<String, String> aliases);
+
+	/**
+	 * This method performs aggregate function sum() on given given column
+	 * {@code propertyName}
+	 * 
+	 * @param findInfo
+	 * @param propertyName
+	 * @return returns sum in according datatype(long, float, int, etc)
+	 */
+	public <Q> Q getSum(final FindInfo findInfo, final String propertyName);
+
+	public <Q> Q get(FindInfo findInfo, final String propertyName);
+	
+	public boolean isExists(String propertyName, Object value);
+
+}

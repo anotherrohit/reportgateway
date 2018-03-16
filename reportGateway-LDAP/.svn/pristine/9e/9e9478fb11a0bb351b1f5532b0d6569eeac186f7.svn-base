@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="ebuxx">
+<head>
+<title>ebuxx</title>
+
+<!-- plugins  -->
+<script src="/ebuxx/assets/jQuery/jQuery-2.1.3.min.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="/ebuxx/assets/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/angular/angular.min.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/angular/angular-ui-router.min.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/angular/angular-breadcrumb.min.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/angular/ng-table.min.css" rel="stylesheet" type="text/css" />
+<script src="/ebuxx/assets/angular/ng-table.min.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/angular/ui-notification.css" rel="stylesheet" type="text/css" />
+<script src="/ebuxx/assets/angular/angular-ui-notifications.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/angular/loading-bar.min.css" rel="stylesheet" type="text/css" />
+<script src="/ebuxx/assets/angular/loading-bar.min.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/angular/checklist-model.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/angular/chosen.min.css" rel="stylesheet" type="text/css" />
+<script src="/ebuxx/assets/angular/chosen.jquery.min.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/angular/chosen.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/angular/angular-Object-diff.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/ebuxx/assets/angular/angular-Object-diff.min.js"></script>
+<script type="text/javascript" src="/ebuxx/assets/angular/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script type="text/javascript" src="/ebuxx/assets/angular/angular-idle.min.js"></script>
+<script type="text/javascript" src="/ebuxx/assets/angular/ngWeekdaySelector.js"></script>
+<link href="/ebuxx/assets/angular/ngWeekdaySelector.css" rel="stylesheet" type="text/css" />
+<!-- datetime picker  -->
+<script src="/ebuxx/assets/js/datetime-picker.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/js/highcharts.js" type="text/javascript"></script>
+<script src="/ebuxx/assets/js/highcharts-3d.js" type="text/javascript"></script>
+<!-- template files  -->
+<link href="/ebuxx/assets/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+<link href="/ebuxx/assets/css/skin-blue.min.css" rel="stylesheet" type="text/css" />
+<link href="/ebuxx/assets/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+<script src="/ebuxx/assets/iCheck/icheck.min.js" type="text/javascript"></script>
+<link href="/ebuxx/assets/css/customCSS.css" rel="stylesheet" type="text/css" />
+
+
+<!-- application's script files  -->
+
+<script src="/ebuxx/app/app.js" type="text/javascript"></script>
+
+<!-- services -->
+<script type="text/javascript" src="/ebuxx/app/services/mainService.js"></script>
+<script src="/ebuxx/app/services/dashboardService.js" type="text/javascript">
+	
+</script>
+<!-- filters -->
+<script src="/ebuxx/app/filters/faultFilter.js" type="text/javascript"></script>
+<script src="/ebuxx/app/filters/utilFilter.js" type="text/javascript"></script>
+
+<!-- directives -->
+<script src="/ebuxx/app/directives/directives.js" type="text/javascript"></script>
+
+<!-- controller  -->
+<script type="text/javascript" src="/ebuxx/app/controller/loginController.js"></script>
+<script src="/ebuxx/app/controller/dashboardController.js" type="text/javascript"></script>
+</head>
+<body style="background-color: #d2d6de;">
+	<div class="skin-blue">
+		<div ui-view></div>
+	</div>
+</body>
+
+
+<script type="text/ng-template" id="warning-dialog.html">
+  <div class="modal-header">
+   <h3>You're Idle. Do Something!</h3>
+  </div>
+  <div idle-countdown="countdown" class="modal-body">
+   <uib-progressbar max="::countdown" value="countdown" animate="true" class="progress-striped active">You'll be logged out in {{countdown}} second(s).</uib-progressbar>
+  </div>
+
+</script>
+<script type="text/ng-template" id="timedout-dialog.html">
+  <div class="modal-header">
+   <h3>You were idle too long</h3>
+  </div>
+  <div class="modal-body">
+   <p>
+      Please login again.
+   </p>
+ </div>
+</script>
+
+</html>

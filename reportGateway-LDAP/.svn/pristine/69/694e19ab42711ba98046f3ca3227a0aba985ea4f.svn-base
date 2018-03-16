@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 30, 2016 3:19:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.Pickup" table="pickup">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="location" class="com.kunj.freshfeed.domain.Location" fetch="select">
+            <column name="location_id" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" length="10" not-null="true" />
+        </property>
+        <property name="contactPerson" type="string">
+            <column name="contact_person" length="45" not-null="true" />
+        </property>
+        <property name="contactNumber" type="long">
+            <column name="contact_number" not-null="true" />
+        </property>
+        <property name="storeName" type="string">
+            <column name="store_name" length="45" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="400" not-null="true" />
+        </property>
+        <property name="from" type="time">
+            <column name="from_time" length="8" not-null="true" />
+        </property>
+        <property name="to" type="time">
+            <column name="to_time" length="8" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <set name="devices" table="device" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pickup_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Device" />
+        </set>
+        <set name="orderDetails" table="order_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pickup_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+package com.kunj.ebuxx.util;
+
+public enum PaymentStatusEnum {
+	
+	NOT_RECEIVED(1,"NOT RECEIVED"),
+	PAYMENT_SUCCESS(2,"PAYMENT SUCESSFUL"),
+	PAYMENT_FAILED(3,"PAYMENT FAILED"),
+	FULLY_REFUNDED(4,"FULLY REFUNDED"),
+	PARTIALLY_REFUNDED(5,"PARTIALLY REFUNDED"),
+	REFUND_FAILED(6,"REFUND FAILED");
+	
+	private final int id;
+	private final String status;
+	
+	private PaymentStatusEnum(int id, String status) {
+		this.id = id;
+		this.status = status;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+	
+	public static PaymentStatusEnum getByStatus(String status){
+	    if (status != null) 
+	    {
+		      for (PaymentStatusEnum paymentStatusEnum : PaymentStatusEnum.values()){
+			       if (status.equals(paymentStatusEnum.status)) 
+			       {
+			         return paymentStatusEnum;
+			       }
+		      }
+	    }
+	    return null;
+	}
+	
+}

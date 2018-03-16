@@ -1,0 +1,61 @@
+package com.kunj.ebuxx.util;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public enum OrderQueryEnum {
+	
+	PENDINTG(1,"PENDING"),
+	IN_PROGRESS(2,"IN PROGRESS"),
+	REJECT(3,"REJECT"),
+	RESOLVED(4,"RESOLVED"),
+	
+	PENDING_NEXT_ADMIN(101, new ArrayList<OrderQueryEnum>(Arrays.asList(PENDINTG,IN_PROGRESS, REJECT))),	
+	IN_PROGRESS_NEXT_ADMIN(102, new ArrayList<OrderQueryEnum>(Arrays.asList(IN_PROGRESS,RESOLVED))),
+	RESOLVED_NEXT_ADMIN(102, new ArrayList<OrderQueryEnum>(Arrays.asList(RESOLVED))),
+	REJECT_NEXT_ADMIN(102, new ArrayList<OrderQueryEnum>(Arrays.asList(REJECT)));
+
+	private final int id;
+	private final String status;
+	private ArrayList<OrderQueryEnum> nextStatus = null;
+
+	private OrderQueryEnum(int id, String status) {
+		this.id = id;
+		this.status = status;
+		
+	}
+	
+	private OrderQueryEnum(int id, ArrayList<OrderQueryEnum> nextStatus) {
+		this.id = id;
+		this.status = null;
+		this.nextStatus = nextStatus;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+	
+	public ArrayList<OrderQueryEnum> getNextStatus() {
+		return nextStatus;
+	}
+	
+	public static OrderQueryEnum getByStatus(String status) 
+	{
+	    if (status != null) 
+	    {
+	      for (OrderQueryEnum orderStatusEnum : OrderQueryEnum.values()) 
+	      {
+	        if (status.equals(orderStatusEnum.status)) 
+	        {
+	          return orderStatusEnum;
+	        }
+	      }
+	    }
+	    return null;
+	}
+	
+}

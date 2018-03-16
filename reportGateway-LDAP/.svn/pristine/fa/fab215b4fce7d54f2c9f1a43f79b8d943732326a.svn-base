@@ -1,0 +1,280 @@
+package com.kunj.ebuxx.dao;
+
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Queue;
+import java.util.Set;
+
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.collection.internal.AbstractPersistentCollection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.internal.util.collections.IdentitySet;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.proxy.HibernateProxy;
+import org.springframework.orm.hibernate5.HibernateCallback;
+
+import com.kunj.ebuxx.pojo.FilterInfo;
+import com.kunj.ebuxx.pojo.FilterInfo.Comparision;
+import com.kunj.ebuxx.pojo.FilterInfo.Type;
+import com.kunj.ebuxx.pojo.FindInfo;
+import com.kunj.ebuxx.util.KeyGenerator;
+
+public abstract class BaseHibernateDomainDAOAbstract<T> extends BaseHibernateDAO implements BaseHibernateDomainDAO<T> {
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<T> getList(final FindInfo findInfo) {
+		return getHibernateTemplate().execute(new HibernateCallback<List<T>>() {
+			@Override
+			public List<T> doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				return assignCriteria(criteria, findInfo).list();
+			}
+		});
+	}
+
+	protected abstract Class<T> getDomainClass();
+
+	@Override
+	public long getCount(final FindInfo findInfo) {
+		return getHibernateTemplate().execute(new HibernateCallback<Long>() {
+			@Override
+			public Long doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				assignCriteria(criteria, findInfo);
+				criteria.setFirstResult(0);
+				criteria.setProjection(Projections.rowCount());
+				return (Long) criteria.uniqueResult();
+			}
+		});
+	}
+
+	public int getAgg(final String value) {
+		return getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+			@Override
+			public Integer doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				criteria.setProjection(Projections.max(value));
+				return (Integer) criteria.uniqueResult();
+			}
+		});
+	}
+
+	public double getAggForAverage(final String value, final String value1, final int id) {
+		return getHibernateTemplate().execute(new HibernateCallback<Double>() {
+			@Override
+			public Double doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				criteria.add(Restrictions.gt(value, 0.00));
+				criteria.add(Restrictions.eq(value1, id));
+				criteria.setProjection(Projections.avg(value));
+				return (Double) criteria.uniqueResult();
+			}
+		});
+	}
+
+	/*
+	 * method to avoid multiple session exceptions pass in object causing issues prior to saving
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public void detachFromSession(T object) {
+
+		if (object instanceof HibernateProxy) {
+			SessionImplementor sessionImplementor = ((HibernateProxy) object)
+					.getHibernateLazyInitializer().getSession();
+			if (sessionImplementor instanceof Session) {
+				((Session) sessionImplementor).evict(object);
+			}
+			return;
+		}
+
+		// processing queue
+		Queue<Object> entities = new LinkedList<Object>();
+		Set<Object> processedEntities = new IdentitySet();
+
+		entities.add(object);
+
+		while ((object = (T) entities.poll()) != null) {
+			// skip already processed entities
+			if (processedEntities.contains(object)) {
+				continue;
+			}
+
+			ClassMetadata classMetadata = getSessionFactory()
+					.getAllClassMetadata().get(object.getClass().getName());
+			String[] propertyNames = classMetadata.getPropertyNames();
+			Session session = null;
+
+			// iterate through persistent properties
+			for (String propertyName : propertyNames) {
+				Object propertyValue = classMetadata.getPropertyValue(object, propertyName);
+				org.hibernate.type.Type propertyType = classMetadata.getPropertyType(propertyName);
+				// handle entity types
+				if (propertyType.isEntityType()) {
+					// detach proxies
+					if (propertyValue instanceof HibernateProxy) {
+						SessionImplementor sessionImplementor = ((HibernateProxy) propertyValue)
+								.getHibernateLazyInitializer().getSession();
+
+						if (sessionImplementor instanceof Session) {
+							((Session) sessionImplementor).evict(propertyValue);
+
+							if (session == null) {
+								session = (Session) sessionImplementor;
+							}
+						}
+
+					} else {
+						entities.add(propertyValue);
+					}
+				} else if (propertyType.isCollectionType()) {
+
+					if (propertyValue instanceof AbstractPersistentCollection) {
+						SessionImplementor sessionImplementor = ((AbstractPersistentCollection) propertyValue).getSession();
+
+						if (sessionImplementor instanceof Session && session == null) {
+							session = (Session) sessionImplementor;
+						}
+					}
+				}
+			}
+
+			// evict the entity and associated collections.
+			if (session != null) {
+				session.evict(object);
+			}
+
+			processedEntities.add(object);
+
+		}
+	}
+
+	@Override
+	public void save(T object) {
+		// getHibernateTemplate().getSessionFactory().getCurrentSession().setFlushMode(FlushMode.AUTO);
+		getHibernateTemplate().saveOrUpdate(object);
+		// getHibernateTemplate().flush();
+	}
+
+	@Override
+	public void delete(T object) {
+		// getHibernateTemplate().getSessionFactory().getCurrentSession().setFlushMode(FlushMode.AUTO);
+		getHibernateTemplate().delete(object);
+		// getHibernateTemplate().flush();
+	}
+
+	@Override
+	public T get(Long id) {
+		return getHibernateTemplate().get(getDomainClass(), id);
+	}
+
+	public T get(Integer id) {
+		return getHibernateTemplate().get(getDomainClass(), id);
+	}
+
+	@Override
+	public T get(final FindInfo findInfo) {
+		return getHibernateTemplate().execute(new HibernateCallback<T>() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public T doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				return (T) assignCriteria(criteria, findInfo).uniqueResult();
+			}
+		});
+	}
+
+	@Override
+	public String generateUnique(String propertyName, int length) {
+		String code;
+		do {
+			code = KeyGenerator.getKey(length);
+		} while (!isUnique(propertyName, code));
+		return code;
+	}
+
+	@Override
+	public boolean isUnique(String propertyName, String value) {
+		FindInfo findInfo = new FindInfo();
+		findInfo.addFilterInfo(new FilterInfo(Type.STRING, value, propertyName, Comparision.EQ));
+		return get(findInfo) == null;
+	}
+
+	@Override
+	public void delete(FindInfo findInfo) {
+		List<T> list = getList(findInfo);
+		if (!list.isEmpty()) {
+			deleteAll(list);
+		}
+	}
+
+	@Override
+	public void deleteAll(Collection<T> collection) {
+		getHibernateTemplate().deleteAll(collection);
+	}
+
+	@Override
+	public <Q> Q getList(final FindInfo findInfo, final String propertyName) {
+		return getHibernateTemplate().execute(new HibernateCallback<Q>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public Q doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				criteria.setProjection(Projections.projectionList().add(Projections.property(propertyName)));
+				return (Q) assignCriteria(criteria, findInfo).list();
+			}
+		});
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	@Override
+	public List getListDistinct(final FindInfo findInfo, final String propertyName, final Map<String, String> aliases) {
+		return getHibernateTemplate().execute(new HibernateCallback<List<?>>() {
+			@Override
+			public List doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				if (aliases != null) {
+					for (Entry<String, String> entry : aliases.entrySet()) {
+						criteria.createAlias(entry.getKey(), entry.getValue());
+					}
+				}
+				criteria.setProjection(Projections.distinct(Projections.property(propertyName)));
+				return assignCriteria(criteria, findInfo).list();
+			}
+		});
+	}
+
+	@Override
+	public <Q> Q getSum(final FindInfo findInfo, final String propertyName) {
+		return getHibernateTemplate().execute(new HibernateCallback<Q>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public Q doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				criteria.setProjection(Projections.sum(propertyName));
+				return (Q) assignCriteria(criteria, findInfo).uniqueResult();
+			}
+		});
+	}
+
+	@Override
+	public <Q> Q get(FindInfo findInfo, final String propertyName) {
+		return getHibernateTemplate().execute(new HibernateCallback<Q>() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public Q doInHibernate(Session session) throws HibernateException {
+				Criteria criteria = session.createCriteria(getDomainClass());
+				criteria.setProjection(Projections.property(propertyName));
+				return (Q) assignCriteria(criteria, findInfo).uniqueResult();
+			}
+		});
+	}
+}

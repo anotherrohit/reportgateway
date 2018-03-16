@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.Vendor" table="vendor" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="location" class="com.kunj.freshfeed.domain.Location" fetch="select">
+            <column name="location_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="adminUser" class="com.kunj.freshfeed.domain.AdminUser" fetch="select">
+            <column name="admin_user_id" not-null="true" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="30" not-null="true" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="10" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="3000" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="image_url" length="300" />
+        </property>
+        <property name="averageRating" type="java.lang.Double">
+            <column name="average_rating" precision="8" scale="1"/>
+        </property>
+        <property name="commission" type="java.lang.Double">
+            <column name="commission" precision="8">
+                <comment>Commission  in Percentage</comment>
+            </column>
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <property name="isWarehouse" type="boolean">
+            <column name="is_warehouse" not-null="true" />
+        </property>
+        <set name="vendorOrderRatings" table="vendor_order_rating" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorOrderRating" />
+        </set>
+        <set name="vendorCategories" table="vendor_category" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorCategory" />
+        </set>
+        <set name="vendorProducts" table="vendor_product" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorProduct" />
+        </set>
+        <set name="vendorSubCategories" table="vendor_sub_category" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorSubCategory" />
+        </set>
+    </class>
+</hibernate-mapping>

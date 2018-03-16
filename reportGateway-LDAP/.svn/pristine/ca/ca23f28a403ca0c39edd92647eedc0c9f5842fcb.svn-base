@@ -1,0 +1,123 @@
+package com.kunj.ebuxx.util;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public enum OrderStatusEnum {
+	
+	PROCESSING(1,"PROCESSING"),
+	CANCELLED(2,"CANCELLED"),
+	CANCELLED_BY_VENDOR(3,"CANCELLED BY VENDOR"),
+	IN_PROGRESS(4,"IN PROGRESS"),
+	READY_TO_DISPATCH(5,"READY TO DISPATCH"),
+	OUT_FOR_DELIVERY(6,"OUT FOR DELIVERY"),
+	READY_TO_PICKUP(7,"READY TO PICKUP"),
+	DELIVERED(8,"DELIVERED"),
+	COMPLETED(9,"COMPLETED"),
+	DECLINED(10,"DECLINED"),
+	RETURNED(11,"RETURNED"),
+	DELIVERY_RESCHEDULED(12,"DELIVERY RESCHEDULED"),
+	REFUND_INITIATED(13,"REFUND INITIATED"),
+	REFUNDED(14,"REFUNDED"),
+	FRAUDULENT(15,"FRAUDULENT"),
+	PAYMENT_FAILED(16,"PAYMENT FAILED"),
+	RETURN_INITIATED(17,"RETURN INITIATED"),
+	
+	PROCESSING_NEXT_ADMIN(101, new ArrayList<OrderStatusEnum>(Arrays.asList(IN_PROGRESS, CANCELLED, CANCELLED_BY_VENDOR))),
+	PROCESSING_NEXT_VENDOR(102, new ArrayList<OrderStatusEnum>(Arrays.asList(IN_PROGRESS, CANCELLED_BY_VENDOR))),
+	PROCESSING_NEXT_DRIVER(103, new ArrayList<OrderStatusEnum>()),
+	CANCELLED_NEXT_ADMIN(201, new ArrayList<OrderStatusEnum>(Arrays.asList(REFUND_INITIATED, FRAUDULENT, REFUNDED))),
+	CANCELLED_NEXT_VENDOR(202, new ArrayList<OrderStatusEnum>()),
+	CANCELLED_NEXT_DRIVER(203, new ArrayList<OrderStatusEnum>()),
+	CANCELLED_BY_VENDOR_NEXT_ADMIN(301, new ArrayList<OrderStatusEnum>(Arrays.asList(REFUND_INITIATED, FRAUDULENT, REFUNDED))),
+	CANCELLED_BY_VENDOR_NEXT_VENDOR(302, new ArrayList<OrderStatusEnum>()),
+	CANCELLED_BY_VENDOR_NEXT_DRIVER(303, new ArrayList<OrderStatusEnum>()),
+	IN_PROGRESS_NEXT_ADMIN(401, new ArrayList<OrderStatusEnum>(Arrays.asList(CANCELLED, CANCELLED_BY_VENDOR, READY_TO_DISPATCH))),
+	IN_PROGRESS_NEXT_VENDOR(402, new ArrayList<OrderStatusEnum>(Arrays.asList(CANCELLED_BY_VENDOR, READY_TO_DISPATCH))),
+	IN_PROGRESS_NEXT_DRIVER(403, new ArrayList<OrderStatusEnum>()),
+	READY_TO_DISPATCH_NEXT_ADMIN(501, new ArrayList<OrderStatusEnum>(Arrays.asList(OUT_FOR_DELIVERY, READY_TO_PICKUP, CANCELLED, RETURNED))),
+	//READY_TO_DISPATCH_NEXT_VENDOR(502, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),				//Commented to Support Release without Driver feature
+	READY_TO_DISPATCH_NEXT_VENDOR(502, new ArrayList<OrderStatusEnum>(Arrays.asList(OUT_FOR_DELIVERY, READY_TO_PICKUP, RETURNED))),
+	READY_TO_DISPATCH_NEXT_DRIVER(503, new ArrayList<OrderStatusEnum>(Arrays.asList(OUT_FOR_DELIVERY, READY_TO_PICKUP, RETURNED))),
+	OUT_FOR_DELIVERY_NEXT_ADMIN(601, new ArrayList<OrderStatusEnum>(Arrays.asList(DELIVERED, DECLINED, RETURNED, FRAUDULENT))),
+	//OUT_FOR_DELIVERY_NEXT_VENDOR(602, new ArrayList<OrderStatusEnum>()),										//Commented to Support Release without Driver feature
+	OUT_FOR_DELIVERY_NEXT_VENDOR(602, new ArrayList<OrderStatusEnum>(Arrays.asList(DELIVERED, DECLINED, RETURNED))),
+	OUT_FOR_DELIVERY_NEXT_DRIVER(603, new ArrayList<OrderStatusEnum>(Arrays.asList(DELIVERED, DECLINED, RETURNED))),
+	READY_TO_PICKUP_NEXT_ADMIN(701, new ArrayList<OrderStatusEnum>(Arrays.asList(COMPLETED, RETURNED, FRAUDULENT))),
+	READY_TO_PICKUP_NEXT_VENDOR(702, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),
+	READY_TO_PICKUP_NEXT_DRIVER(703, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),
+	DELIVERED_NEXT_ADMIN(801, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURN_INITIATED))),
+	DELIVERED_NEXT_VENDOR(802, new ArrayList<OrderStatusEnum>()),
+	DELIVERED_NEXT_DRIVER(803, new ArrayList<OrderStatusEnum>()),
+	COMPLETED_NEXT_ADMIN(901, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURN_INITIATED))),
+	COMPLETED_NEXT_VENDOR(902, new ArrayList<OrderStatusEnum>()),
+	COMPLETED_NEXT_DRIVER(903, new ArrayList<OrderStatusEnum>()),
+	DECLINED_NEXT_ADMIN(1001, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED, FRAUDULENT))),
+	DECLINED_NEXT_VENDOR(1002, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),
+	DECLINED_NEXT_DRIVER(1003, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),
+	RETURNED_NEXT_ADMIN(1101, new ArrayList<OrderStatusEnum>(Arrays.asList(DELIVERY_RESCHEDULED, FRAUDULENT, REFUNDED))),
+	RETURNED_NEXT_VENDOR(1102, new ArrayList<OrderStatusEnum>(Arrays.asList(DELIVERY_RESCHEDULED))),
+	RETURNED_NEXT_DRIVER(1103, new ArrayList<OrderStatusEnum>()),
+	DELIVERY_RESCHEDULED_NEXT_ADMIN(1201, new ArrayList<OrderStatusEnum>(Arrays.asList(IN_PROGRESS, CANCELLED, CANCELLED_BY_VENDOR))),
+	DELIVERY_RESCHEDULED_NEXT_VENDOR(1202, new ArrayList<OrderStatusEnum>(Arrays.asList(IN_PROGRESS, CANCELLED_BY_VENDOR))),
+	DELIVERY_RESCHEDULED_NEXT_DRIVER(1203, new ArrayList<OrderStatusEnum>()),
+	REFUND_INITIATED_NEXT_ADMIN(1301, new ArrayList<OrderStatusEnum>(Arrays.asList(REFUNDED))),
+	REFUND_INITIATED_NEXT_VENDOR(1302, new ArrayList<OrderStatusEnum>()),
+	REFUND_INITIATED_NEXT_DRIVER(1303, new ArrayList<OrderStatusEnum>()),
+	REFUNDED_NEXT_ADMIN(1401, new ArrayList<OrderStatusEnum>()),
+	REFUNDED_NEXT_VENDOR(1402, new ArrayList<OrderStatusEnum>()),
+	REFUNDED_NEXT_DRIVER(1403, new ArrayList<OrderStatusEnum>()),
+	FRAUDULENT_NEXT_ADMIN(1501, new ArrayList<OrderStatusEnum>()),
+	FRAUDULENT_NEXT_VENDOR(1502, new ArrayList<OrderStatusEnum>()),
+	FRAUDULENT_NEXT_DRIVER(1503, new ArrayList<OrderStatusEnum>()),
+	PAYMENT_FAILED_NEXT_ADMIN(1601, new ArrayList<OrderStatusEnum>()),
+	PAYMENT_FAILED_NEXT_VENDOR(1602, new ArrayList<OrderStatusEnum>()),
+	PAYMENT_FAILED_NEXT_DRIVER(1603, new ArrayList<OrderStatusEnum>()),
+	RETURN_INITIATED_NEXT_ADMIN(1701, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),
+	RETURN_INITIATED_NEXT_VENDOR(1702, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED))),
+	RETURN_INITIATED_NEXT_DRIVER(1703, new ArrayList<OrderStatusEnum>(Arrays.asList(RETURNED)));
+	
+	private final int id;
+	private final String status;
+	private ArrayList<OrderStatusEnum> nextStatus = null;
+
+	private OrderStatusEnum(int id, String status) {
+		this.id = id;
+		this.status = status;
+		
+	}
+	
+	private OrderStatusEnum(int id, ArrayList<OrderStatusEnum> nextStatus) {
+		this.id = id;
+		this.status = null;
+		this.nextStatus = nextStatus;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+	
+	public ArrayList<OrderStatusEnum> getNextStatus() {
+		return nextStatus;
+	}
+	
+	public static OrderStatusEnum getByStatus(String status) 
+	{
+	    if (status != null) 
+	    {
+	      for (OrderStatusEnum orderStatusEnum : OrderStatusEnum.values()) 
+	      {
+	        if (status.equals(orderStatusEnum.status)) 
+	        {
+	          return orderStatusEnum;
+	        }
+	      }
+	    }
+	    return null;
+	}
+	
+}

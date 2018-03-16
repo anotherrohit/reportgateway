@@ -1,0 +1,145 @@
+package com.kunj.ebuxx.validation.service;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ValidAddress
+{
+
+	public String validAdd = null;
+
+	// private final String ZERO_RESULTS = "ZERO_RESULTS";
+	private final String OK = "OK";
+	private final String COUNTRY = "Australia";
+	private final String STATUS = "status";
+	private final String RESULT = "results";
+	private final String FORMATTED_ADDRESS = "formatted_address";
+	private final String GEOMETRY= "geometry";
+	private final String LOCATION = "location";
+	
+	public ValidAddress()
+	{
+
+	}
+
+	public JSONArray addressJson(String address)
+	{
+		String add = null;
+		JSONArray jsonArray=null;
+		try
+		{
+			add = URLEncoder.encode(address, "" + Charset.defaultCharset());
+			String jsonString = callURL("http://maps.googleapis.com/maps/api/geocode/json?address=" + add + "&sensor=true");
+			System.out.println("\n\n address validation --> jsonString: " + jsonString);
+			jsonArray = new JSONArray(jsonString);
+
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		return jsonArray;
+
+	}
+
+	public static String callURL(String myURL)
+	{
+		// System.out.println("Requested URL:" + myURL);
+		StringBuilder sb = new StringBuilder();
+
+		URLConnection urlConn = null;
+		InputStreamReader in = null;
+		try
+		{
+
+			URL url = new URL(myURL);
+
+			urlConn = url.openConnection();
+			if (urlConn != null) {
+				urlConn.setReadTimeout(60 * 1000);
+			}
+			if (urlConn != null && urlConn.getInputStream() != null)
+			{
+				in = new InputStreamReader(urlConn.getInputStream(), Charset.defaultCharset());
+				BufferedReader bufferedReader = new BufferedReader(in);
+				if (bufferedReader != null)
+				{
+					int cp;
+					sb.append("[");
+					while ((cp = bufferedReader.read()) != -1)
+					{
+						sb.append((char) cp);
+					}
+					sb.append("]");
+					bufferedReader.close();
+				}
+			}
+			in.close();
+		}
+		catch (Exception e)
+		{
+			throw new RuntimeException("Exception while calling URL:" + myURL, e);
+		}
+
+		return sb.toString();
+	}
+
+	public boolean isValidAddress(JSONArray jsonArray)
+	{
+		try
+		{
+			String status = (String) jsonArray.getJSONObject(0).get(STATUS);
+
+			if (OK.equals(status))
+			{
+				JSONObject jsonObjectAddress = jsonArray.getJSONObject(0).getJSONArray(RESULT).getJSONObject(0);
+
+				String add = jsonObjectAddress.get(FORMATTED_ADDRESS).toString();
+
+				String[] arry = add.split(",");
+
+				if (COUNTRY.equalsIgnoreCase(arry[2].trim()))
+				{
+					return true;
+				}
+			}
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public JSONObject mylatLng(JSONArray jsonArray)
+	{
+		JSONObject jsonObjectLatLng  = null;
+		try
+		{
+			jsonObjectLatLng = jsonArray.getJSONObject(0).getJSONArray(RESULT).getJSONObject(0).getJSONObject(GEOMETRY).getJSONObject(LOCATION);
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return jsonObjectLatLng;
+	}
+
+}

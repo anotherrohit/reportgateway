@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.VendorProduct" table="vendor_product">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="product" class="com.kunj.freshfeed.domain.Product" fetch="select">
+            <column name="product_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="vendor" class="com.kunj.freshfeed.domain.Vendor" fetch="select">
+            <column name="vendor_id" not-null="true" />
+        </many-to-one>
+        <property name="actualMeasurePrice" type="double">
+            <column name="actual_measure_price" precision="8" not-null="true" />
+        </property>
+<!--         <property name="discountedMeasurePrice" type="java.lang.Double"> -->
+<!--             <column name="discounted_measure_price" precision="8" /> -->
+<!--         </property> -->
+        <property name="perUnitPrice" type="java.lang.Double">
+            <column name="per_unit_price" precision="8" />
+        </property>
+        <property name="unitMeasureValue" type="double">
+            <column name="unit_measure_value" precision="8" not-null="true" />
+        </property>
+        <property name="unitMeasureId" type="string">
+            <column name="unit_measure_id" length="10" not-null="true" />
+        </property>
+        <property name="unitMeasureQuantity" type="java.lang.Double">
+            <column name="unit_measure_quantity" precision="8" />
+        </property>
+        <property name="sellingUnitId" type="string">
+            <column name="selling_unit_id" length="10" not-null="true" />
+        </property>
+        <property name="sellingUnitQuantity" type="double">
+            <column name="selling_unit_quantity" precision="8" not-null="true" />
+        </property>
+        <property name="sellingUnitPrice" type="double">
+            <column name="selling_unit_price" precision="8" not-null="true" />
+        </property>
+        <property name="isPacking" type="boolean">
+            <column name="is_packing" not-null="true" />
+        </property>
+        <property name="packingQuantity" type="double">
+            <column name="packing_quantity" precision="8" not-null="true" />
+        </property>
+        <property name="inventory" type="double">
+            <column name="inventory" precision="8" not-null="true" />
+        </property>
+        <property name="inventoryUnitId" type="string">
+            <column name="inventory_unit_id" length="10" not-null="true" />
+        </property>
+        <property name="isBulk" type="boolean">
+            <column name="is_bulk" not-null="true" />
+        </property>
+        <property name="bulkQuantity" type="java.lang.Double">
+            <column name="bulk_quantity" precision="8" />
+        </property>
+        <property name="bulkUnitPrice" type="java.lang.Double">
+            <column name="bulk_unit_price" precision="8" />
+        </property>
+        <property name="bulkSellingUnitPrice" type="java.lang.Double">
+            <column name="bulk_selling_unit_price" precision="8" />
+        </property>
+        <property name="maxQuantityAllow" type="java.lang.Integer">
+            <column name="max_quantity_allow" />
+        </property>
+        <property name="length" type="java.lang.Double">
+            <column name="length" precision="8" />
+        </property>
+        <property name="width" type="java.lang.Double">
+            <column name="width" precision="8" />
+        </property>
+        <property name="height" type="java.lang.Double">
+            <column name="height" precision="8" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <set name="productOfferSchedulers" table="product_offer_scheduler" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_product_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.ProductOfferScheduler" />
+        </set>
+        <set name="cartProducts" table="cart_product" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_product_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.CartProduct" />
+        </set>
+        <set name="orderProductses" table="order_products" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="vendor_product_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderProducts" />
+        </set>
+        <bag name="vendorProductAudits" cascade="all-delete-orphan" inverse="true" order-by="id desc" >
+        	<key column="vendor_product_id"/>
+        	<one-to-many class="com.kunj.freshfeed.domain.VendorProductAudit" />
+        </bag>
+    </class>
+</hibernate-mapping>

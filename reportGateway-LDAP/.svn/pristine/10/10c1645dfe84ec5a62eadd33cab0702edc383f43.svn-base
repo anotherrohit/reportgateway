@@ -1,0 +1,170 @@
+package com.kunj.ebuxx.util;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public interface Constant {
+
+	public static final String HEADER_CONTENT_TYPE = "Content-Type";
+	public static final String HEADER_UUID = "uuid";
+	public static final String HEADER_APP_KEY = "app_key";
+	public static final String HEADER_ACCESS_TOKEN = "access_token";
+	public static final String JSON_CONTENT_TYPE = "application/json";
+
+	public static final String APP_KEY = "NXJDGRPQ";
+
+	public static final int DEFAULT_PAGINATION_START_VALUE = 0;
+	public static final int DEFAULT_PAGINATION_LIMIT_VALUE = -1;
+
+	public static final String STATUS_SUCCESS = "SUCCESS";
+	public static final int STATUS_CODE_SUCCESS = 200;
+	public static final String STATUS_FAILURE = "FAILURE";
+	public static final int STATUS_CODE_FAILURE = 500;
+
+	public static final int IS_ACTIVE_TRUE = 1;
+	public static final int IS_ACTIVE_FALSE = 0;
+
+	public static final int DEFAULT_PRIORITY = 5;
+
+	public static final String RECEIVED_BY_PAYMENT_GATEWAY = "PAYMENT GATEWAY";
+
+	// OTP code expired time in milliseconds bydefault 10 min
+	public static final long OTP_CODE_EXPIRED_TIME = 600000;
+
+	public static final int DEFAULT_TIME_DIFFERENCE = 3;
+
+	public static final String CODE_ALIAS_LOCATION = "LOC";
+	public static final String CODE_ALIAS_RESTAURANT = "RES";
+	public static final String CODE_ALIAS_MEAL_CATEGORY = "MEC";
+
+	public static final int SMS_MAX_SPLIT = 1; // The default setting is 1 and max Sms character length is 160 characters. we can split it into 5(765
+												// characters).
+	public static final int SMS_DELAY = 0;
+	public static final String SMS_FROM_APPLICATION = "BZ-THEAPP";
+
+	public static final String SYSTEMADMIN_USER = "systemadmin";
+	public static final String SYSTEMADMIN_USER_APP = "systemadmin_app";
+	public static final String NUMBER_OF_RESULT_TO_DISPLAY_OF_RESTAURANT = "5";
+
+	public final static int DEFAULT_DISH_DAYS_LIMIT = 7;
+
+	public final static String ROLE_ADMIN = "ROLE_ADMIN";
+	public final static String ROLE_RESTAURANT = "ROLE_RESTAURANT";
+	public final static String ROLE_CLIENT = "ROLE_CLIENT";
+
+	public static final String S3_RESTAURANT_IMAGE_FOLDER = "restaurant_image";
+	public static final String S3_RESTAURANT_ICON_FOLDER = "restaurant_icon";
+	public static final String S3_RESTAURANT_ITEM_IMAGE_FOLDER = "restaurant_item_image";
+	public static final String S3_RESTAURANT_ITEM_ICON_FOLDER = "restaurant_item_icon";
+	public static final String S3_RESTAURANT_DISH_IMAGE_FOLDER = "restaurant_dish_image";
+	public static final String S3_RESTAURANT_DISH_ICON_FOLDER = "restaurant_dish_icon";
+	public static final String S3_MEALCATEGORY_ICON_FOLDER = "mealcategory_icon";
+
+	public static enum TRENDING_TYPES {
+		EVERGREEN(1, "Evergreen", "https://raw.githubusercontent.com/sagarPanchasara/freshfeed/master/5.png"), TRENDING_NOW(1, "Trending Now", "https://raw.githubusercontent.com/sagarPanchasara/freshfeed/master/4.png"), LATEST(1, "Latest", "https://raw.githubusercontent.com/sagarPanchasara/freshfeed/master/3.png");
+
+		private final int code;
+		private final String name;
+		private final String imageUrl;
+
+		private TRENDING_TYPES(int code, String name, String imageUrl) {
+			this.code = code;
+			this.name = name;
+			this.imageUrl = imageUrl;
+		}
+
+		public int getCode() {
+			return code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getImageUrl() {
+			return imageUrl;
+		}
+	}
+
+	public final static List<String> DISH_TYPES = new ArrayList<>();
+
+	/**
+	 *  ex: • Pure veg dish can have only pure veg items
+	 *      • non veg dish can have pure veg, vegan and non veg items
+	 */
+	public final static Map<String, List<String>> DISH_TYPE_MAP = new HashMap<String, List<String>>() {
+		private static final long serialVersionUID = 1L;
+		{
+			put("Pure Veg", Arrays.asList("Pure Veg"));
+			put("Vegan", Arrays.asList("Pure Veg", "Vegan"));
+			put("Non Veg", Arrays.asList("Pure Veg", "Vegan", "Non Veg"));
+
+			DISH_TYPES.addAll(keySet());
+		}
+	};
+
+	public final static List<String> ORDER_QUERY_STATUS = new ArrayList<String>() {
+		private static final long serialVersionUID = 1L;
+		{
+			add(OrderStatusEnum.PROCESSING.getStatus());
+			add(OrderStatusEnum.COMPLETED.getStatus());
+			add(OrderStatusEnum.CANCELLED.getStatus());
+		}
+	};
+
+	public static enum StringLength {
+
+		IMAGE_URL(256), ICON_URL(256),
+
+		CONTACT_NO(10, "Contact number"),
+
+		LOCATION_CODE(10, "Code"), LOCATION_PIN_CODE(8, "Pincode"), LOCATION_LOCATION(30, "Location"), LOCATION_CITY(30, "City"), LOCATION_STATE(30, "State"), LOCATION_COUNTRY(30, "Country"),
+
+		UNIT_MASTER_NAME(50, "Unit name"), ATTRIBUTES_MASTER_NAME(20, "Attributes name"), ITEM_TYPE_NAME(50, "Item type"), MEAL_CATEGORY_NAME(30, "Meal category"), CUISINE_TYPE_NAME(30, "Cuisine type"),
+
+		ADMIN_USER_NAME(20, "Username"), ADMIN_EMAIL_ID(45, "Email Id"), ADMIN_PASSWORD(50, "Password"),
+
+		RESTAURANT_CODE(10, "Code"), RESTAURANT_NAME(30, "Name"), RESTAURANT_DESCRIPTION("Description"), RESTAURANT_ADDRESS(300, "Address"),
+
+		CHEF_FIRST_NAME(30, "First name"), CHEF_LAST_NAME(30, "Last name"),
+
+		RESTAURANT_MEAL_CATEGORY_START_TIME(10, "Start time"), RESTAURANT_MEAL_CATEGORY_END_TIME(10, "End time"),
+
+		PROMOTIONAL_OFFERS_CODE(10, "Code"), PROMOTIONAL_OFFERS_DESCRIPTION(20, "Description"), PROMOTIONAL_OFFERS_IMAGE_URL(300),
+
+		RESTAURANT_DISH_NAME(20, "Dish name"), RESTAURANT_DISH_TYPE(20, "Dish type"),
+
+		RESTAURANT_ITEM_NAME(50, "Item name"), RESTAURANT_ITEM_TYPE(10, "Item type");
+
+		private final int length;
+		private final String message;
+
+		StringLength(String fieldName) {
+			this.length = 65535; // max length of text datatype in mysql
+			this.message = fieldName + " must be less than " + this.length + " characters";
+		}
+
+		StringLength(int len, String fieldName) {
+			this.length = len;
+			this.message = fieldName + " must be less than " + this.length + " characters";
+		}
+
+		// Use only for file name
+		StringLength(int len) {
+			this.length = len;
+			this.message = "File name to long";
+		}
+
+		public int getLength() {
+			return length;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+	}
+
+}

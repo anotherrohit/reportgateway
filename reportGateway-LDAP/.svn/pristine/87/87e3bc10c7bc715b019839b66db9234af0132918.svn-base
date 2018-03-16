@@ -1,0 +1,7 @@
+package com.kunj.ebuxx.config.security.util;
+
+public interface SecurityService {
+
+	public Boolean hasProtectedAccess();
+	
+}

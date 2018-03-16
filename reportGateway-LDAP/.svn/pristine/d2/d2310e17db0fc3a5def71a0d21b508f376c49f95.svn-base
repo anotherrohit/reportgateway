@@ -1,0 +1,46 @@
+package com.kunj.ebuxx.util;
+
+public enum OrderProgressEnum {
+	
+	PROCESSING(1,1,4),
+	CANCELLED(2,2,2),
+	CANCELLED_BY_VENDOR(3,2,2),
+	IN_PROGRESS(4,2,4),
+	READY_TO_DISPATCH(5,2,4),
+	OUT_FOR_DELIVERY(6,3,4),
+	READY_TO_PICKUP(7,3,4),
+	DELIVERED(8,4,4),
+	COMPLETED(9,4,4),
+	DECLINED(10,4,4),
+	RETURNED(11,5,5),
+	DELIVERY_RESCHEDULED(12,4,4),
+	REFUND_INITIATED(13,5,5),
+	REFUNDED(14,5,5),
+	FRAUDULENT(15,1,1),
+	PAYMENT_FAILED(16,1,1),
+	RETURN_INITIATED(17,5,5);
+	
+	private final int id;
+	private final Integer currentStep;
+	private final Integer totalStep;
+
+	private OrderProgressEnum(int id, Integer currentStep, Integer totalStep) {
+		this.id = id;
+		this.currentStep = currentStep;
+		this.totalStep = totalStep;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public Integer getCurrentStep() {
+		return currentStep;
+	}
+
+	public Integer getTotalStep() {
+		return totalStep;
+	}
+	
+	
+}

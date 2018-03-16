@@ -1,0 +1,37 @@
+package com.kunj.ebuxx.view.json.user;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kunj.ebuxx.view.json.FaultJson;
+
+@JsonInclude(Include.NON_NULL)
+public class UserLoginResponse {
+	
+	@JsonProperty("fault")
+	private FaultJson fault;
+	
+	@JsonProperty("access_token")
+	private String accessToken;
+
+	public FaultJson getFault()
+	{
+		return fault;
+	}
+
+	public void setFault(FaultJson fault)
+	{
+		this.fault = fault;
+	}
+
+	public String getAccessToken()
+	{
+		return accessToken;
+	}
+
+	public void setAccessToken(String accessToken)
+	{
+		this.accessToken = accessToken;
+	}
+
+}

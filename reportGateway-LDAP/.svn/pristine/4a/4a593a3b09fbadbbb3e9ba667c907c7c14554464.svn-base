@@ -1,0 +1,157 @@
+package com.kunj.ebuxx.service;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+
+@Service
+public class AmazonS3ImageService {
+	
+	private final Log logger = LogFactory.getLog(getClass());
+	
+	private String accessKeyID;
+	private String secretAccessKey;
+	private String amazonS3BaseUrl;
+	private String amazonS3Bucket;
+		
+	public void setAccessKeyID(String accessKeyID) {
+		this.accessKeyID = accessKeyID;
+	}
+
+	public void setSecretAccessKey(String secretAccessKey) {
+		this.secretAccessKey = secretAccessKey;
+	}
+
+	public void setAmazonS3BaseUrl(String amazonS3BaseUrl) {
+		this.amazonS3BaseUrl = amazonS3BaseUrl;
+	}
+
+	public void setAmazonS3Bucket(String amazonS3Bucket) {
+		this.amazonS3Bucket = amazonS3Bucket;
+	}
+
+	private final String SUFFIX = "/";
+	
+	public String uploadFileToS3(MultipartFile inputFile, String destinationFolder, String uniqueCode){
+		try{
+			// credentials object identifying user for authentication
+			// user must have AWSConnector and AmazonS3FullAccess for 
+			// this example to work
+			AWSCredentials credentials = new BasicAWSCredentials(accessKeyID,secretAccessKey);
+			
+			// create a client connection based on credentials
+			AmazonS3 s3client = new AmazonS3Client(credentials);
+			
+			// create folder into bucket
+			createFolder(amazonS3Bucket, destinationFolder, s3client);
+			
+			// upload file to folder and set it to public
+			String fileName = destinationFolder + SUFFIX + uniqueCode + "_" + inputFile.getOriginalFilename();
+			PutObjectResult result = s3client.putObject(new PutObjectRequest(amazonS3Bucket, fileName, this.convert(inputFile)).withCannedAcl(CannedAccessControlList.PublicRead));
+						
+			return formatImageUrl(amazonS3Bucket, destinationFolder, inputFile.getOriginalFilename(),uniqueCode);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String formatImageUrl(String bucketName, String destinationFolder, String originalFilename, String uniqueCode) {
+		String imageUrl = this.amazonS3BaseUrl + SUFFIX + bucketName + SUFFIX + destinationFolder + SUFFIX + uniqueCode + "_" + originalFilename;
+		return imageUrl;
+	}
+
+	public File convert(MultipartFile file) throws IOException
+	{    
+	    File convFile = new File(file.getOriginalFilename());
+	    convFile.createNewFile(); 
+	    FileOutputStream fos = new FileOutputStream(convFile); 
+	    fos.write(file.getBytes());
+	    fos.close(); 
+	    return convFile;
+	}
+	
+	public void createFolder(String bucketName, String folderName, AmazonS3 client) {
+		// create meta-data for your folder and set content-length to 0
+		ObjectMetadata metadata = new ObjectMetadata();
+		metadata.setContentLength(0);
+
+		// create empty content
+		InputStream emptyContent = new ByteArrayInputStream(new byte[0]);
+
+		// create a PutObjectRequest passing the folder name suffixed by /
+		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName,
+				folderName + SUFFIX, emptyContent, metadata);
+
+		// send request to S3 to create folder
+		client.putObject(putObjectRequest);
+	}
+
+	
+	public boolean deleteFileFromS3(String url){
+		try{
+			// credentials object identifying user for authentication
+			// user must have AWSConnector and AmazonS3FullAccess for 
+			// this example to work
+			AWSCredentials credentials = new BasicAWSCredentials(accessKeyID,secretAccessKey);
+			
+			// create a client connection based on credentials
+			AmazonS3 s3client = new AmazonS3Client(credentials);
+			
+			String baseUrl = this.amazonS3BaseUrl + SUFFIX + amazonS3Bucket + SUFFIX;
+			// substring the base url with bucket name to get folder nad file name from the url
+			String fileName = url.substring(baseUrl.length());
+			
+			System.out.println("S3 File To Be Deleted:="+fileName);
+			
+			deleteFile(amazonS3Bucket,fileName,s3client);
+						
+			return true;
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * This method first deletes the files in given folder and than the
+	 * folder itself
+	 */
+	public void deleteFile(String bucketName, String fileName, AmazonS3 client) {
+		client.deleteObject(bucketName, fileName);				
+	}
+	
+	/**
+	 * This method first deletes all the files in given folder and than the
+	 * folder itself
+	 */
+	public void deleteFolder(String bucketName, String folderName, AmazonS3 client) {
+		List<S3ObjectSummary> fileList = 
+				client.listObjects(bucketName, folderName).getObjectSummaries();
+		for (S3ObjectSummary file : fileList) {
+			client.deleteObject(bucketName, file.getKey());
+		}
+		client.deleteObject(bucketName, folderName);
+	}	
+	
+}

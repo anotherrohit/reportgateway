@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="baseHibernateDao" abstract="true">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+<!-- 	<bean id="locationDAO" class="com.kunj.freshfeed.dao.LocationDAO" parent="baseHibernateDao" /> -->
+<!-- 	<bean id="mealCategoryDAO" class="com.kunj.freshfeed.dao.MealCategoryDAO" parent="baseHibernateDao" /> -->
+<!-- 	<bean id="mealCategoryAuditDAO" class="com.kunj.freshfeed.dao.MealCategoryAuditDAO" parent="baseHibernateDao" /> -->
+<!-- 	<bean id="utilDAO" class="com.kunj.freshfeed.dao.UtilDAO" parent="baseHibernateDao"> -->
+<!-- 		<property name="jdbcTemplate" ref="jdbcTemplate"/> -->
+<!-- 	</bean> -->
+</beans>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"/>    	
+    	<property name="mappingResources">
+      		<list>
+      			<value>/com/kunj/freshfeed/dao/Address.hbm.xml</value>
+      			<value>/com/kunj/freshfeed/dao/AddressType.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/AdminRole.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/AdminUser.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Application.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/AuthorizationToken.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/CartDetail.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/CartProduct.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Category.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/CategoryAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/DeliveryCharge.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/DeliveryTimeSchedule.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Device.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/DriverDetails.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Location.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderDetail.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderPayment.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderRefund.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderProducts.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderQuery.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/OrderStatus.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Product.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/ProductAttributes.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/ProductAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/ProductOfferScheduler.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/PromotedCategory.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/PromotedCategoryAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/PromotionalOffer.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/SubCategory.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/SubCategoryAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/UnitMaster.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/User.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/UserFavouriteProduct.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/UserOtpCode.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Vendor.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/VendorLocation.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/VendorCategory.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/VendorOrderRating.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/VendorProduct.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/VendorProductAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/VendorSubCategory.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/ApplicationConfig.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Pickup.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/AttributeMaster.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/UserRolePermission.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/Visitor.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/ManualPushNotification.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/audit/OrderDetailAudit.hbm.xml</value>
+				<value>/com/kunj/freshfeed/dao/audit/OrderProductsAudit.hbm.xml</value>
+     		</list>
+    	</property>
+    	   	
+    	<property name="hibernateProperties">
+      		<value>hibernate.dialect=org.hibernate.dialect.MySQLDialect</value>
+    	</property>
+    	
+  	</bean>
+
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    	<property name="url" value="${database.url}" />
+    	<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+    	<property name="maxActive" value="${database.maxActive}" />
+		<property name="maxIdle" value="${database.maxIdle}" />
+    	<property name="minIdle" value="${database.minIdle}" />
+    	<property name="testOnBorrow" value="true" />
+    	<property name="validationQuery" value="select 1" />
+    	<property name="validationInterval" value="90000" />
+    	<property name="removeAbandoned" value="true" />
+    	<property name="removeAbandonedTimeout" value="500" />
+    	<property name="logAbandoned" value="true" />
+    	<property name="suspectTimeout" value="500" />
+    	<property name="timeBetweenEvictionRunsMillis" value="90000" />
+    	<property name="minEvictableIdleTimeMillis" value="180000" />    	
+ 	</bean>	
+ 		
+	<bean id="hibernateTransactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+			
+	<tx:advice id="txAdvice" transaction-manager="hibernateTransactionManager">
+		<tx:attributes>
+ 			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*" rollback-for="java.lang.Exception" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config proxy-target-class="true">  
+		<aop:pointcut id="services" expression="execution(* com.kunj.freshfeed.service..*(..))"/>  
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="services"/>
+	</aop:config>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" >
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>

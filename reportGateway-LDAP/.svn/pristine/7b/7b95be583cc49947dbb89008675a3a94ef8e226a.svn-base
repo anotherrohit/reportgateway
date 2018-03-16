@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.User" table="user" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="adminUser" class="com.kunj.freshfeed.domain.AdminUser" fetch="select">
+            <column name="admin_user_id" not-null="false" />
+        </many-to-one>
+        <property name="firstName" type="string">
+            <column name="first_name" length="50" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="50" />
+        </property>
+        <property name="mobileNumber" type="string">
+            <column name="mobile_number" length="10" not-null="true"  />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="10" />
+        </property>
+        <property name="createdDatetime" type="timestamp">
+            <column name="created_datetime" length="19" not-null="true" />
+        </property>
+        <property name="updatedDatetime" type="timestamp">
+            <column name="updated_datetime" length="19" not-null="true" />
+        </property>
+        <property name="isDriver" type="boolean">
+            <column name="is_driver" not-null="true" />
+        </property>
+        <set name="devices" table="device" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Device" />
+        </set>
+        <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Address" />
+        </set>
+        <set name="cartDetails" table="cart_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.CartDetail" />
+        </set>
+        <set name="ordersForDriverId" table="order_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="driver_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderDetail" />
+        </set>
+        <set name="ordersForUserId" table="order_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderDetail" />
+        </set>
+        <set name="driverDetailses" table="driver_details" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.DriverDetails" />
+        </set>
+        <set name="userFavouriteProducts" table="user_favourite_product" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="user_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.UserFavouriteProduct" />
+        </set>
+    </class>
+</hibernate-mapping>

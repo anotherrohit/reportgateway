@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- - Sample namespace-based configuration - -->
+
+<b:beans xmlns="http://www.springframework.org/schema/security" xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+ 	
+ 	<http auto-config="true" >
+        <!-- <intercept-url pattern="/" access="hasRole('USER')" /> -->
+         <intercept-url pattern="/index" access="hasAnyRole('ROLE_ADMIN', 'ROLE_VENDOR')" /> 
+        <!-- <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" /> -->
+       <!--  <intercept-url pattern="/index" access="" /> -->
+       <!--  <intercept-url pattern="/admin**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/dba**" access="hasRole('ADMIN') and hasRole('DBA')" />
+         -->
+         <!-- access denied page -->
+		<access-denied-handler error-page="/accessDenied" />
+		
+        <form-login  login-page="/login"
+                     username-parameter="ssoId"
+                     password-parameter="password"
+                     authentication-success-handler-ref="customSuccessHandler"
+                     authentication-failure-url="/login?error" />
+        <logout
+		      logout-success-url="/login?logout"
+		      logout-url="/logout"
+        />
+        <csrf disabled="true"/>
+        <csrf/>
+        
+    </http>
+    
+   <authentication-manager>
+		<authentication-provider user-service-ref="adminConsoleUserService">
+			<!-- <password-encoder ref="passwordEncoder"/> -->
+		</authentication-provider>
+	</authentication-manager> 
+     <!-- <authentication-manager >
+        <authentication-provider>
+               <user-service>
+                <user name="appcom"  password="kunj123"  authorities="ROLE_USER" />
+                <user name="anuj" password="admin123" authorities="ROLE_USER" />
+            </user-service> 
+        </authentication-provider>        
+    </authentication-manager>  -->
+      
+    <b:bean id="customSuccessHandler" class="com.kunj.freshfeed.springsecurity.configuration.CustomSuccessHandler" />
+     
+	 
+</b:beans>

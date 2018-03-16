@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.OrderRefund" table="order_refund" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="orderPayment" class="com.kunj.freshfeed.domain.OrderPayment" fetch="select">
+            <column name="order_payment_id" not-null="true" />
+        </many-to-one>
+        <property name="refundAmount" type="java.lang.Double">
+            <column name="refund_amount" precision="8" not-null="true"/>
+        </property>
+        <property name="refundSuccessful" type="boolean" >
+            <column name="refund_successful" not-null="true"/>
+        </property>
+        <property name="refundDatetime" type="timestamp">
+            <column name="refund_datetime" length="19" not-null="true"/>
+        </property>
+        <many-to-one name="refundBy" class="com.kunj.freshfeed.domain.AdminUser" fetch="select">
+            <column name="refund_by" not-null="true" />
+        </many-to-one>
+        <property name="refundReason" type="string">
+            <column name="refund_reason" length="300" not-null="true" />
+        </property>
+        <property name="btRefundReference" type="string">
+            <column name="bt_refund_reference" length="45" />
+        </property>
+        <property name="btRefundType" type="string">
+            <column name="bt_refund_type" length="45" />
+        </property>
+        <property name="btResponseCode" type="string">
+            <column name="bt_response_code" length="10" />
+        </property>
+        <property name="btResponseText" type="string">
+            <column name="bt_response_text" length="300" />
+        </property>
+        <property name="btMessageText" type="string">
+            <column name="bt_message_text" length="300" />
+        </property>        
+    </class>
+</hibernate-mapping>

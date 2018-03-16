@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.Category" table="category" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="30" not-null="true" />
+        </property>
+        <property name="shortName" type="string">
+            <column name="short_name" length="15" not-null="true" />
+        </property>
+        <property name="code" type="string">
+            <column name="code" length="10" not-null="true" />
+        </property>
+        <property name="iconUrl" type="string">
+            <column name="icon_url" length="300" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="image_url" length="300" />
+        </property>
+        <property name="priority" type="int">
+            <column name="priority" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <set name="promotionalOffers" table="promotional_offer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="category_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.PromotionalOffer" />
+        </set>
+        <set name="categoryAudits" table="category_audit" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="category_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.CategoryAudit" />
+        </set>
+        <set name="vendorCategories" table="vendor_category" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="category_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorCategory" />
+        </set>
+        <set name="subCategories" table="sub_category" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="category_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.SubCategory" />
+        </set>
+<!--         <bag name="history" cascade="all-delete-orphan" inverse="true" order-by="id desc" > -->
+<!--         	<key column="category_id"/> -->
+<!--         	<one-to-many class="com.kunj.freshfeed.domain.CategoryAudit" /> -->
+<!--         </bag> -->
+    </class>
+</hibernate-mapping>

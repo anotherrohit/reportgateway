@@ -1,0 +1,72 @@
+<div class="wrapper">
+
+	<header class="main-header" style="right: 0px; width: 100%; position: fixed;">
+		<!-- Logo -->
+		<a class="logo"><b>OpenDJ</b></a>
+		<!-- Header Navbar: style can be found in header.less -->
+		<nav class="navbar navbar-static-top" role="navigation">
+			<div class="navbar-custom-menu">
+				<ul class="nav navbar-nav">
+					<!-- User Account: style can be found in dropdown.less -->
+					<li class="dropdown user user-menu"><a class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;"> <span class="glyphicon glyphicon-user"></span>{{user.first_name + ' ' + user.last_name}}<span class="hidden-xs"></span>
+					</a>
+						<ul class="dropdown-menu">
+							<!-- Menu Footer-->
+							<li class="user-footer">
+								<div class="pull-left">
+									<a href="#" class="btn btn-default btn-flat">Profile</a>
+								</div>
+								<div class="pull-right">
+									<a ng-click="logout()" class="btn btn-default btn-flat">Sign out</a>
+								</div>
+							</li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<!-- Left side column. contains the logo and sidebar -->
+	<aside class="main-sidebar scrollbar2" style="overflow: auto; position: fixed;" id="style-5">
+		<!-- sidebar: style can be found in sidebar.less -->
+		<section class="sidebar">
+			<!-- Sidebar user panel -->
+			<div class="user-panel">
+				<div class="pull-left info">
+					<p></p>
+
+					<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+				</div>
+			</div>
+			<!-- sidebar menu: : style can be found in sidebar.less -->
+			<ul class="sidebar-menu">
+				<li class="header">MAIN NAVIGATION</li>
+				<li class="treeview" ng-class="{'active': state.$current.name === 'dashboard.main'}"><a ui-sref="dashboard.main"> <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+				<li class="treeview" ng-class="{'active': state.$current.name === 'dashboard.ldapUser'}"><a ui-sref="dashboard.ldapUser"> <i class="fa fa-dashboard"></i> <span>LDAP User</span> <i class="fa fa-angle-left pull-right"></i>
+				<li class="treeview" ng-class="{'active': state.$current.name === 'dashboard.dataTable'}"><a ui-sref="dashboard.dataTable"> <i class="fa fa-dashboard"></i> <span>DataBase</span> <i class="fa fa-angle-left pull-right"></i>
+				</a></li>
+			
+
+			</ul>
+		</section>
+		<!-- /.sidebar -->
+	</aside>
+
+	<!-- Right side column. Contains the navbar and content of the page -->
+	<div class="content-wrapper">
+		<section class="content-header">
+			<br> <br> <br>
+			<div ncy-breadcrumb></div>
+		</section>
+		<section class="content" style="min-height: 833px;">
+			<br>
+			<ui-view />
+		</section>
+	</div>
+	<footer class="main-footer">
+		<div class="pull-right hidden-xs">
+			<b>Version</b> 2.0
+		</div>
+		<strong>Copyright &copy; 2017-2018 .
+		</strong> All rights reserved.
+	</footer>
+</div>

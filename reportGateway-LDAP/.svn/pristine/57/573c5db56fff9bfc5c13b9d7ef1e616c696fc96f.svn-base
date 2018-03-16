@@ -1,0 +1,23 @@
+package com.kunj.ebuxx.converter;
+
+import com.kunj.ebuxx.domain.AdminUser;
+import com.kunj.ebuxx.view.json.user.AdminUserJson;
+
+public class AdminUserConverter {
+	/**
+	 * This method is used for convert adminUser domain to adminUserJson Objet 
+	 * @param adminUser
+	 * @return
+	 */
+	public static AdminUserJson createDataForAdmin(AdminUser adminUser) {
+		AdminUserJson adminUserJson = new AdminUserJson();
+		adminUserJson.setId(adminUser.getId());
+		adminUserJson.setFirstName(adminUser.getFirstName());
+		adminUserJson.setLastName(adminUser.getLastName());
+		adminUserJson.setEmailId(adminUser.getEmailId());
+		adminUserJson.setAdminRoleJson(AdminRoleConverter.createDataForAdmin(adminUser.getAdminRole()));
+		return adminUserJson;
+	}
+	
+	
+}

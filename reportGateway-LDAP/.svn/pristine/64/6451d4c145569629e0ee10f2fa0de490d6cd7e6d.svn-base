@@ -1,0 +1,53 @@
+/**
+ * Created by Bhavesh Patel
+ */
+package com.kunj.ebuxx.web.controller;
+
+import static com.kunj.ebuxx.util.FaultEnum.SYSTEM_ERROR;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kunj.ebuxx.service.UserService;
+import com.kunj.ebuxx.service.UtilService;
+import com.kunj.ebuxx.util.Constant;
+import com.kunj.ebuxx.view.json.FaultJson;
+import com.kunj.ebuxx.view.json.user.GetAuthenticatedUserDetailResponse;
+
+/**
+ * @author Bhavesh Patel
+ *
+ */
+@RestController
+@RequestMapping("/admin/user")
+public class AdminUserController {
+	
+	@Autowired
+	private UtilService utilService;
+	
+	@Autowired
+	private UserService userService;
+	
+	private final Log logger = LogFactory.getLog(getClass());
+	
+	@RequestMapping(value = "/getAuthenticatedUserDetails", method = RequestMethod.POST, produces = Constant.JSON_CONTENT_TYPE)
+	public @ResponseBody GetAuthenticatedUserDetailResponse getAuthenticatedUserDetails(Authentication authentication) {
+		GetAuthenticatedUserDetailResponse authenticatedUserDetailResponse;
+		try {
+			return userService.getAuthenticatedUserDetails(authentication);
+		} catch (Exception e) {
+			authenticatedUserDetailResponse = new GetAuthenticatedUserDetailResponse();
+			FaultJson faults = utilService.getFaultsObject(SYSTEM_ERROR);
+			authenticatedUserDetailResponse.setFault(faults);
+			logger.error("Error in getAuthenticated user Details() ", e);
+			e.printStackTrace();
+			return authenticatedUserDetailResponse;
+		}
+	}
+}

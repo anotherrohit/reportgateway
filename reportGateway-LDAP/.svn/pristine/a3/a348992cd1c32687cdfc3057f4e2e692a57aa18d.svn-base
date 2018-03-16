@@ -1,0 +1,33 @@
+/**
+ * created By Bhavesh Patel
+ */
+ebuxx.controller('loginController', [ '$scope', 'mainService', '$stateParams', '$state', '$rootScope', 'Notification', '$filter', 'Idle', '_localStorage', function($scope, mainService, $stateParams, $state, $rootScope, Notification, $filter, Idle, _localStorage) {
+    $rootScope.isSuperAdmin = false;
+    if (_localStorage.getItem("token")) {
+        $state.go('dashboard.main');
+    }
+    $scope.checkAuthentication = function(authenticationData) {
+        mainService.checkAuthentication(authenticationData).then(function(response) {
+            if (response.data.access_token != undefined) {
+                $rootScope.token = response.data.accessToken;
+                Idle.watch();
+                _localStorage.setItem("token", response.data.access_token);
+                mainService.getAuthenticatedUserDetails().then(function(response) {
+                    if (response.data.admin_user != undefined) {
+                        $rootScope.user = response.data.admin_user;
+                        $state.go('dashboard.main');
+                        if ($rootScope.user.admin_role.name === 'ROLE_ADMIN') {
+                        } else {
+                            $rootScope.isSuperAdmin = false;
+                            _localStorage.removeItem("isSuperAdmin");
+                        }
+                    } 
+                })
+            } else {
+                Notification.error($rootScope.getFaultMessage(response.data));
+            }
+        }, function(response) {
+            Notification.error('Something went wrong... Try after some time...');
+        });
+    };
+} ]);

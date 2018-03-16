@@ -1,0 +1,159 @@
+package com.kunj.ebuxx.util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import flexjson.JSONSerializer;
+
+public class JSONUtil {
+	
+	static String statusMessage;
+	
+	public static String getJSON(HttpServletRequest request)throws Exception
+	{
+		String body = null;
+	    StringBuilder stringBuilder = new StringBuilder();
+	    BufferedReader bufferedReader = null;
+
+	    try {
+	        InputStream inputStream = request.getInputStream();
+	        if (inputStream != null) {
+	            bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+	            char[] charBuffer = new char[128];
+	            int bytesRead = -1;
+	            while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
+	                stringBuilder.append(charBuffer, 0, bytesRead);
+	            }
+	        } else {
+	            stringBuilder.append("");
+	        }
+	    } catch (IOException ex) {
+	        throw ex;
+	    } finally {
+	        if (bufferedReader != null) {
+	            try {
+	                bufferedReader.close();
+	            } catch (IOException ex) {
+	                throw ex;
+	            }
+	        }
+	    }
+
+	    body = stringBuilder.toString();
+	    return body;
+		
+	}
+	
+	/**
+	 * This method is used to convert a List of POJO bean class object to JSON String
+	 * 
+	 * @param listName List
+	 * @return message String
+	 */
+	public static String convertToJson(List<Object> listName) {
+		
+		StringBuilder messageBuilder = new StringBuilder();
+		
+		messageBuilder.append(new JSONSerializer().exclude("*.class")
+				.exclude("class").deepSerialize(listName));
+		statusMessage = messageBuilder.toString();
+		
+		return statusMessage;
+		
+	}
+	
+	/**
+	 * This method is used to convert POJO bean class object to JSON String
+	 * 
+	 * @param listName List
+	 * @return message String
+	 */
+	public static String convertToJson(Object name) {
+		
+		StringBuilder messageBuilder = new StringBuilder();
+		
+		messageBuilder.append(new JSONSerializer().exclude("*.class")
+				.exclude("class").deepSerialize(name));
+		statusMessage = messageBuilder.toString();
+		return statusMessage;
+		
+	}
+	
+	/** This method is to sort HashMap **/
+	/**
+     * Java method to sort Map in Java by value e.g. HashMap or Hashtable
+     * throw NullPointerException if Map contains null values
+     * It also sort values even if they are duplicates
+     **/
+	public static <K, V extends Comparable<? super V>> Map<K, V> 
+    sortByValue( Map<K, V> map )
+    {
+    List<Map.Entry<K, V>> list =
+        new LinkedList<Map.Entry<K, V>>( map.entrySet() );
+    Collections.sort( list, new Comparator<Map.Entry<K, V>>()
+    {
+        @Override
+		public int compare( Map.Entry<K, V> o1, Map.Entry<K, V> o2 )
+        {
+            return o1.getValue().compareTo( o2.getValue() );
+        }
+    } );
+
+    Map<K, V> result = new LinkedHashMap<K, V>();
+    for (Map.Entry<K, V> entry : list)
+    {
+        result.put( entry.getKey(), entry.getValue() );
+    }
+    return result;
+    }	
+	
+	/**
+	 * This method is used to check given JSONObject has valid JSONArray of particular name or not
+	 * @param jsonObject
+	 * @param arrayName
+	 * @return boolean
+	 */
+	public static boolean isValidJsonArray(JSONObject jsonObject, String arrayName){
+		JSONArray jsonArray = null;
+		if(jsonObject.has(arrayName)){
+			jsonArray = jsonObject.optJSONArray(arrayName);
+		}
+		if(jsonArray != null){
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * This method is used to check given JSONObject has valid JSONObject of particular name or not
+	 * @param jsonObject
+	 * @param jsonName
+	 * @return boolean
+	 */
+	public static boolean isValidJsonObject(JSONObject jsonObject, String jsonName){
+		JSONObject object = null;
+		if(jsonObject.has(jsonName)){
+			object = jsonObject.optJSONObject(jsonName);
+		}
+		if(object != null){
+			return true;
+		}
+		return false;
+	}
+
+
+}

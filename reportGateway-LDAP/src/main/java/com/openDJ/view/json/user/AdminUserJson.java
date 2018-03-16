@@ -1,0 +1,66 @@
+package com.openDJ.view.json.user;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.openDJ.view.json.role.AdminRoleJson;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonInclude(Include.NON_NULL)
+public class AdminUserJson {
+
+	private Integer id;
+	
+	@JsonProperty("first_name")
+	private String firstName;
+	
+	@JsonProperty("last_name")
+	private String lastName;
+	
+	@JsonProperty("email_id")	
+	private String emailId;
+	
+	@JsonProperty("admin_role")
+	private AdminRoleJson adminRoleJson;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+	public AdminRoleJson getAdminRoleJson() {
+		return adminRoleJson;
+	}
+
+	public void setAdminRoleJson(AdminRoleJson adminRoleJson) {
+		this.adminRoleJson = adminRoleJson;
+	}
+	
+	
+}

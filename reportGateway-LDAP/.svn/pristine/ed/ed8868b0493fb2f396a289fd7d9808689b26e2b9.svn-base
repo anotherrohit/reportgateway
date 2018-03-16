@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.PromotionalOffer" table="promotional_offer" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="product" class="com.kunj.freshfeed.domain.Product" fetch="select">
+            <column name="product_id" />
+        </many-to-one>
+        <many-to-one name="subCategory" class="com.kunj.freshfeed.domain.SubCategory" fetch="select">
+            <column name="sub_category_id" />
+        </many-to-one>
+        <many-to-one name="category" class="com.kunj.freshfeed.domain.Category" fetch="select">
+            <column name="category_id" />
+        </many-to-one>
+        
+        <many-to-one name="vendor" class="com.kunj.freshfeed.domain.Vendor" fetch="select">
+            <column name="vendor_id" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" length="10" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="3000" />
+        </property>
+        <property name="discountableAmount" type="double">
+            <column name="discountable_amount" precision="8" not-null="true" />
+        </property>
+        <property name="isPercentage" type="boolean">
+            <column name="is_percentage" not-null="true" />
+        </property>
+        <property name="isStackable" type="boolean">
+            <column name="is_stackable" not-null="true" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="start_date" length="19" not-null="true" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="end_date" length="19" not-null="true" />
+        </property>
+        <property name="userCount" type="java.lang.Integer">
+            <column name="user_count" />
+        </property>
+        <property name="userUsableCount" type="java.lang.Integer">
+            <column name="user_usable_count" />
+        </property>
+        <property name="minimumCartValue" type="java.lang.Double">
+            <column name="minimum_cart_value" precision="8" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+         <property name="maximumDiscountValue" type="java.lang.Integer">
+            <column name="maximum_discount_value" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="image_url" length="300" />
+        </property>
+         <property name="isApplicableOnCart" type="boolean">
+            <column name="is_applicable_on_cart" not-null="true" />
+        </property>
+         <property name="isFirstOrderDiscount" type="boolean">
+            <column name="is_first_order_discount" not-null="true" />
+        </property>
+        
+        <set name="orders" table="order_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="promotional_offer_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.OrderDetail" />
+        </set>
+        <set name="cartDetails" table="cart_detail" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="promotional_offer_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.CartDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

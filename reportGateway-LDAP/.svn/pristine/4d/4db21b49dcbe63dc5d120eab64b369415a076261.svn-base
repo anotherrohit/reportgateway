@@ -1,0 +1,51 @@
+ebuxx.filter('dishItemListToString', function() {
+	return function(input) {
+		return input.map(function(x) {
+			return x.quantity + ' ' + x.restaurant_item.name + '(' + x.restaurant_item.item_type.name + ')'
+		}).join(', ');
+	}
+}).filter('notIn', function() {
+	return function(inputArray, excludeArray, inputAttribute) {
+		return input.filter(function(x) {
+			return excludeArray.indexOf(x[inputAttribute]) === -1;
+		});
+	}
+}).filter('toWeekday', function() {
+	return function(weekday) {
+		if (weekday) {
+			return [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ][weekday - 1];
+		} else {
+			return "Unknown";
+		}
+	};
+}).filter('formatDouble', function formatDouble() {
+	return function(value, precision) {
+		if (value)
+			return '$ ' + parseFloat(value).toFixed(precision || 2);
+		return '-';
+	}
+}).filter('formatTime', function formatTime() {
+	return function(value) {
+		if (value) {
+			var x = (value + '').split(':');
+			return x[0].padStart(2, '0') + ':' + x[1].padEnd(2, '0');
+		}
+		return '-';
+	}
+}).filter('map', function map() {
+	return function(array, attribute) {
+		if (array && array.map && attribute) {
+			return array.map(function(x) {
+				return x[attribute];
+			});
+		}
+		return '';
+	}
+}).filter('join', function map() {
+	return function(array, splitter) {
+		if (array && array.join && splitter) {
+			return array.join(splitter);
+		}
+		return '';
+	}
+});

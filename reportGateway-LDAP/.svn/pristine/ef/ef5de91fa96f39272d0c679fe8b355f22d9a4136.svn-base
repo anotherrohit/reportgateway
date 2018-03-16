@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.ProductOfferScheduler" table="product_offer_scheduler" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="vendorProduct" class="com.kunj.freshfeed.domain.VendorProduct" fetch="select">
+            <column name="vendor_product_id" not-null="true" />
+        </many-to-one>
+        <property name="actualPrice" type="double">
+            <column name="actual_price" precision="8" not-null="true" />
+        </property>
+        <property name="discountedPrice" type="java.lang.Double">
+            <column name="discounted_price" precision="8" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="start_date" length="19" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="end_date" length="19" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <property name="userCount" type="java.lang.Integer">
+            <column name="user_count" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="created_date" length="19" not-null="true" />
+        </property>
+        <property name="updatedDate" type="timestamp">
+            <column name="updated_date" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

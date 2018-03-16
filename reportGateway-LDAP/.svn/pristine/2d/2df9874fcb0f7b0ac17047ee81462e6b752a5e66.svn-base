@@ -1,0 +1,46 @@
+package com.kunj.ebuxx.service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class LoginService
+{
+
+	
+	@Autowired
+	private AuthService authService;
+
+	@Autowired
+	private UtilService utilService;
+
+	private final Log logger = LogFactory.getLog(getClass());
+
+	/**
+	 * This service is use for authenticate user and generate token
+	 * 
+	 * @param userLoginRequest
+	 * @return
+	 */
+//	public UserLoginResponse checkAuthentication(UserLoginRequest userLoginRequest)
+//	{
+//		UserLoginResponse userLoginResponse = new UserLoginResponse();
+//		FindInfo findInfo = new FindInfo();
+//		findInfo.addFilterInfo(new FilterInfo(Type.STRING, userLoginRequest.getUsername(), "userName", Comparision.EQ));
+//		findInfo.addFilterInfo(new FilterInfo(Type.STRING, userLoginRequest.getPassword(), "password", Comparision.EQ));
+//		AdminUser adminUser = adminUserDAO.get(findInfo);
+//		if (adminUser != null)
+//		{
+//			UserData userData = new UserData(adminUser.getId(), adminUser.getUserName(), adminUser.getAdminRole().getName());
+//			userLoginResponse.setAccessToken(authService.generateToken(userData));
+//		}
+//		else
+//		{
+//			FaultJson fault = utilService.getFaultsObject(INVALID_USER);
+//			userLoginResponse.setFault(fault);
+//		}
+//		return userLoginResponse;
+//	}
+}

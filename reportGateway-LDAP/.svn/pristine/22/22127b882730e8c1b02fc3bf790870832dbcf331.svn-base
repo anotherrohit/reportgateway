@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	
+	<bean id="adminConsoleUserService" class="com.kunj.freshfeed.service.AdminConsoleUserService" >
+		 <property name="adminUserDAO" ref="adminUserDAO" />
+		<!--  <property name="passwordEncoder" ref="passwordEncoder"></property> -->
+	</bean>
+	
+	<bean id="addressService" class="com.kunj.freshfeed.service.AddressService" >
+		<property name="userDAO" ref="userDAO" />
+		<property name="addressDAO" ref="addressDAO" />
+		<property name="addressTypeDAO" ref="addressTypeDAO" />
+		<property name="utilService" ref="utilService" />
+		<property name="deviceService" ref="deviceService" />
+	</bean>
+	
+	<bean id="authService" class="com.kunj.freshfeed.service.AuthService" >
+		<property name="authorizationTokenDAO" ref="authorizationTokenDAO" />
+		<property name="applicationDAO" ref="applicationDAO" />
+		<property name="deviceDAO" ref="deviceDAO" />
+		<property name="utilService" ref="utilService" />
+	</bean>
+
+	<bean id="cartService" class="com.kunj.freshfeed.service.CartService" >
+		<property name="utilService" ref="utilService" />
+		<property name="cartDetailDAO" ref="cartDetailDAO"/>
+		<property name="cartProductDAO" ref="cartProductDAO" />
+		<property name="vendorProductDAO" ref="vendorProductDAO" />
+		<property name="productDAO" ref="productDAO" />
+		<property name="vendorDAO" ref="vendorDAO" />
+		<property name="orderDetailDAO" ref="orderDetailDAO" />
+		<property name="addressDAO" ref="addressDAO" />
+		<property name="orderProductsDAO" ref="orderProductsDAO" />
+		<property name="orderStatusDAO" ref="orderStatusDAO" />
+		<property name="deliveryChargeDAO" ref="deliveryChargeDAO" />
+		<property name="promotionalOfferDAO" ref="promotionalOfferDAO" />
+		<property name="deliveryTimeScheduleDAO" ref="deliveryTimeScheduleDAO" />
+		<property name="userService" ref="userService" />
+		<property name="orderService" ref="orderService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="vendorService" ref="vendorService" />
+		<property name="productService" ref="productService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="pickupDAO" ref="pickupDAO" />
+		<property name="productOfferSchedulerDAO" ref="productOfferSchedulerDAO" />
+		<property name="paymentGatewayService" ref="paymentGatewayService" />
+		<property name="orderPaymentDAO" ref="orderPaymentDAO" />
+		<property name="subCategoryDAO" ref="subCategoryDAO" />
+		<property name="categoryDAO" ref="categoryDAO" />		
+	</bean>
+	
+	<bean id="categoryService" class="com.kunj.freshfeed.service.CategoryService" > 
+		<property name="utilService" ref="utilService" />
+		<property name="categoryDAO" ref="categoryDAO" />
+		<property name="categoryAuditDAO" ref="categoryAuditDAO" />
+		<property name="adminUserDAO" ref="adminUserDAO" />
+		<property name="vendorCategoryDAO" ref="vendorCategoryDAO" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="deliveryService" class="com.kunj.freshfeed.service.DeliveryService" > 
+		<property name="utilService" ref="utilService" />
+		<property name="deliveryTimeScheduleDAO" ref="deliveryTimeScheduleDAO" />
+		<property name="deliveryChargeDAO" ref="deliveryChargeDAO" />
+	</bean>  
+	
+	<bean id="deviceService" class="com.kunj.freshfeed.service.DeviceService" > 
+		<property name="deviceDAO" ref="deviceDAO" />
+	</bean>
+
+	<bean id="driverService" class="com.kunj.freshfeed.service.DriverService" >
+		<property name="driverDetailsDAO" ref="driverDetailsDAO" />
+		<property name="orderDetailDAO" ref="orderDetailDAO" />
+		<property name="utilService" ref="utilService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="orderService" ref="orderService" />
+		<property name="userService" ref="userService" />
+		<property name="orderStatusDAO" ref="orderStatusDAO" />
+		<property name="orderProductsDAO" ref="orderProductsDAO" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="favouriteProductService" class="com.kunj.freshfeed.service.FavouriteProductService" >
+		<property name="favouriteProductDAO" ref="favouriteProductDAO" />
+		<property name="utilService" ref="utilService" />
+		<property name="userService" ref="userService" />
+		<property name="productAttributesDAO" ref="productAttributesDAO" />
+	</bean>
+	
+	<bean id="homePageOfferService" class="com.kunj.freshfeed.service.HomePageOfferService" >
+		<property name="utilService" ref="utilService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="promotedCategoryDAO" ref="promotedCategoryDAO" />
+		<property name="promotionalOfferDAO" ref="promotionalOfferDAO" />
+		<property name="visitorDAO" ref="visitorDAO" />				
+	</bean>
+	
+	<bean id="locationService" class="com.kunj.freshfeed.service.LocationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="locationDAO" ref="locationDAO" />
+		<property name="pickupDAO" ref="pickupDAO" />
+		<property name="deviceDAO" ref="deviceDAO" />
+		<property name="userService" ref="userService" />
+		<property name="cartService" ref="cartService" />
+		<property name="cartProductDAO" ref="cartProductDAO" />
+		<property name="cartDetailDAO" ref="cartDetailDAO" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="orderService" class="com.kunj.freshfeed.service.OrderService" >
+		<property name="orderDetailDAO" ref="orderDetailDAO" />
+		<property name="orderProductsDAO" ref="orderProductsDAO" />
+		<property name="orderStatusDAO" ref="orderStatusDAO" />
+		<property name="utilService" ref="utilService" />
+		<property name="userService" ref="userService" />
+		<property name="orderQueryDAO" ref="orderQueryDAO" />
+		<property name="visitorDAO" ref="visitorDAO" />
+		<property name="paymentGatewayService" ref="paymentGatewayService" />
+		<property name="orderPaymentDAO" ref="orderPaymentDAO" />
+		<property name="orderRefundDAO" ref="orderRefundDAO" />
+		<property name="orderDetailAuditDAO" ref="orderDetailAuditDAO" />
+		<property name="orderProductsAuditDAO" ref="orderProductsAuditDAO" />
+		<property name="cartService" ref="cartService" />
+		<property name="vendorService" ref="vendorService" />
+	</bean>
+	
+	<bean id="productService" class="com.kunj.freshfeed.service.ProductService" >
+		<property name="productDAO" ref="productDAO" />
+		<property name="vendorProductDAO" ref="vendorProductDAO" />
+		<property name="productAttributesDAO" ref="productAttributesDAO" />
+		<property name="favouriteProductDAO" ref="favouriteProductDAO" />
+		<property name="cartDetailDAO" ref="cartDetailDAO" />
+		<property name="utilService" ref="utilService" />
+		<property name="vendorService" ref="vendorService" />
+		<property name="deliveryService" ref="deliveryService" />
+		<property name="validationService" ref="validationService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="numberOfResultToDisplayOfProductGroup" value="${number.of.results.to.display.in.search.product.of.productgroup}"/>
+		<property name="numberOfResultToDisplayOfProduct" value="${number.of.results.to.display.in.search.product.of.product}"/>
+		<property name="searchInNearbyLocality" value="${search.product.in.nearby.locality}"/>
+		<property name="adminUserDAO" ref="adminUserDAO"/>
+		<property name="productAuditDAO" ref="productAuditDAO"/>
+		<property name="attributeMasterDAO" ref="attributeMasterDAO"/>
+		<property name="cartProductDAO" ref="cartProductDAO"/>
+		<property name="productOfferSchedulerDAO" ref="productOfferSchedulerDAO"/>
+		<property name="orderProductsDAO" ref="orderProductsDAO"/>
+		
+	</bean>
+	
+	<bean id="statusService" class="com.kunj.freshfeed.service.StatusService" >
+		<property name="utilService" ref="utilService" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="subCategoryService" class="com.kunj.freshfeed.service.SubCategoryService" >
+		<property name="utilService" ref="utilService" />
+		<property name="vendorService" ref="vendorService" />
+		<property name="subCategoryDAO" ref="subCategoryDAO" />
+		<property name="vendorSubCategoryDAO" ref="vendorSubCategoryDAO" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryAuditDAO" ref="subCategoryAuditDAO" />
+		<property name="adminUserDAO" ref="adminUserDAO" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="userService" class="com.kunj.freshfeed.service.UserService" >
+		<property name="utilService" ref="utilService" />
+		<property name="locationService" ref="locationService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="userOtpCodeDAO" ref="userOtpCodeDAO" />
+		<property name="userDAO" ref="userDAO" />
+		<property name="adminUserDAO" ref="adminUserDAO" />
+		<property name="adminRoleDAO" ref="adminRoleDAO" />
+		<property name="deviceDAO" ref="deviceDAO" />
+		<property name="addressDAO" ref="addressDAO" />
+		<property name="favouriteProductDAO" ref="favouriteProductDAO" />
+		<property name="addressTypeDAO" ref="addressTypeDAO" />
+		<property name="productService" ref="productService" />
+		<property name="authorizationTokenDAO" ref="authorizationTokenDAO"/>
+		<property name="orderService" ref="orderService"/>
+		<property name="cartService" ref="cartService"/>
+		<property name="applicationConfigService" ref="applicationConfigService"/>
+		<property name="orderDetailDAO" ref="orderDetailDAO"/>
+		<property name="vendorDAO" ref="vendorDAO"/>
+		<property name="orderProductsDAO" ref="orderProductsDAO" />
+		<property name="vendorProductDAO" ref="vendorProductDAO" />
+		<property name="productDAO" ref="productDAO" />
+		<property name="authService" ref="authService" />	
+		<property name="driverService" ref="driverService" />	
+		<property name="applicationDAO" ref="applicationDAO" />
+		<property name="userRolePermissionDAO" ref="userRolePermissionDAO" />	
+	</bean>
+	
+	<bean id="utilService" class="com.kunj.freshfeed.service.UtilService" >
+		<property name="smsBaseUrl" value="${sms.baseurl.temp}"/>	
+		<property name="dropboxAppAccesstoken" value="${dropbox.app.accesstoken}"/>
+	</bean>
+	
+	<bean id="vendorService" class="com.kunj.freshfeed.service.VendorService" >
+		<property name="vendorDAO" ref="vendorDAO" />
+		<property name="vendorProductDAO" ref="vendorProductDAO" />
+		<property name="vendorLocationDAO" ref="vendorLocationDAO" />
+		<property name="vendorCategoryDAO" ref="vendorCategoryDAO" />
+		<property name="vendorSubCategoryDAO" ref="vendorSubCategoryDAO" />	
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="utilService" ref="utilService" />
+		<property name="productService" ref="productService" />
+		<property name="productOfferSchedulerDAO" ref="productOfferSchedulerDAO" />
+		<property name="orderService" ref="orderService" />
+		<property name="orderProductsDAO" ref="orderProductsDAO" />
+		<property name="unitMasterDAO" ref="unitMasterDAO" />
+		<property name="locationService" ref="locationService"/>
+		<property name="vendorProductAuditDAO" ref="vendorProductAuditDAO" />
+		<property name="adminUserDAO" ref="adminUserDAO" />
+		<property name="validationService" ref="validationService" />
+		<property name="deliveryService" ref="deliveryService" />
+		<property name="cartProductDAO" ref="cartProductDAO" />
+		<property name="adminRoleDAO" ref="adminRoleDAO" />
+	</bean>
+	
+	<bean id="paymentGatewayService" class="com.kunj.freshfeed.service.PaymentGatewayService" >
+		<property name="merchantId" value="${braintree.merchant.id}"/>
+		<property name="publicKey" value="${braintree.public.key}"/>
+		<property name="privateKey" value="${braintree.private.key}"/>		
+	</bean>
+	
+	<bean id="applicationConfigService" class="com.kunj.freshfeed.service.ApplicationConfigService" >
+		<property name="applicationConfigDAO" ref="applicationConfigDAO" />
+	</bean>
+	
+	<bean id="pushNotificationService" class="com.kunj.freshfeed.service.PushNotificationService" >
+		<property name="pushNotificationFCMServerKey" value="${pushNotification.fcm.server.key}" />
+	</bean>
+	
+	<bean id="miscellaneousService" class="com.kunj.freshfeed.service.MiscellaneousService" >
+		<property name="utilService" ref="utilService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="pushNotificationService" ref="pushNotificationService" />
+		<property name="unitMasterDAO" ref="unitMasterDAO" />
+		<property name="manualPushNotificationDAO" ref="manualPushNotificationDAO" />
+	</bean>
+	
+	<bean id="miscellaneousValidationService" class="com.kunj.freshfeed.validation.service.MiscellaneousValidationService" >
+		<property name="utilService" ref="utilService" />
+	</bean>
+	<bean id="validAddress" class="com.kunj.freshfeed.validation.service.ValidAddress" >
+	</bean>
+	<bean id="addressValidationService" class="com.kunj.freshfeed.validation.service.AddressValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="userService" ref="userService" />
+		<property name="authService" ref="authService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="validAddress" ref="validAddress"/>
+	</bean>
+	
+	<bean id="cartValidationService" class="com.kunj.freshfeed.validation.service.CartValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="authService" ref="authService" />
+	</bean>
+	
+	<bean id="deliveryValidationService" class="com.kunj.freshfeed.validation.service.DeliveryValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="authService" ref="authService"/>
+		<property name="deviceService" ref="deviceService"></property>
+		<property name="deliveryService" ref="deliveryService"></property>
+	</bean>
+	
+	<bean id="driverValidationService" class="com.kunj.freshfeed.validation.service.DriverValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="authService" ref="authService" />
+		<property name="orderService" ref="orderService" />
+		<property name="userService" ref="userService" />
+		<property name="orderStatusDAO" ref="orderStatusDAO" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="favouriteProductValidationService" class="com.kunj.freshfeed.validation.service.FavouriteProductValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="userService" ref="userService" />
+		<property name="authService" ref="authService" />
+		<property name="deviceService" ref="deviceService"></property>
+	</bean>
+	
+	<bean id="homePageOfferValidationService" class="com.kunj.freshfeed.validation.service.HomePageOfferValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="authService" ref="authService" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="locationValidationService" class="com.kunj.freshfeed.validation.service.LocationValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+	</bean>
+	
+	<bean id="productValidationService" class="com.kunj.freshfeed.validation.service.ProductValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="productService" ref="productService" />
+		<property name="vendorService" ref="vendorService" />
+		<property name="locationService" ref="locationService" />
+		<property name="deviceService" ref="deviceService" />
+		<property name="authService" ref="authService" />
+	</bean>
+	
+	<bean id="subCategoryValidationService" class="com.kunj.freshfeed.validation.service.SubCategoryValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="vendorService" ref="vendorService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+	</bean>
+	
+	<bean id="userValidationService" class="com.kunj.freshfeed.validation.service.UserValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="orderService" ref="orderService" />
+		<property name="authService" ref="authService" />
+	</bean>
+	
+	<bean id="validationService" class="com.kunj.freshfeed.validation.service.ValidationService" >
+		<property name="utilService" ref="utilService" />
+	</bean>
+	
+	<bean id="vendorValidationService" class="com.kunj.freshfeed.validation.service.VendorValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="authService" ref="authService" />
+		<property name="deviceService" ref="deviceService"/>
+		<property name="vendorService" ref="vendorService"/>
+		<property name="cartService" ref="cartService" />
+		<property name="orderService" ref="orderService" />
+		<property name="locationService" ref="locationService"/>
+		<property name="productService" ref="productService" />
+	</bean>
+	
+	<bean id="categoryValidationService" class="com.kunj.freshfeed.validation.service.CategoryValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="vendorService" ref="vendorService"/>
+	</bean>
+	
+	<bean id="orderValidationService" class="com.kunj.freshfeed.validation.service.OrderValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="vendorService" ref="vendorService" />
+	</bean>
+	
+	<bean id="deliveryConverter" class="com.kunj.freshfeed.converter.DeliveryConverter">
+		<property name="deliveryTimeScheduleDAO" ref="deliveryTimeScheduleDAO"></property>
+	</bean>	
+	
+	<bean id="userConverter" class="com.kunj.freshfeed.converter.UserConverter">
+		<property name="userService" ref="userService"></property>
+		<property name="orderService" ref="orderService" />
+	</bean>
+	
+	<bean id="helpdeskValidationService" class="com.kunj.freshfeed.validation.service.HelpdeskValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="orderService" ref="orderService" />
+		<property name="authService" ref="authService" />
+		<property name="deviceService" ref="deviceService" />
+	</bean>
+	
+	<bean id="helpdeskService" class="com.kunj.freshfeed.service.HelpdeskService" >
+		<property name="utilService" ref="utilService" />
+		<property name="orderQueryDAO" ref="orderQueryDAO" />
+		<property name="adminUserDAO" ref="adminUserDAO" />
+		<property name="orderService" ref="orderService" />
+	</bean>
+	
+	<bean id="promotionalOfferValidationService" class="com.kunj.freshfeed.validation.service.PromotionalOfferValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="validationService" ref="validationService" />
+		<property name="vendorService" ref="vendorService" />		
+	</bean>
+	
+	<bean id="promotionalOfferService" class="com.kunj.freshfeed.service.PromotionalOfferService" >
+		<property name="promotionalOfferDAO" ref="promotionalOfferDAO" />
+		<property name="utilService" ref="utilService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="subCategoryService" ref="subCategoryService" />
+		<property name="productService" ref="productService" />
+		<property name="validationService" ref="validationService" />
+		<property name="vendorService" ref="vendorService" />		
+	</bean>
+	
+	<bean id="configurationValidationService" class="com.kunj.freshfeed.validation.service.ConfigurationValidationService" >
+		<property name="utilService" ref="utilService" />
+		<property name="authService" ref="authService" />
+		<property name="validationService" ref="validationService" />		
+	</bean>
+	
+	<bean id="configurationService" class="com.kunj.freshfeed.service.ConfigurationService" >
+		<property name="cartService" ref="cartService" />
+		<property name="utilService" ref="utilService" />
+	</bean>
+	
+	<bean id="reportService" class="com.kunj.freshfeed.service.ReportService" >
+		<property name="orderService" ref="orderService" />
+		<property name="utilService" ref="utilService" />
+		<property name="userService" ref="userService" />
+		<property name="vendorService" ref="vendorService" />
+	</bean>	
+	
+	<bean id="notificationService" class="com.kunj.freshfeed.service.NotificationService" >
+		<property name="vendorService" ref="vendorService" />
+		<property name="productService" ref="productService" />
+		<property name="orderService" ref="orderService" />
+	</bean>
+	
+</beans>

@@ -1,0 +1,26 @@
+/**
+ * Created by Bhavesh Patel
+ */
+package com.kunj.ebuxx.converter;
+
+import com.kunj.ebuxx.domain.AdminRole;
+import com.kunj.ebuxx.view.json.role.AdminRoleJson;
+
+/**
+ * @author Bhavesh Patel
+ *
+ */
+public class AdminRoleConverter {
+	/**
+	 * this method convert admin role domain object to json object
+	 * 
+	 * @param adminRole
+	 * @return
+	 */
+	public static AdminRoleJson createDataForAdmin(AdminRole adminRole) {
+		AdminRoleJson adminRoleJson = new AdminRoleJson();
+		adminRoleJson.setId(adminRole.getId());
+		adminRoleJson.setName(adminRole.getRoleName());
+		return adminRoleJson;
+	}
+}

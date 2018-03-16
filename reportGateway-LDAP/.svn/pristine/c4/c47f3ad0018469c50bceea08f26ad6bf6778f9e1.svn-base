@@ -1,0 +1,73 @@
+/**
+ * 
+ */
+package com.kunj.ebuxx.spring;
+
+import java.util.Arrays;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.kunj.ebuxx.converter.FaultConverter;
+import com.kunj.ebuxx.util.Constant;
+import com.kunj.ebuxx.util.FaultEnum;
+
+/**
+ * @author Sagar Panchasara
+ *
+ */
+public class HeaderInterceptor implements HandlerInterceptor {
+
+	private final static Logger LOG = Logger.getLogger(HeaderInterceptor.class.getName());
+
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
+	}
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+	}
+
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+		// To confirm app_key and uuid header
+		System.out.println("handler: " + handler);
+		if (handler != null && handler instanceof HandlerMethod) {
+			HandlerMethod method = (HandlerMethod) handler;
+			System.out.println("Anotation: " + Arrays.toString(method.getMethod().getAnnotations()));
+			if (method.getMethodAnnotation(FreshfeedHeader.class) != null) {
+				System.out.println("Freshfedd header");
+				if (request instanceof HttpServletRequest) {
+					HttpServletRequest httpRequest = request;
+					String appKey = httpRequest.getHeader(Constant.HEADER_APP_KEY);
+					JSONObject json = null;
+					if (appKey == null || appKey.isEmpty()) {
+						json = FaultConverter.convertToJson(FaultEnum.PROVIDE_APP_KEY);
+					} else if (!appKey.equals(Constant.APP_KEY)) {
+						json = FaultConverter.convertToJson(FaultEnum.INVALID_APP_KEY);
+					}
+					String uuid = httpRequest.getHeader(Constant.HEADER_UUID);
+					if (uuid == null || uuid.isEmpty()) {
+						json = FaultConverter.convertToJson(FaultEnum.PROVIDE_UUID);
+					}
+					if (json != null) {
+						LOG.warning("bad header: " + request.getRequestURI());
+						response.setContentType(Constant.JSON_CONTENT_TYPE);
+						response.getWriter().print(json);
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+}

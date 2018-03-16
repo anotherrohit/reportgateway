@@ -1,0 +1,53 @@
+/**
+ * 
+ */
+package com.openDJ.util;
+
+import java.util.Date;
+
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.fasterxml.jackson.databind.util.Converter;
+
+/**
+ * @author Sagar Panchasara
+ *
+ */
+public class JsonDateSerializer implements Converter<Date, String> {
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.fasterxml.jackson.databind.util.Converter#convert(java.lang.Object)
+	 */
+	@Override
+	public String convert(Date value) {
+		return DateUtil.to_ddMMyyy_hhmm_a_string(value);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.fasterxml.jackson.databind.util.Converter#getInputType(com.fasterxml.
+	 * jackson.databind.type.TypeFactory)
+	 */
+	@Override
+	public JavaType getInputType(TypeFactory typeFactory) {
+		return typeFactory.constructType(Date.class);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.fasterxml.jackson.databind.util.Converter#getOutputType(com.fasterxml
+	 * .jackson.databind.type.TypeFactory)
+	 */
+	@Override
+	public JavaType getOutputType(TypeFactory typeFactory) {
+		return typeFactory.constructType(String.class);
+	}
+
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2016 4:26:02 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.PromotedCategoryAudit" table="promoted_category_audit" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="adminUser" class="com.kunj.freshfeed.domain.AdminUser" fetch="select">
+            <column name="updated_by" not-null="true" />
+        </many-to-one>
+        <many-to-one name="promotedCategory" class="com.kunj.freshfeed.domain.PromotedCategory" fetch="select">
+            <column name="promoted_category_id" not-null="true" />
+        </many-to-one>
+        <property name="oldValue" type="string">
+            <column name="oldValue" length="16777215" not-null="true" />
+        </property>
+        <property name="newValue" type="string">
+            <column name="newValue" length="16777215" not-null="true" />
+        </property>
+        <property name="updatedDatetime" type="timestamp">
+            <column name="updated_datetime" length="19" not-null="true" />
+        </property>
+        <property name="comments" type="string">
+            <column name="comments" length="1000" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

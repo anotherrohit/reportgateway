@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<project name="openDJ" basedir="." >
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+	<property name="target.dir" value="target"/>
+    <property name="web.dir" value="war"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+    <property name="name" value="openDJ"/>
+
+	<target name="deploywar"  description="Deploy application as a WAR file">
+    	<antcall target="undeploywar"></antcall> 
+		<copy file="target/openDJ.war" tofile="${deploy.path}/openDJ.war"/>
+    </target>
+ 
+    <target name="undeploywar" description="Un-Deploy application">
+    	<delete dir="${deploy.path}/openDJ/"/>
+    	<delete file="${deploy.path}/openDJ.war"/>
+    </target>  	
+
+</project>

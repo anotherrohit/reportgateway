@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<project name="ebuxx" basedir="." >
+    <property file="build.properties"/>
+
+    <property name="src.dir" value="src"/>
+	<property name="target.dir" value="target"/>
+    <property name="web.dir" value="war"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+    <property name="name" value="ebuxx"/>
+
+	<target name="deploywar"  description="Deploy application as a WAR file">
+    	<antcall target="undeploywar"></antcall> 
+		<copy file="target/ebuxx.war" tofile="${deploy.path}/ebuxx.war"/>
+    </target>
+ 
+    <target name="undeploywar" description="Un-Deploy application">
+    	<delete dir="${deploy.path}/ebuxx/"/>
+    	<delete file="${deploy.path}/ebuxx.war"/>
+    </target>  	
+
+</project>

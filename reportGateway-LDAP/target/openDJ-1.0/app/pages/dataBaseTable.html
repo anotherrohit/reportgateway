@@ -1,0 +1,45 @@
+<div class="panel panel-primary" ng-init="getDataTableList()">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-sm-12">
+				<span>DataBase Table List</span>
+<!-- 				<button class="btn btn-default pull-right" ui-sref="dashboard.sendUserNotification">Add Notification</button> -->
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+			
+
+<!-- 		<table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt"> -->
+<!-- <table ng-table="dataBaseListTable" class="table"> -->
+			
+<!-- 			<tr ng-repeat="user in $data | filter:search"> -->
+
+<!-- 				<td data-title="'#'">{{($index+1) + (userListTable.page() - 1) * userListTable.count() }}</td> --> 
+<!-- 				<td data-title="'Name'" sortable="'name'"><a ui-sref="dashboard.tableData({name:user.name})"> {{user.name || '-'}}</a></td> -->
+<!-- 			</tr> -->
+<!-- 			<tr ng-if="$data.length <= 0" style="text-align: center;"> -->
+<!-- 				<td colspan="10" style="background-color: #fbc0c0;">No Records found!!</td> -->
+<!-- 			</tr> -->
+<!-- </table> -->
+<table id="example" class="table display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </tfoot>
+		<tbody>
+           <tr ng-repeat="user in dataBaseTableList" ng-init="$last && initDataTbl()">
+                <td><a ui-sref="dashboard.tableData({name:user.name})">{{user.name}}</a></td>
+            </tr>
+           </tbody>
+           </table> 
+
+	</div>
+</div>
+    

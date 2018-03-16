@@ -1,0 +1,46 @@
+/**
+ * Created By Bhavesh Patel
+ */
+
+ebuxx.directive("isActive", function() {
+	return {
+		restrict : "E",
+		template : "<label class=\"{{status? 'label label-success':'label label-danger'}}\">{{status? 'Active':'Inactive'}}</label>",
+		scope : {
+			status : "=status"
+		}
+	};
+});
+ebuxx.directive("pickupDelivery", function() {
+	return {
+		restrict : "E",
+		template : "<label style=\"color:{{status ? 'green' : 'red'}}\"><span class=\"{{status ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'}}\"></span></label>",
+		scope : {
+			status : "=status"
+		}
+	};
+});
+ebuxx.directive("yesNo", function() {
+	return {
+		restrict : "E",
+		template : "<label style=\"color:{{status ? 'green' : 'red'}}\"><span class=\"{{status ? 'glyphicon glyphicon-ok' : 'glyphicon glyphicon-remove'}}\"></span></label>",
+		scope : {
+			status : "=status"
+		}
+	};
+});
+ebuxx.directive('fileModel', ['$parse', function ($parse) {
+    return {
+       restrict: 'A',
+       link: function(scope, element, attrs) {
+          var model = $parse(attrs.fileModel);
+          var modelSetter = model.assign;
+          
+          element.bind('change', function(){
+             scope.$apply(function(){
+                modelSetter(scope, element[0].files[0]);
+             });
+          });
+       }
+    };
+ }]);

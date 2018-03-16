@@ -1,0 +1,58 @@
+package com.kunj.ebuxx.service;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kunj.ebuxx.config.security.util.PasswordHelper;
+import com.kunj.ebuxx.dao.AdminUserDAO;
+import com.kunj.ebuxx.domain.AdminUser;
+import com.kunj.ebuxx.pojo.FilterInfo;
+import com.kunj.ebuxx.pojo.FilterInfo.Comparision;
+import com.kunj.ebuxx.pojo.FilterInfo.Type;
+import com.kunj.ebuxx.pojo.FindInfo;
+import com.kunj.ebuxx.pojo.UserData;
+import com.kunj.ebuxx.util.FaultEnum;
+import com.kunj.ebuxx.view.json.FaultJson;
+import com.kunj.ebuxx.view.json.user.UserLoginRequest;
+import com.kunj.ebuxx.view.json.user.UserLoginResponse;
+
+@Service
+public class LoginService {
+
+	@Autowired
+	private AuthService authService;
+
+	@Autowired
+	private UtilService utilService;
+
+	@Autowired
+	private AdminUserDAO adminUserDAO;
+	
+	@Autowired
+	private PasswordHelper passwordHelper;
+
+	private final Log logger = LogFactory.getLog(getClass());
+
+	/**
+	 * This service is use for authenticate user and generate token
+	 * 
+	 * @param userLoginRequest
+	 * @return
+	 */
+	public UserLoginResponse checkAuthentication(UserLoginRequest userLoginRequest) {
+		UserLoginResponse userLoginResponse = new UserLoginResponse();
+		FindInfo findInfo = new FindInfo();
+		findInfo.addFilterInfo(new FilterInfo(Type.STRING, userLoginRequest.getUsername(), "emailId", Comparision.EQ));
+		AdminUser adminUser = adminUserDAO.get(findInfo);
+		if (adminUser != null && passwordHelper.compareEncryptPassword(userLoginRequest.getPassword(),adminUser.getPassword())) {
+			UserData userData = new UserData(adminUser.getId(), adminUser.getEmailId(), adminUser.getAdminRole().getRoleName());
+			userLoginResponse.setAccessToken(authService.generateToken(userData));
+		} else {
+			FaultJson fault = utilService.getFaultsObject(FaultEnum.INVALID_USER);
+			userLoginResponse.setFault(fault);
+		}
+		return userLoginResponse;
+	}
+}

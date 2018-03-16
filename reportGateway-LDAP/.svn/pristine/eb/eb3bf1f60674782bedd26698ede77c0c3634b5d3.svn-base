@@ -1,0 +1,50 @@
+/**
+ * 
+ */
+package com.kunj.ebuxx.util;
+
+import java.lang.reflect.Field;
+
+import com.kunj.ebuxx.pojo.FindInfo;
+import com.kunj.ebuxx.pojo.FindInfo.SortOrder;
+
+/**
+ * @author Sagar Panchasara
+ *
+ */
+public class SortHelper {
+
+	/**
+	 * Returns true if given {@code fieldName} is exist in {@code entityClass}
+	 * 
+	 * @param fieldName
+	 * @param entityClass
+	 * @return
+	 */
+	public static boolean isValidField(String fieldName, Class<?> entityClass) {
+		String[] split = fieldName.split("\\.");
+		for (int i = 0; i < split.length; i++) {
+			String s = split[i];
+			Field[] declaredFields = entityClass.getDeclaredFields();
+			for (Field f : declaredFields) {
+				if (f.getName().equals(s)) {
+					if (i == split.length - 1) {
+						return true;
+					} else {
+						entityClass = f.getType();
+						break;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
+	public static FindInfo setSort(FindInfo findInfo, String fieldName, boolean sortOrder, Class<?> entityClass) {
+		if (fieldName != null && SortHelper.isValidField(fieldName, entityClass)) {
+			findInfo.sortBy(fieldName, sortOrder ? SortOrder.ASC : SortOrder.DESC);
+		}
+		return findInfo;
+	}
+
+}

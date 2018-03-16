@@ -1,0 +1,26 @@
+/**
+ * Created by Bhavesh Patel
+ */
+package com.kunj.ebuxx.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.kunj.ebuxx.domain.AdminUser;
+
+/**
+ * @author Bhavesh Patel
+ *
+ */
+@Repository
+public class AdminUserDAO extends BaseHibernateDomainDAOAbstract<AdminUser>{
+
+	/* (non-Javadoc)
+	 * @see com.kunj.ebuxx.dao.BaseHibernateDomainDAOAbstract#getDomainClass()
+	 */
+	@Override
+	protected Class<AdminUser> getDomainClass() {
+		// TODO Auto-generated method stub
+		return AdminUser.class;
+	}
+
+}

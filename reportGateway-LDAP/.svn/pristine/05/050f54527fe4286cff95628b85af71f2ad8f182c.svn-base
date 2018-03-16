@@ -1,0 +1,24 @@
+package com.kunj.ebuxx.util;
+
+public enum AdminRoleEnum {
+	
+	VENDOR(1,"ROLE_VENDOR"),
+	DRIVER(2,"DRIVER"),
+	ADMIN(3,"ROLE_ADMIN");
+	
+	private final int id;
+	private final String role;
+
+	private AdminRoleEnum(int id, String role) {
+		this.id = id;
+		this.role = role;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public String getRole() {
+		return role;
+	}
+}

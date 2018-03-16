@@ -1,0 +1,289 @@
+package com.openDJ.util;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class DateUtil {
+	private static Log logger = LogFactory.getLog(DateUtil.class);
+
+	private static String SIMPLE_FORMAT = "MMM dd, yyyy hh:mm:ss aaa";
+
+	private static final SimpleDateFormat SDF_ddMMyyyy_hhmm_a = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+
+	/**
+	 * { "January", "February", "March", "April", "May", "June", "July",
+	 * "August", "September", "October", "November", "December" }
+	 */
+	private static final String[] MONTHS = new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+
+	private static final String[] WEEKDAYS = new String[] { "sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday" };
+
+	public static String getFormattedDateMMddyyyyHHmmss(Date date) {
+		return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
+	}
+
+	public static String getCurrentTimeStampString() {
+		return new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	}
+
+	public static String getFormattedDateYYYYmmddHHmmss(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+	}
+
+	public static String getFormattedDateYYYYmmddHHmma(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd hh:mm a").format(date);
+	}
+
+	public static String getFormattedDateYYYYmmdd(Date date) {
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+
+	/* for example: Thu Jun 24 16:19:41 EDT 2010 */
+	public static String getFormattedDateEMMMdHmszzyyyy(Date date) {
+		if (date == null) {
+			return null;
+		}
+		return new SimpleDateFormat("E MMM dd HH:mm:ss zz yyyy").format(date);
+	}
+
+	public static String getDateString() {
+		return new java.util.Date().toString();
+	}
+
+	/* return Yesterday */
+	public static Date getYesterday() {
+		return getDateSOD(DateUtils.addDays(new Date(), -1));
+	}
+
+	/* return start of the day 00:00:00 */
+	public static Date getCurrentDateSOD() {
+		Calendar calendar = new GregorianCalendar();
+		return getDateSOD(calendar.getTime());
+	}
+
+	/* return end of the day 23:59:59 */
+	public static Date getCurrentDateEOD() {
+		Calendar calendar = new GregorianCalendar();
+		return getDateEOD(calendar.getTime());
+	}
+
+	/* return start of the day 00:00:00:000 */
+	public static Date getDateSOD(Date date) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		return calendar.getTime();
+	}
+
+	/* return end of the day 23:59:59:999 */
+	public static Date getDateEOD(Date date) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		calendar.set(Calendar.MILLISECOND, 999);
+		return calendar.getTime();
+	}
+
+	/* return current year */
+	public static int getCurrentYear() {
+		Calendar calendar = new GregorianCalendar();
+		return calendar.get(Calendar.YEAR);
+	}
+
+	public static boolean isSameDay(Date date1, Date date2) {
+		if (date1 == null && date2 == null) {
+			return true;
+		}
+		if (date1 == null || date2 == null) {
+			return false;
+		}
+		return DateUtils.isSameDay(date1, date2);
+	}
+
+	public static boolean isSameInstant(Date date1, Date date2) {
+		if (date1 == null && date2 == null) {
+			return true;
+		}
+		if (date1 == null || date2 == null) {
+			return false;
+		}
+		return DateUtils.isSameInstant(date1, date2);
+	}
+
+	public static String simpleFormat(String dateStr) {
+		DateFormat fromFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+		DateFormat toFormat = new SimpleDateFormat(SIMPLE_FORMAT);
+		Date d = null;
+		try {
+			d = fromFormat.parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			logger.error("ParseException", e);
+		}
+		return toFormat.format(d);
+	}
+
+	public static String simpleFormat(Date date) {
+		if (date == null) {
+			return null;
+		}
+		return new SimpleDateFormat(SIMPLE_FORMAT).format(date);
+	}
+
+	public static String simpleFormat(long time) {
+		Date date = new Date(time);
+		return new SimpleDateFormat(SIMPLE_FORMAT).format(date);
+	}
+
+	public static Date simpleParse(String dateStr) throws ParseException {
+		return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateStr);
+	}
+
+	public static Date simpleDateParse(String dateStr) throws ParseException {
+		return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+	}
+
+	public static boolean isCurrent(Date startDate, Date endDate) {
+		Date date = Calendar.getInstance().getTime();
+		return date.after(startDate) && date.before(endDate);
+	}
+
+	public static long convertMinutesToMilliseconds(int min) {
+		long milliseconds = TimeUnit.MINUTES.toMillis(min);
+		return milliseconds;
+	}
+
+	public static long convertMillisecondsToMinutes(long millis) {
+		long minutes = TimeUnit.MILLISECONDS.toMinutes(millis);
+		return minutes;
+	}
+
+	public static String getISODateFormat(Date date) {
+		TimeZone tz = TimeZone.getTimeZone("UTC");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+		df.setTimeZone(tz);
+		String nowAsISO = df.format(date);
+		return nowAsISO.replace("Z", "+00:00");
+	}
+
+	public static Date simpleTimeParse(String dateStr) {
+		return java.sql.Time.valueOf(dateStr);
+	}
+
+	public static String getTimeInAMPM(String time) {
+		SimpleDateFormat date12Format = new SimpleDateFormat("hh:mm a");
+		SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
+		try {
+			return date12Format.format(date24Format.parse(time));
+		} catch (ParseException e) {
+			return time;
+		}
+	}
+
+	/**
+	 * Compare date only
+	 * 
+	 * @param d1
+	 * @param d2
+	 * @return true if both date are not null and date are same
+	 */
+	public static boolean compareDateOnly(Date d1, Date d2) {
+		if (d1 != null && d2 != null) {
+			return getDateSOD(d1).getTime() == getDateSOD(d2).getTime();
+		}
+		return false;
+	}
+
+	/**
+	 * This method converts java.util.Date to String in dd/MM/yyyy hh:mm a
+	 * format
+	 * 
+	 * @param date
+	 * @return dd/MM/yyyy hh:mm a
+	 */
+	public static String to_ddMMyyy_hhmm_a_string(Date date) {
+		return SDF_ddMMyyyy_hhmm_a.format(date);
+	}
+
+	/**
+	 * This method returns month's full name of given date. (eg. January)
+	 * 
+	 * @see #MONTHS
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String toMonthString(Date date) {
+		Calendar instance = Calendar.getInstance();
+		instance.setTime(date);
+		return MONTHS[instance.get(Calendar.MONTH)];
+	}
+
+	/**
+	 * This method returns int value of month. January = 0, February = 1, etc
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static int toMonthInt(Date date) {
+		Calendar instance = Calendar.getInstance();
+		instance.setTime(date);
+		return instance.get(Calendar.MONTH);
+	}
+
+	/**
+	 * This method return month name of given month index
+	 * 
+	 * @see #MONTHS
+	 * 
+	 * @param month
+	 * @return
+	 */
+	public static String getMonth(int month) {
+		return MONTHS[month];
+	}
+
+	/**
+	 * this method used to convert time to date format
+	 * @param time
+	 * @return
+	 */
+	public static Date convertTimeToDate(String time) {
+		DateFormat dF = new SimpleDateFormat("hh:mm");
+		try {
+			return dF.parse(time);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static List<Integer> getDaysOfWeekByName(String weekday) {
+		weekday = weekday.toLowerCase();
+		Integer[] list = new Integer[] { -1, -1 };
+		int index = 0;
+		for (int i = 0; i < 7; i++) {
+			if (WEEKDAYS[i].startsWith(weekday)) {
+				list[index++] = i + 1;
+			}
+		}
+		return Arrays.asList(list);
+	}
+}

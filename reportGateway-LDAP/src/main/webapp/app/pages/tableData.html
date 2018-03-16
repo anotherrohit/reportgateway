@@ -1,0 +1,59 @@
+<div class="panel panel-primary" ng-init="getTableDataList()">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-sm-12">
+				<span>Table Data List</span>
+<!-- 				<button class="btn btn-default pull-right" ui-sref="dashboard.sendUserNotification">Add Notification</button> -->
+			</div>
+		</div>
+	</div>
+	<div class="panel-body">
+<!-- 			<div class="col-sm-3 pull-right"> -->
+<!-- 			<label class="control-label" style="color: white;">Search</label> -->
+<!-- 			<div class="input-group"> -->
+<!-- 				<span class="input-group-addon"> <span class="glyphicon glyphicon-search"></span> -->
+<!-- 				</span> <input class="form-control" type="text" ng-model="search" placeholder="Search..."> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+
+<!-- 		<table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt"> -->
+<!-- <table ng-table="tableDataListTable" class="table"> -->
+<!-- 			<tr> -->
+<!-- 			<th ng-repeat="(header, value) in $data[0]"> -->
+<!--       {{header}} -->
+<!--     </th> -->
+<!-- 			</tr> -->
+<!-- 			<tr ng-repeat="row in $data | filter:search"> -->
+		
+<!-- 				<td data-title="'#'">{{($index+1) + (userListTable.page() - 1) * userListTable.count() }}</td> --> 
+<!-- 				<td ng-repeat="cell in row" sortable="'cell'"> {{cell || '-'}}</td> -->
+<!-- 			</tr> -->
+<!-- 			<tr ng-if="$data.length <= 0" style="text-align: center;"> -->
+<!-- 				<td colspan="10" style="background-color: #fbc0c0;">No Records found!!</td> -->
+<!-- 			</tr> -->
+<!-- </table> -->
+
+<table id="example" class="table display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th ng-repeat="(header, value) in tableDataList[0]">
+      {{header}}
+    </th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                  <th ng-repeat="(header, value) in tableDataList[0]" ng-init="$last && initTableDataTbl()">
+      <input type="text" placeholder="Search  {{header}}" />
+    </th>
+            </tr>
+        </tfoot>
+		<tbody>
+           <tr ng-repeat="row in tableDataList" >
+           <td ng-repeat="cell in row" > {{cell || '-'}}</td>
+           </tr>
+           </tbody>
+           </table> 
+
+	</div>
+</div>

@@ -1,0 +1,26 @@
+package com.kunj.ebuxx.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+
+public class UtilDAO extends BaseHibernateDAO{
+
+	private JdbcTemplate jdbcTemplate;
+
+	public String getDatabaseHostName() {
+		return jdbcTemplate.query("show variables like 'hostname'", new ResultSetExtractor<String>() {
+			@Override
+			public String extractData(ResultSet rs) throws SQLException, DataAccessException {
+				rs.next();
+				return rs.getString("Value");
+			}
+		});
+	}
+	
+
+	
+}

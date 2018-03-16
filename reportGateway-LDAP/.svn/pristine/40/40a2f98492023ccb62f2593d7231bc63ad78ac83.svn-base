@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="amazonS3ImageService" class="com.kunj.ebuxx.service.AmazonS3ImageService">
+		<property name="accessKeyID" value="${amazon.s3.access.key.id}" />
+		<property name="secretAccessKey" value="${amazon.s3.secret.access.key}" />
+		<property name="amazonS3BaseUrl" value="${amazon.s3.base.url}" />
+		<property name="amazonS3Bucket" value="${amazon.s3.bucket}" />
+	</bean>
+</beans>

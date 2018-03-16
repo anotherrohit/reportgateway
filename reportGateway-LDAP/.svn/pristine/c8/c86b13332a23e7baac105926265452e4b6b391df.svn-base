@@ -1,0 +1,4 @@
+environment.type=${environment.type}
+search.product.in.nearby.locality=true
+number.of.results.to.display.in.search.product.of.productgroup=5
+number.of.results.to.display.in.search.product.of.product=10

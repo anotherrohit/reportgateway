@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.AuthorizationToken" table="authorization_token">
+    
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        
+        <property name="accessToken" type="string">
+            <column name="access_token" length="36" not-null="true" />
+        </property>
+        
+        <property name="createdDatetime" type="timestamp">
+            <column name="created_datetime" length="19" not-null="true" />
+        </property>
+        
+         <property name="expirationDatetime" type="timestamp">
+            <column name="expiration_datetime" length="19" not-null="true" />
+        </property>
+        
+        <many-to-one name="device" class="com.kunj.freshfeed.domain.Device" fetch="select">
+            <column name="device_id" not-null="true" />
+        </many-to-one>
+        
+        <many-to-one name="application" class="com.kunj.freshfeed.domain.Application" fetch="select">
+            <column name="application_id" not-null="true" />
+        </many-to-one>
+        
+    </class>
+    
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 26, 2016 8:15:42 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.kunj.freshfeed.domain.Location" table="location" >
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string">
+            <column name="code" length="10" not-null="true" />
+        </property>
+        <property name="pinCode" type="int">
+            <column name="pin_code" not-null="true" />
+        </property>
+        <property name="location" type="string">
+            <column name="location" length="30" not-null="true" />
+        </property>
+        <property name="city" type="string">
+            <column name="city" length="30" not-null="true" />
+        </property>
+        <property name="state" type="string">
+            <column name="state" length="30" not-null="true" />
+        </property>
+        <property name="country" type="string">
+            <column name="country" length="30" not-null="true" />
+        </property>
+        <property name="isDelivery" type="boolean">
+            <column name="is_delivery" not-null="true">
+                <comment>0 - not_delivry, 1 - yes_delivry</comment>
+            </column>
+        </property>
+        <property name="isPickup" type="boolean">
+            <column name="is_pickup" not-null="true">
+                <comment>0 - not_pickup, 1 - yes_pickup</comment>
+            </column>
+        </property>
+        <set name="addresses" table="address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Address" />
+        </set>
+        <set name="vendors" table="vendor" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Vendor" />
+        </set>
+        <set name="devices" table="device" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Device" />
+        </set>
+        <set name="pickups" table="pickup" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.Pickup" />
+        </set>
+        <set name="vendorLocations" table="vendor_location" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="location_id" not-null="true" />
+            </key>
+            <one-to-many class="com.kunj.freshfeed.domain.VendorLocation" />
+        </set>
+    </class>
+</hibernate-mapping>
