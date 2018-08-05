@@ -47,7 +47,7 @@ public class UserRepositoryImpl implements UserRepositoryIntf {
 	public List<Object> getAllUsers() throws Exception {
 		SearchControls controls = new SearchControls();
 		controls.setSearchScope(SearchControls.SUBTREE_SCOPE);
-		return ldapTemplate.search(DistinguishedName.EMPTY_PATH, "(objectclass="+className+")", controls, new AllUserAttributesMapper());
+		return ldapTemplate.search("ou=Internal,ou=spe,o=sca", "(objectclass="+className+")", controls, new AllUserAttributesMapper());
 	}
 
 	/*
@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepositoryIntf {
 	
 	public boolean authenticate(String base, String userName, String password) throws Exception{
 		log.info("executing {authenticate}");
-		base=ou;
+		base="ou=internal,ou=spe,o=sca";
 		return ldapTemplate.authenticate(base, "(uid=" + userName + ")", password);
 	}
 
