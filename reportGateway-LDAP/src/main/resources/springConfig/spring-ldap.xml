@@ -20,15 +20,15 @@ http://www.springframework.org/schema/util/spring-util.xsd">
        
        <bean id="simpleDirContextAuthenticationStrategy" class="org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrategy" />
 
-       <ldap:context-source url="ldap://usdl003.spe.sony.com:1389"
+       <ldap:context-source url="ldap://devserver:1389"
              base="ou=Internal,ou=spe,o=sca"
              username="cn=Directory Manager"
-             password="phone1@5672#"
+             password="mypassword#"
              authentication-strategy-ref="simpleDirContextAuthenticationStrategy"
              native-pooling="true"/>
 
 		<bean id="userReposImpl" class="com.openDJ.service.UserRepositoryImpl" >
-       	<constructor-arg value="ou=Internal,ou=spe,o=sca"></constructor-arg>
+       	<constructor-arg value="The Internal OU"></constructor-arg>
        	<constructor-arg value="speorgperson"></constructor-arg>
        </bean>
 
