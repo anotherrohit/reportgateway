@@ -20,10 +20,10 @@ http://www.springframework.org/schema/util/spring-util.xsd">
        
        <bean id="simpleDirContextAuthenticationStrategy" class="org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrategy" />
 
-       <ldap:context-source url="ldap://usdl003.spe.sony.com:1389"
-             base="ou=Internal,ou=spe,o=sca"
+       <ldap:context-source url="ldap://Devserver:1389"
+             base="Internal=OU"
              username="cn=Directory Manager"
-             password="phone1@5672#"
+             password="sdfdf"
              authentication-strategy-ref="simpleDirContextAuthenticationStrategy"
              native-pooling="true"/>
 
