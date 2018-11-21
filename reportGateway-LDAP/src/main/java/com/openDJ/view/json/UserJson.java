@@ -17,550 +17,572 @@ public class UserJson
 	/**
 	 *
 	 */
-	@JsonProperty("user_name")
+	@JsonProperty("uid")
 	private String uid;
-	@JsonProperty("first_name")
-	private String firstName;
-	@JsonProperty("last_name")
-	private String lastName;
-	@JsonProperty("common_name")
-	private String cn;
-	@JsonProperty("ser_name")
+	@JsonProperty("givenname")
+	private String givenname;
+	@JsonProperty("sn")
 	private String sn;
-	@JsonProperty("password")
+	@JsonProperty("cn")
+	private String cn;
+	@JsonProperty("userPassword")
 	private String userPassword;
-	@JsonProperty("address")
+	@JsonProperty("postalAddress")
 	private String postalAddress;
-	@JsonProperty("contact_number")
+	@JsonProperty("telephoneNumber")
 	private String telephoneNumber;
 	
-	@JsonProperty("assistant_email")
+	@JsonProperty("speassistantemail")
 	 private String speassistantemail ; 
-	@JsonProperty("mobile2")
+	@JsonProperty("spemobile2")
 	 private String spemobile2 ; 
-	@JsonProperty("officefax")
+	@JsonProperty("speofficefax")
 	 private String speOfficeFax ; 
-	@JsonProperty("home_fax")
+	@JsonProperty("speHomeFax")
 	 private String speHomeFax ; 
-	@JsonProperty("home_fax")
+	@JsonProperty("speHomePhone")
 	 private String speHomePhone ; 
-	@JsonProperty("onenet_flag")
+	@JsonProperty("speonenetflag")
 	 private String speonenetflag ; 
-	@JsonProperty("b2b_restrict")
+	@JsonProperty("speb2brestrictaccess")
 	 private String speb2brestrictaccess ; 
-	@JsonProperty("upn")
+	@JsonProperty("speuserPrincipalName")
 	 private String speuserPrincipalName ; 
-	@JsonProperty("pwppolicy_flag")
+	@JsonProperty("spepwpolicyflag")
 	 private String spepwpolicyflag ; 
-	@JsonProperty("dicer_flag")
+	@JsonProperty("spedicersonyaccess")
 	 private String spedicersonyaccess ;
-	@JsonProperty("primary_business_partner")
+	@JsonProperty("speprimarybusinesspartner")
 	 private String speprimarybusinesspartner ;
-	@JsonProperty("paws_access")
+	@JsonProperty("spepawsaccess")
 	private String spepawsaccess ; 
-	@JsonProperty("bebanjo_id")
+	@JsonProperty("spebebanjoid")
 	 private String spebebanjoid ; 
-	@JsonProperty("birt_home")
+	@JsonProperty("spebirthome")
 	 private String spebirthome; 
-	@JsonProperty("birt_access")
+	@JsonProperty("spebirtaccess")
 	 private String spebirtaccess ;
-	@JsonProperty("last_day_of_work")
+	@JsonProperty("spelastdayofwork")
 	 private String spelastdayofwork ;
-	@JsonProperty("medgate_access")
+	@JsonProperty("spemedgateaccess")
 	 private String spemedgateaccess ;
-	@JsonProperty("self_service_pwd_chg")
+	@JsonProperty("selfservicepwdchgdate")
 	 private String selfservicepwdchgdate ;
-	@JsonProperty("appdynamic_access")
+	@JsonProperty("speappdynamicaccess")
 	 private String speappdynamicaccess ;
-	@JsonProperty("onleave_flag")
+	@JsonProperty("speOnLeaveFlag")
 	 private String speOnLeaveFlag ;
-	@JsonProperty("iiq_access")
+	@JsonProperty("speiiqadminaccess")
 	 private String speiiqadminaccess ;
-	@JsonProperty("wpf_access")
+	@JsonProperty("spewpfaccess")
 	 private String spewpfaccess ; 
-	@JsonProperty("sphe_connect_access")
+	@JsonProperty("spewpfaccess")
 	 private String spespheconnectaccess ;
-	@JsonProperty("specialevent_access")
+	@JsonProperty("spespecialeventsaccess")
 	 private String spespecialeventsaccess ; 
-	@JsonProperty("c2c_access")
+	@JsonProperty("spec2access")
 	 private String spec2access ;
-	@JsonProperty("dicer_access")
+	@JsonProperty("spediceraccess")
 	 private String spediceraccess ;
-	@JsonProperty("webmethod_access")
+	@JsonProperty("spewebmethodsaccess")
 	 private String spewebmethodsaccess ;
-	@JsonProperty("wptf_access")
+	@JsonProperty("spewptsaccess")
 	 private String spewptsaccess ;
-	@JsonProperty("bebanjo_access")
+	@JsonProperty("spebebanjoaccess")
 	 private String spebebanjoaccess ; 
-	@JsonProperty("fcl_access")
+	@JsonProperty("spefclaccess")
 	 private String spefclaccess ; 
-	@JsonProperty("zlarchive_access")
+	@JsonProperty("spezlarchive2faaccess")
 	private String spezlarchive2faaccess ;
-	@JsonProperty("viasat_access")
+	@JsonProperty("speviasataccess")
 	 private String speviasataccess ;
-	@JsonProperty("percussion_access")
+	@JsonProperty("spepercussionaccess")
 	 private String spepercussionaccess ;
-	@JsonProperty("sou_acceptance")
+	@JsonProperty("spesouacceptance")
 	 private String spesouacceptance ;
-	@JsonProperty("2fa_token_class")
+	@JsonProperty("SPE2FATokenClass")
 	 private String SPE2FATokenClass ; 
-	@JsonProperty("2fa_oath_otp")
+	@JsonProperty("spe2faoathotp")
 	 private String spe2faoathotp ; 
-	@JsonProperty("2fa_oath_seed")
+	@JsonProperty("spe2faoathseed")
 	 private String spe2faoathseed ; 
-	@JsonProperty("hightail_access")
+	@JsonProperty("spehightailaccess")
 	 private String spehightailaccess ; 
-	@JsonProperty("dmr_access")
+	@JsonProperty("spedrmaccess")
 	 private String spedrmaccess ;
-	@JsonProperty("net_access")
+	@JsonProperty("spegnetaccess")
 	 private String spegnetaccess ; 
-	@JsonProperty("organization_level")
+	@JsonProperty("speorganizationlevel")
 	 private String speorganizationlevel ;
-	@JsonProperty("mgr_dn")
+	@JsonProperty("speMgrDn")
 	 private String speMgrDn ;
-	@JsonProperty("mgmt_level")
+	@JsonProperty("speMgmtLevel")
 	 private String speMgmtLevel ;
-	@JsonProperty("end_date")
+	@JsonProperty("speEndDate")
 	 private String speEndDate ;
-	@JsonProperty("termination_date")
+	@JsonProperty("speTerminationDate")
 	 private String speTerminationDate ;
-	@JsonProperty("airlines_access")
+	@JsonProperty("speairlinesaccess")
 	 private String speairlinesaccess ; 
-	@JsonProperty("designstudio_access")
+	@JsonProperty("spedesignstudioaccess")
 	 private String spedesignstudioaccess ; 
-	@JsonProperty("repetory_access")
+	@JsonProperty("sperepetoryaccess")
 	 private String sperepetoryaccess ; 
-	@JsonProperty("dmcm_access")
+	@JsonProperty("spedmcmaccess")
 	 private String spedmcmaccess ; 
-	@JsonProperty("inflight_access")
+	@JsonProperty("speinflightaccess")
 	 private String speinflightaccess ;
-	@JsonProperty("istemp_password")
+	@JsonProperty("Istempassword")
 	 private String Istempassword ; 
-	@JsonProperty("mediacenter_access")
+	@JsonProperty("spemediacenteraccess")
 	 private String spemediacenteraccess ; 
-	@JsonProperty("odin_access")
+	@JsonProperty("speodinaccess")
 	 private String speodinaccess ; 
-	@JsonProperty("alfresco_contenttype")
+	@JsonProperty("spealfrescocontenttype")
 	 private String spealfrescocontenttype ;
-	@JsonProperty("cims_access")
+	@JsonProperty("specimsaccess")
 	 private String specimsaccess ;
-	@JsonProperty("paris_access")
+	@JsonProperty("specimsaccess")
 	 private String speparisaccess ;
-	@JsonProperty("tableu_site")
+	@JsonProperty("spetableausite")
 	 private String spetableausite ; 
-	@JsonProperty("pinnacle_access")
+	@JsonProperty("spepinnacleaccess")
 	 private String spepinnacleaccess ; 
-	@JsonProperty("tableua_access")
+	@JsonProperty("spetableauaccess")
 	 private String spetableauaccess ; 
-	@JsonProperty("networkfile_access")
+	@JsonProperty("spenetworkfileconverteraccess")
 	 private String spenetworkfileconverteraccess ; 
-	 @JsonProperty("horizonweb_access")
+	 @JsonProperty("spehorizonwebappaccess")
 	private String spehorizonwebappaccess ; 
-	 @JsonProperty("interplan_access")
+	 @JsonProperty("speInterplanaccess")
 	 private String speInterplanaccess ; 
-	 @JsonProperty("privacy_acknowledge")
+	 @JsonProperty("speprivacyacknowledge")
 	 private String speprivacyacknowledge ;
-	 @JsonProperty("oversight_access")
+	 @JsonProperty("speoversightapaccess")
 	 private String speoversightapaccess ; 
-	 @JsonProperty("system_id")
+	 @JsonProperty("speSystemID")
 	 private String speSystemID ;
-	 @JsonProperty("international_phone")
+	 @JsonProperty("speInternationalPhone")
 	 private String speInternationalPhone ;
-	 @JsonProperty("potracker_access")
+	 @JsonProperty("spepotrackeraccess")
 	 private String spepotrackeraccess ; 
-	 @JsonProperty("ssp_accessed")
+	 @JsonProperty("spesspaccessed")
 	 private String spesspaccessed ; 
-	 @JsonProperty("ssp_everbridge")
+	 @JsonProperty("spesspeverbridge")
 	 private String spesspeverbridge ;
-	 @JsonProperty("privacypolicy_acceptedon")
+	 @JsonProperty("privacypolicyacceptedon")
 	 private String privacypolicyacceptedon ;
-	 @JsonProperty("discovery_custodian")
+	 @JsonProperty("speediscoverycustodianaccess")
 	 private String speediscoverycustodianaccess ;
-	@JsonProperty("workdaysite_code")
+	@JsonProperty("speworkdaysitecode")
 	 private String speworkdaysitecode ; 
-	@JsonProperty("generation_qualifer")
+	@JsonProperty("generationQualifier")
 	 private String generationQualifier ; 
-	@JsonProperty("lob_indicator")
+	@JsonProperty("lobindicator")
 	 private String lobindicator ; 
-	@JsonProperty("subdivision_id")
+	@JsonProperty("spesubdivisionid")
 	 private String spesubdivisionid ;
-	@JsonProperty("businessunit_id")
+	@JsonProperty("spebusinessunitid")
 	 private String spebusinessunitid ;
-	@JsonProperty("business_unit")
+	@JsonProperty("spebusinessunitname")
 	 private String spebusinessunitname ; 
-	@JsonProperty("pgp_policy")
+	@JsonProperty("spePGPPolicy")
 	 private String spePGPPolicy ;
-	@JsonProperty("pwdplc_exmtsts")
+	@JsonProperty("spepwdplcexmtsts")
 	 private String spepwdplcexmtsts ; 
-	@JsonProperty("asv_access")
+	@JsonProperty("speasvaccess")
 	 private String speasvaccess ;
-	@JsonProperty("integrify_access")
+	@JsonProperty("speintegrifyaccess")
 	 private String speintegrifyaccess ; 
-	@JsonProperty("sptresearchadmin_access")
+	@JsonProperty("SPTResearchAdminAccess")
 	 private String SPTResearchAdminAccess ; 
-	@JsonProperty("2faphone1_type")
+	@JsonProperty("spe2faPhone1Type")
 	 private String spe2faPhone1Type ; 
-	@JsonProperty("2faphone_type")
+	@JsonProperty("spe2faPhone2Type")
 	 private String spe2faPhone2Type ;
-	@JsonProperty("2fa_phone1")
+	@JsonProperty("spe2faPhone1")
 	 private String spe2faPhone1 ; 
-	@JsonProperty("2fa_phone1sms")
+	@JsonProperty("spe2faPhone1SMS")
 	 private String  spe2faPhone1SMS ;
-	@JsonProperty("2faphone1_email")
+	@JsonProperty("spe2faPhone1Email")
 	 private String spe2faPhone1Email ; 
-	@JsonProperty("2faphone2")
+	@JsonProperty("spe2faPhone2")
 	 private String spe2faPhone2 ;
-	@JsonProperty("2faphone2_sms")
+	@JsonProperty("spe2faPhone2SMS")
 	 private String  spe2faPhone2SMS ; 
-	@JsonProperty("2faphone2_email")
+	@JsonProperty("spe2faPhone2Email")
 	 private String spe2faPhone2Email ; 
-	@JsonProperty("2faphone3")
+	@JsonProperty("spe2faPhone3")
 	 private String  spe2faPhone3 ; 
-	@JsonProperty("2faphone3_sms")
+	@JsonProperty("spe2faPhone3SMS")
 	 private String spe2faPhone3SMS ; 
-	@JsonProperty("2faphone3_email")
+	@JsonProperty("spe2faPhone3Email")
 	 private String spe2faPhone3Email ;
-	@JsonProperty("spticom_access")
+	@JsonProperty("spespticomaccess")
 	 private String spespticomaccess ; 
-	@JsonProperty("netgain_access")
+	@JsonProperty("spenetgainaccess")
 	 private String spenetgainaccess ; 
-	@JsonProperty("evmi_access")
+	@JsonProperty("speevmiaccess")
 	 private String speevmiaccess ;
-	@JsonProperty("dealpoint_access")
+	@JsonProperty("spedealpointaccess")
 	 private String spedealpointaccess ;
-	@JsonProperty("creativenetworks_access")
+	@JsonProperty("specreativenetworksaccess")
 	 private String  specreativenetworksaccess ; 
-	@JsonProperty("2fa_eagl")
+	@JsonProperty("spe2faeagl")
 	private String spe2faeagl ; 
-	@JsonProperty("scry_access")
+	@JsonProperty("speScryAccess")
 	 private String speScryAccess ; 
-	@JsonProperty("businessobjects_group")
+	@JsonProperty("speBusinessObjectsGroup")
 	 private String speBusinessObjectsGroup ;
-	@JsonProperty("businessobjects_access")
+	@JsonProperty("speBusinessObjectsAccess")
 	 private String speBusinessObjectsAccess ;
-	@JsonProperty("prism_access")
+	@JsonProperty("spePRISMAccess")
 	private String  spePRISMAccess ;
-	@JsonProperty("executivedir_admin")
+	@JsonProperty("speexecutivedirectoryadmin")
 	 private String speexecutivedirectoryadmin ; 
-	@JsonProperty("executivedir_user") 
+	@JsonProperty("speexecutivedirectoryuser") 
 	private String speexecutivedirectoryuser ; 
-	@JsonProperty("ebrel_access")
+	@JsonProperty("speebrelaccess")
 	private String speebrelaccess ; 
-	@JsonProperty("darts_roles")
+	@JsonProperty("spedartsroles")
 	 private String spedartsroles ;
-	@JsonProperty("myspe_access")
+	@JsonProperty("myspeaccess")
 	 private String myspeaccess ; 
-	@JsonProperty("myspe_depts")
+	@JsonProperty("myspedepts")
 	 private String  myspedepts ; 
-	@JsonProperty("myspe_email")
+	@JsonProperty("myspeemail")
 	 private String myspeemail ; 
-	@JsonProperty("myspe_role")
+	@JsonProperty("mysperole")
 	 private String  mysperole ;
-	@JsonProperty("ismember_of")
+	@JsonProperty("isMemberOf")
 	 private String isMemberOf ;
-	@JsonProperty("myspe_workspace")
+	@JsonProperty("myspeworkspace")
 	 private String myspeworkspace ;
-	@JsonProperty("myspeworkspace_depts")
+	@JsonProperty("myspeworkspacedepts")
 	 private String myspeworkspacedepts ; 
-	@JsonProperty("mysphe_depts")
+	@JsonProperty("mysphedepts")
 	 private String mysphedepts ; 
-	@JsonProperty("mysphe_role")
+	@JsonProperty("myspherole")
 	 private String myspherole ; 
-	@JsonProperty("myspti_regions")
+	@JsonProperty("mysptiregions")
 	 private String mysptiregions ;
-	@JsonProperty("sony_ghd")
+	@JsonProperty("sonyGHD")
 	 private String  sonyGHD ; 
-	@JsonProperty("sonyremoteuser_business")
+	@JsonProperty("SonyRemoteUserBusinessUnitType")
 	 private String SonyRemoteUserBusinessUnitType ;
-	 @JsonProperty("accutrac_acces")
+	 @JsonProperty("speaccutracaccess")
 	private String speaccutracaccess ; 
-	 @JsonProperty("acs_home")
+	 @JsonProperty("speacshome")
 	 private String speacshome ; 
-	 @JsonProperty("acs_productiona")
+	 @JsonProperty("speacsproductiona")
 	 private String speacsproductiona ; 
-	 @JsonProperty("acsproduction_vpnremote")
+	 @JsonProperty("speacsproductionavpnremote")
 	 private String speacsproductionavpnremote ;
-	 @JsonProperty("acsproductiona_wired")
+	 @JsonProperty("speacsproductionawired")
 	 private String speacsproductionawired ; 
-	 @JsonProperty("acsproductiona_wireless")
+	 @JsonProperty("speacsproductionawireless")
 	 private String  speacsproductionawireless ;
-	 @JsonProperty("acs_productionb")
+	 @JsonProperty("speacsproductionb")
 	 private String speacsproductionb ; 
-	 @JsonProperty("acsproductionb_vpnremote")
+	 @JsonProperty("speacsproductionbvpnremote")
 	 private String speacsproductionbvpnremote ;
-	@JsonProperty("acsproductionb_wired")
+	@JsonProperty("speacsproductionbwired")
 	 private String speacsproductionbwired ; 
-	@JsonProperty("acsproductionb_wireless")
+	@JsonProperty("speacsproductionbwireless")
 	 private String  speacsproductionbwireless ;
-	@JsonProperty("acs_productionc")
+	@JsonProperty("speacsproductionc")
 	private String speacsproductionc ; 
-	@JsonProperty("acsproductionc_vpnremote")
+	@JsonProperty("speacsproductioncvpnremote")
 	 private String speacsproductioncvpnremote ; 
-	 @JsonProperty("acsproductionc_wired")
+	 @JsonProperty("speacsproductioncwired")
 	private String speacsproductioncwired ;
-	 @JsonProperty("acsproductionc_wireless")
+	 @JsonProperty("speacsproductioncwireless")
 	 private String speacsproductioncwireless ; 
-	 @JsonProperty("acs_productiond")
+	 @JsonProperty("speacsproductiond")
 	 private String speacsproductiond ; 
-	 @JsonProperty("acsproductiond_vpnremote")
+	 @JsonProperty("speacsproductiondvpnremote")
 	 private String speacsproductiondvpnremote ; 
-	 @JsonProperty("acsproductiond_wired")
+	 @JsonProperty("speacsproductiondwired")
 	 private String  speacsproductiondwired ;
-	 @JsonProperty("acsproductiond_wireless")
+	 @JsonProperty("speacsproductiondwireless")
 	 private String speacsproductiondwireless ; 
-	 @JsonProperty("acs_productione")
+	 @JsonProperty("speacsproductione")
 	 private String speacsproductione ; 
-	 @JsonProperty("acsproductione_vpnremote")
+	 @JsonProperty("speacsproductionevpnremote")
 	 private String speacsproductionevpnremote ;
-	 @JsonProperty("acsproductione_wired")
+	 @JsonProperty("speacsproductionewired")
 	 private String speacsproductionewired ; 
-	 @JsonProperty("acsproductione_wireless")
+	 @JsonProperty("speacsproductionewireless")
 	 private String speacsproductionewireless ;
-	 @JsonProperty("acs_productionf")
+	 @JsonProperty("speacsproductionf")
 	 private String  speacsproductionf ;
-	 @JsonProperty("acsproductionf_vpnremote")
+	 @JsonProperty("speacsproductionfvpnremote")
 	 private String speacsproductionfvpnremote ; 
-	 @JsonProperty("acsproductionf_wired")
+	 @JsonProperty("speacsproductionfwired")
 	 private String speacsproductionfwired ; 
-	 @JsonProperty("acsproductionf_wireless")
+	 @JsonProperty("speacsproductionfwireless")
 	 private String  speacsproductionfwireless ;
-	 @JsonProperty("acs_productiong")
+	 @JsonProperty("speacsproductiong")
 	 private String speacsproductiong ; 
-	 @JsonProperty("acsproductiong_vpnremote")
+	 @JsonProperty("speacsproductiongvpnremote")
 	 private String speacsproductiongvpnremote ; 
-	 @JsonProperty("acsproductiong_wired")
+	 @JsonProperty("speacsproductiongwired")
 	 private String speacsproductiongwired ;
-	 @JsonProperty("acsproductiong_wireless")
+	 @JsonProperty("speacsproductiongwireless")
 	 private String speacsproductiongwireless ; 
-	 @JsonProperty("acs_productionh")
+	 @JsonProperty("speacsproductionh")
 	 private String speacsproductionh ;
-	 @JsonProperty("acsproductionh_vpnremote")
+	 @JsonProperty("speacsproductionhvpnremote")
 	 private String speacsproductionhvpnremote ; 
-	 @JsonProperty("acsproductionh_wired")
+	 @JsonProperty("speacsproductionhwired")
 	 private String speacsproductionhwired ;
-	 @JsonProperty("acsproductionh_wireless")
+	 @JsonProperty("speacsproductionhwireless")
 	 private String speacsproductionhwireless ; 
-	 @JsonProperty("acs_productioni")
+	 @JsonProperty("speacsproductioni")
 	 private String speacsproductioni ; 
-	 @JsonProperty("acsproductioni_vpnremote")
+	 @JsonProperty("speacsproductionivpnremote")
 	 private String speacsproductionivpnremote ;
-	 @JsonProperty("acsproductioni_wired")
+	 @JsonProperty("speacsproductioniwired")
 	 private String speacsproductioniwired ;
-	 @JsonProperty("acsproductioni_wireless")
+	 @JsonProperty("speacsproductioniwireless")
 	 private String speacsproductioniwireless ; 
-	@JsonProperty("acs_productionj")
+	@JsonProperty("speacsproductionj")
 	 private String speacsproductionj ; 
-	@JsonProperty("acsproductionj_vpnremote")
+	@JsonProperty("speacsproductionjvpnremote")
 	 private String speacsproductionjvpnremote ;
-	@JsonProperty("acsproductionj_wired")
+	@JsonProperty("speacsproductionjwired")
 	private String speacsproductionjwired ;
-	@JsonProperty("acsproductionj_wireless")
+	@JsonProperty("speacsproductionjwireless")
 	 private String speacsproductionjwireless ; 
-	@JsonProperty("acs_productionk")
+	@JsonProperty("speacsproductionk")
 	private String speacsproductionk ;
-	@JsonProperty("acsproductionk_vpnremote")
+	@JsonProperty("speacsproductionkvpnremote")
 	 private String speacsproductionkvpnremote ;
-	@JsonProperty("acsproductionk_wired")
+	@JsonProperty("speacsproductionkwired")
 	private String speacsproductionkwired ;
-	@JsonProperty("acsproductionk_wireless")
+	@JsonProperty("speacsproductionkwireless")
 	 private String  speacsproductionkwireless ; 
-	 @JsonProperty("acs_productionl")
+	 @JsonProperty("speacsproductionl")
 	private String speacsproductionl ;
-	 @JsonProperty("acsproductionl_vpnremote")
+	 @JsonProperty("speacsproductionlvpnremote")
 	 private String speacsproductionlvpnremote ; 
-	 @JsonProperty("acsproductionl_wired")
+	 @JsonProperty("speacsproductionlvpnremote")
 	 private String speacsproductionlwired ;
-	 @JsonProperty("acsproductionl_wireless")
+	 @JsonProperty("speacsproductionlwireless")
 	 private String speacsproductionlwireless ; 
-	@JsonProperty("acs_productionm")
+	@JsonProperty("speacsproductionm")
 	 private String speacsproductionm ; 
-	@JsonProperty("acsproductionm_vpnremote")
+	@JsonProperty("speacsproductionmvpnremote")
 	 private String speacsproductionmvpnremote ; 
-	@JsonProperty("acsproductionm_wired")
+	@JsonProperty("speacsproductionmwired")
 	private String speacsproductionmwired ; 
-	@JsonProperty("acsproductionm_wireless")
+	@JsonProperty("speacsproductionmwireless")
 	 private String  speacsproductionmwireless ; 
-	@JsonProperty("acs_productionn")
+	@JsonProperty("speacsproductionn")
 	private String  speacsproductionn ; 
-	@JsonProperty("acsproductionn_vpnremote")
+	@JsonProperty("speacsproductionnvpnremote")
 	 private String speacsproductionnvpnremote ; 
-	@JsonProperty("acsproductionn_wired")
+	@JsonProperty("speacsproductionnwired")
 	private String  speacsproductionnwired ; 
-	@JsonProperty("acsproductionn_wireless")
+	@JsonProperty("speacsproductionnwireless")
 	 private String speacsproductionnwireless ; 
-	@JsonProperty("alfresco_access")
+	@JsonProperty("spealfrescoaccess")
 	private String  spealfrescoaccess ; 
-	@JsonProperty("alfrescob_access")
+	@JsonProperty("spealfrescobcaccess")
 	 private String spealfrescobcaccess ; 
-	@JsonProperty("apps_permitted")
+	@JsonProperty("speAppsPermitted")
 	 private String speAppsPermitted ; 
-	@JsonProperty("b2b_access")
+	@JsonProperty("speb2baccess")
 	 private String speb2baccess ;
-	@JsonProperty("building_id")
+	@JsonProperty("spebuildingid")
 	 private String spebuildingid ; 
-	@JsonProperty("business_unit")
+	@JsonProperty("spebusinessunit")
 	 private String spebusinessunit ; 
-	@JsonProperty("cardinus_access")
+	@JsonProperty("specardinusaccess")
 	 private String specardinusaccess ; 
-	@JsonProperty("citrix_access")
+	@JsonProperty("specitrixaccess")
 	 private String specitrixaccess ; 
-	@JsonProperty("company_id")
+	@JsonProperty("specompanyid")
 	 private String specompanyid ;
-	@JsonProperty("cost_center")
+	@JsonProperty("specostcenter")
 	 private String specostcenter ;
-	@JsonProperty("country")
+	@JsonProperty("specountry")
 	 private String specountry ; 
-	@JsonProperty("dealtracker_access")
+	@JsonProperty("spedealtrackeraccess")
 	 private String spedealtrackeraccess ;
-	@JsonProperty("department_id")
+	@JsonProperty("spedepartmentid")
 	 private String spedepartmentid ;
-	@JsonProperty("department_name")
+	@JsonProperty("spedepartmentname")
 	 private String spedepartmentname ; 
-	@JsonProperty("display_faxnumber")
+	@JsonProperty("speDisplayFaxNumber")
 	 private String speDisplayFaxNumber ;
-	@JsonProperty("display_givenname")
+	@JsonProperty("speDisplaygivenName")
 	 private String speDisplaygivenName ;
-	@JsonProperty("display_surname")
+	@JsonProperty("speDisplaySurname")
 	 private String speDisplaySurname ;
-	@JsonProperty("display_telephone")
+	@JsonProperty("speDisplayTelephoneNumber")
 	 private String speDisplayTelephoneNumber ; 
-	@JsonProperty("division")
+	@JsonProperty("spedivision")
 	 private String spedivision ; 
-	@JsonProperty("division_id")
+	@JsonProperty("spedivisionid")
 	 private String spedivisionid ; 
-	@JsonProperty("division_name")
+	@JsonProperty("spedivisionname")
 	 private String spedivisionname ;
-	@JsonProperty("domino_dn")
+	@JsonProperty("spedominodn")
 	 private String spedominodn ; 
-	@JsonProperty("domino_maildb")
+	@JsonProperty("spedominomaildb")
 	 private String spedominomaildb ; 
-	@JsonProperty("drools_access")
+	@JsonProperty("spedroolsaccess")
 	 private String spedroolsaccess ; 
-	@JsonProperty("droz_access")
+	@JsonProperty("spedrozaccess")
 	 private String spedrozaccess ; 
-	@JsonProperty("badge_id")
+	@JsonProperty("speEmpBadgeID")
 	 private String speEmpBadgeID ; 
-	@JsonProperty("empbirth_date")
+	@JsonProperty("speEmpBirthDate")
 	 private String speEmpBirthDate ; 
-	@JsonProperty("empdata_source")
+	@JsonProperty("speEmpDataSource")
 	 private String speEmpDataSource ; 
-	@JsonProperty("emp_floor")
+	@JsonProperty("speEmpFloor")
 	 private String speEmpFloor ; 
-	@JsonProperty("emp_frmctr")
+	@JsonProperty("speEmpFrmCtr")
 	 private String speEmpFrmCtr ; 
-	@JsonProperty("emp_hiredate")
+	@JsonProperty("speEmpHireDate")
 	 private String speEmpHireDate ;
-	@JsonProperty("emp_id")
+	@JsonProperty("speEmpID")
 	 private String speEmpID ; 
-	@JsonProperty("emp_pwdchg")
+	@JsonProperty("speEmpPwdChg")
 	 private String speEmpPwdChg ;
-	@JsonProperty("emp_srvycomp")
+	@JsonProperty("speEmpSrvyComp")
 	 private String speEmpSrvyComp ; 
-	@JsonProperty("emp_termdate")
+	@JsonProperty("speEmpTermDate")
 	 private String speEmpTermDate ;
-	@JsonProperty("emp_workstate")
+	@JsonProperty("speEmpWorkState")
 	 private String speEmpWorkState ;
-	@JsonProperty("global_id")
+	@JsonProperty("speGlobalID")
 	 private String speGlobalID ;
-	@JsonProperty("idm_accountlocked")
+	@JsonProperty("speIDMAccountLocked")
 	 private String speIDMAccountLocked ;
-	@JsonProperty("idm_region")
+	@JsonProperty("speIDMRegion")
 	 private String speIDMRegion ; 
-	@JsonProperty("idm_territory")
+	@JsonProperty("speIDMTerritory")
 	 private String speIDMTerritory ; 
-	@JsonProperty("idm_usertype")
+	@JsonProperty("speidmusertype")
 	 private String speidmusertype ; 
-	@JsonProperty("iptv_packages")
+	@JsonProperty("speiptvpackages")
 	 private String speiptvpackages ;
-	@JsonProperty("jogger_a1")
+	@JsonProperty("speJoggerA1")
 	 private String speJoggerA1 ; 
-	@JsonProperty("jogger_a2")
+	@JsonProperty("speJoggerA2")
 	private String speJoggerA2;
-	@JsonProperty("jogger_q1")
+	@JsonProperty("speJoggerQ1")
 	private String speJoggerQ1 ;
-	@JsonProperty("jogger_q2")
+	@JsonProperty("speJoggerQ2")
 	private String speJoggerQ2 ; 
-	@JsonProperty("mgr_id")
+	@JsonProperty("speMgrID")
 	 private String speMgrID ;
-	@JsonProperty("mobile")
+	@JsonProperty("speMobile")
 	 private String speMobile ;
-	@JsonProperty("native_email")
+	@JsonProperty("speNativeEmail")
 	 private String speNativeEmail ;
-	@JsonProperty("native_emailserver")
+	@JsonProperty("speNativeEmailServer")
 	 private String speNativeEmailServer ;
-	@JsonProperty("native_notesshortname")
+	@JsonProperty("speNativeNotesShortName")
 	 private String speNativeNotesShortName ;
-	@JsonProperty("niku_id")
+	@JsonProperty("spenikuid")
 	 private String spenikuid ;
-	@JsonProperty("notes_shortname")
+	@JsonProperty("spenotesshortname")
 	 private String spenotesshortname ;
-	@JsonProperty("novatus_access")
+	@JsonProperty("spenovatusaccess")
 	 private String spenovatusaccess ;
-	@JsonProperty("office_location2")
+	@JsonProperty("speOfficeLocation2")
 	 private String speOfficeLocation2 ;
-	@JsonProperty("office_location3")
+	@JsonProperty("speOfficeLocation3")
 	 private String speOfficeLocation3 ; 
-	@JsonProperty("oversight_access")
+	@JsonProperty("speoversightaccess")
 	 private String speoversightaccess ;
-	@JsonProperty("password_flag")
+	@JsonProperty("spePasswordFlag")
 	 private String spePasswordFlag ; 
-	@JsonProperty("peoplefluent_access")
+	@JsonProperty("spepeoplefluentaccess")
 	 private String spepeoplefluentaccess ;
-	@JsonProperty("pgp_region")
+	@JsonProperty("spePGPRegion")
 	 private String spePGPRegion ; 
-	@JsonProperty("phone")
+	@JsonProperty("spePhone")
 	private String spePhone ;
-	@JsonProperty("pin")
+	@JsonProperty("spepinnumber")
 	private String spepinnumber ;
-	@JsonProperty("prodsafety_access")
+	@JsonProperty("speprodsafetyaccess")
 	private String speprodsafetyaccess ;
-	@JsonProperty("productionbackbone_access")
+	@JsonProperty("speproductionbackboneaccess")
 	 private String speproductionbackboneaccess ;
-	@JsonProperty("ps_id")
+	@JsonProperty("spepsid")
 	 private String spepsid ;
-	@JsonProperty("pss_access")
+	@JsonProperty("spepssaccess")
 	 private String spepssaccess ;
-	@JsonProperty("pwd_exprydt")
+	@JsonProperty("spepwdexprydt")
 	 private String spepwdexprydt ;
-	@JsonProperty("pwdplc_exmstatus")
+	@JsonProperty("spepwdplcexmtstatus")
 	 private String spepwdplcexmtstatus ;
-	@JsonProperty("qc_access")
+	@JsonProperty("speqcaccess")
 	 private String speqcaccess ;
-	@JsonProperty("room_number3")
+	@JsonProperty("speRoomNumber3")
 	 private String speRoomNumber3 ;
-	@JsonProperty("rpm_access")
+	@JsonProperty("SPERPMAccess")
 	 private String SPERPMAccess ;
-	 @JsonProperty("saba_access")
+	 @JsonProperty("spesabaaccess")
 	 private String spesabaaccess ; 
-	 @JsonProperty("salesbank_access")
+	 @JsonProperty("spesalesbankaccess")
 	 private String spesalesbankaccess ;
-	 @JsonProperty("secondary_phone")
+	 @JsonProperty("speSecondaryPhone")
 	 private String speSecondaryPhone ;
-	 @JsonProperty("eed_id")
+	 @JsonProperty("spespeedid")
 	 private String spespeedid ; 
-	 @JsonProperty("stroreroom_access")
+	 @JsonProperty("spestoreroomaccess")
 	 private String spestoreroomaccess ;
-	 @JsonProperty("subdivision_name")
+	 @JsonProperty("spesubdivisionname")
 	 private String spesubdivisionname ; 
-	 @JsonProperty("swift_access")
+	 @JsonProperty("speswiftaccess")
 	 private String speswiftaccess ; 
-	 @JsonProperty("testapplication_access")
+	 @JsonProperty("spetestapplicationaccess")
 	 private String spetestapplicationaccess ;
-	 @JsonProperty("spe_trial")
+	 @JsonProperty("speTrial")
 	 private String speTrial ; 
-	 @JsonProperty("trintech_access")
+	 @JsonProperty("spetrintechaccess")
 	 private String spetrintechaccess ;
-	 @JsonProperty("vip_flag")
+	 @JsonProperty("speVipFlag")
 	 private String speVipFlag ;
-	 @JsonProperty("vpn_group")
+	 @JsonProperty("speVPNGroup")
 	 private String speVPNGroup ; 
-	 @JsonProperty("wdemp_id")
+	 @JsonProperty("spewdempid")
 	private String spewdempid ;
-	@JsonProperty("work_type")
+	@JsonProperty("speworktype")
 	private String speworktype ;
-	@JsonProperty("vpn_enabled")
+	@JsonProperty("VPNEnabled")
 	private String VPNEnabled ;
-
+	@JsonProperty("speifdsaccess")
+    private String speifdsaccess;
+	@JsonProperty("speIFDSReportLanguage")
+	private String speIFDSReportLanguage;
+	@JsonProperty("speifdstemporaryuser")
+	private String speifdstemporaryuser;
+	@JsonProperty("speifdsuseraccessenddate")
+	private String speifdsuseraccessenddate;
+	@JsonProperty("speifdsusertitle")
+	private String speifdsusertitle;
+	@JsonProperty("speOperatingCompany")
+	private String speOperatingCompany;
+	@JsonProperty("spePhysicalLocale")
+	private String spePhysicalLocale;
+	@JsonProperty("speTerritory")
+	private String speTerritory;
+	@JsonProperty("st")
+	private String st;
+	@JsonProperty("street")
+	private String street;
+	@JsonProperty("title")
+	private String title;
+	@JsonProperty("spefcmaccess")
+	private String spefcmaccess;
+	
 	/**
 	 * @return the uid
 	 */
@@ -580,22 +602,22 @@ public class UserJson
 
 	public synchronized final String getFirstName()
 	{
-		return firstName;
+		return givenname;
 	}
 
-	public synchronized final void setFirstName(String firstName)
+	public synchronized final void setFirstName(String givenname)
 	{
-		this.firstName = firstName;
+		this.givenname = givenname;
 	}
 
 	public synchronized final String getLastName()
 	{
-		return lastName;
+		return sn;
 	}
 
-	public synchronized final void setLastName(String lastName)
+	public synchronized final void setLastName(String sn)
 	{
-		this.lastName = lastName;
+		this.sn = sn;
 	}
 
 	/**
@@ -2788,7 +2810,88 @@ public class UserJson
 	public synchronized final void setVPNEnabled(String vPNEnabled) {
 		VPNEnabled = vPNEnabled;
 	}
-
+	
+	public synchronized final String getSpeifdsaccess(){
+		return speifdsaccess;
+	}
+	public synchronized final void setSpeifdsaccess(String speifdsaccess) {
+		this.speifdsaccess = speifdsaccess;
+		
+	}
+	
+	public synchronized final String getSpeIFDSReportLanguage(){
+		return speIFDSReportLanguage;
+	}
+	public synchronized final void setSpeIFDSReportLanguage(String speIFDSReportLanguage) {
+		this.speIFDSReportLanguage = speIFDSReportLanguage;
+		
+	}
+	public synchronized final String getSpeifdstemporaryuser(){
+		return speifdstemporaryuser;
+	}
+	public synchronized final void setSpeifdstemporaryuser(String speifdstemporaryuser) {
+		this.speifdstemporaryuser = speifdstemporaryuser;
+		
+	}
+	public synchronized final String getSpeifdsuseraccessenddate(){
+		return speifdsuseraccessenddate;
+	}
+	public synchronized final void setSpeifdsuseraccessenddate(String speifdsuseraccessenddate) {
+		this.speifdsuseraccessenddate = speifdsuseraccessenddate;
+		
+	}
+	
+	public synchronized final String getSpeifdsusertitle(){
+		return speifdsusertitle;
+	}
+	public synchronized final void setSpeifdsusertitle(String speifdsusertitle) {
+		this.speifdsusertitle = speifdsusertitle;;
+		
+	}
+	public synchronized final String getSpeOperatingCompany(){
+		return speOperatingCompany;
+	}
+	public synchronized final void setSpeOperatingCompany(String speOperatingCompany) {
+		this.speOperatingCompany = speOperatingCompany;
+	}
+	public synchronized final String getSpePhysicalLocale(){
+			return spePhysicalLocale;
+		}
+	public synchronized final void setSpePhysicalLocale(String spePhysicalLocale) {
+			this.spePhysicalLocale = spePhysicalLocale;
+			
+	}
+	public synchronized final String getSpeTerritory(){
+		return speTerritory;
+	}
+   public synchronized final void setSpeTerritory(String speTerritory) {
+		this.speTerritory = speTerritory;
+		}
+   public synchronized final String getst(){
+		return st;
+	}
+  public synchronized final void setst(String st) {
+		this.st = st;
+		}
+  public synchronized final String getstreet(){
+		return street;
+	}
+  public synchronized final void setstreet(String street) {
+		this.street = street;
+	}
+  public synchronized final String gettitle(){
+		return title;
+	}
+  public synchronized final void settitle(String title) {
+		this.title = title;
+	}
+  public synchronized final String getSpefcmaccess(){
+		return spefcmaccess;
+	}
+public synchronized final void setSpefcmaccess(String spefcmaccess) {
+		this.spefcmaccess = spefcmaccess;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 *
@@ -4458,8 +4561,82 @@ public class UserJson
 			builder.append(VPNEnabled);
 			builder.append(", ");
 		}
+		if(speifdsaccess   != null)
+		{
+			builder.append("speifdsaccess=");
+			builder.append(speifdsaccess);
+			builder.append(", ");
+		}
+		if(speIFDSReportLanguage   != null)
+		{
+			builder.append("speIFDSReportLanguage=");
+			builder.append(speIFDSReportLanguage);
+			builder.append(", ");
+		}
+		if(speifdstemporaryuser   != null)
+		{
+			builder.append("speifdstemporaryuser=");
+			builder.append(speifdstemporaryuser);
+			builder.append(", ");
+		}
+		if(speifdsuseraccessenddate   != null)
+		{
+			builder.append("speifdsuseraccessenddate=");
+			builder.append(speifdsuseraccessenddate);
+			builder.append(", ");
+		}
+		if(speifdsusertitle   != null)
+		{
+			builder.append("speifdsusertitle=");
+			builder.append(speifdsusertitle);
+			builder.append(", ");
+		}
+		if(speOperatingCompany   != null)
+		{
+			builder.append("speOperatingCompany=");
+			builder.append(speOperatingCompany);
+			builder.append(", ");
+		}
+		if(spePhysicalLocale   != null)
+		{
+			builder.append("spePhysicalLocale=");
+			builder.append(spePhysicalLocale);
+			builder.append(", ");
+		}
+		if(speTerritory   != null)
+		{
+			builder.append("speTerritory=");
+			builder.append(speTerritory);
+			builder.append(", ");
+		}
+		if(st   != null)
+		{
+			builder.append("st=");
+			builder.append(st);
+			builder.append(", ");
+		}
+		if(street   != null)
+		{
+			builder.append("street=");
+			builder.append(street);
+			builder.append(", ");
+		}
+		if(title   != null)
+		{
+			builder.append("title=");
+			builder.append(title);
+			builder.append(", ");
+		}
+		if(spefcmaccess   != null)
+		{
+			builder.append("spefcmaccess=");
+			builder.append(spefcmaccess);
+			
+		}
 		
 		builder.append("]");
 		return builder.toString();
 	}
+
+	
 }

@@ -1,9 +1,14 @@
 package com.openDJ.pojo;
 
 import java.io.Serializable;
+import java.util.Optional;
+
+import org.apache.log4j.Logger;
+
+import com.openDJ.service.UserRepositoryImpl;
 
 /**
- * @author KMaji
+ * @author RNayak
  *
  */
 public class User implements Serializable {
@@ -12,18 +17,21 @@ public class User implements Serializable {
   *
   */
  private static final long serialVersionUID = 9081527761576640803L;
+	private static Logger log = Logger.getLogger(User.class);
+
 
  private String uid;
- private String firstName;
- private String lastName;
- private String cn;
+ //private String firstName;
+ //private String lastName;
+ private String givenname;
  private String sn;
- private String userPassword;
- private String postalAddress;
- private String telephoneNumber;
+ private String cn;
+ //private String userPassword;
+ //private String postalAddress;
+ //private String telephoneNumber;
  
- private String speassistantemail ; 
- private String spemobile2 ; 
+ private String speassistantemail = "" ; 
+ /*private String spemobile2 ; 
  private String speOfficeFax ; 
  private String speHomeFax ; 
  private String speHomePhone ; 
@@ -286,32 +294,32 @@ private String speprodsafetyaccess ;
 private String spewdempid ;
 private String speworktype ;
 private String VPNEnabled ;
+//new
+private String speifdsaccess;
+private String speIFDSReportLanguage;
+private String speifdstemporaryuser;
+private String speifdsuseraccessenddate;
+private String speifdsusertitle;
+private String speOperatingCompany;
+private String spePhysicalLocale;
+private String speTerritory;
+private String st;
+private String street;*/
+//private String title;
+//private String spefcmaccess;
 
- /**
-  * @return the uid
-  */
+
+ 
  public synchronized final String getUid() {
   return uid;
  }
 
- /**
-  * @param uid
-  *            the uid to set
-  */
+ 
  public synchronized final void setUid(String uid) {
   this.uid = uid;
  }
 
- public String getFirstName()
-{
-	return firstName;
-}
-
-public void setFirstName(String firstName)
-{
-	this.firstName = firstName;
-}
-
+ /*
 public String getLastName()
 {
 	return lastName;
@@ -321,7 +329,16 @@ public void setLastName(String lastName)
 {
 	this.lastName = lastName;
 }
+*/
+ public synchronized String getGivenname()
+ {
+ 	return givenname;
+ }
 
+ public synchronized void setGivenname(String givenname)
+ {
+ 	this.givenname = givenname;
+ }
 /**
   * @return the cn
   */
@@ -352,59 +369,45 @@ public void setLastName(String lastName)
   this.sn = sn;
  }
 
- /**
-  * @return the userPassword
-  */
+ /*
  public synchronized final String getUserPassword() {
   return userPassword;
  }
 
- /**
-  * @param userPassword
-  *            the userPassword to set
-  */
+ 
  public synchronized final void setUserPassword(String userPassword) {
   this.userPassword = userPassword;
  }
 
- /**
-  * @return the postalAddress
-  */
+ 
  public synchronized final String getPostalAddress() {
   return postalAddress;
  }
 
- /**
-  * @param postalAddress
-  *            the postalAddress to set
-  */
+ 
  public synchronized final void setPostalAddress(String postalAddress) {
   this.postalAddress = postalAddress;
  }
 
- /**
-  * @return the telephoneNumber
-  */
+ 
  public synchronized final String getTelephoneNumber() {
   return telephoneNumber;
  }
 
- /**
-  * @param telephoneNumber
-  *            the telephoneNumber to set
-  */
+ 
  public synchronized final void setTelephoneNumber(String telephoneNumber) {
   this.telephoneNumber = telephoneNumber;
  }
-
- public String getSpeassistantemail() {
+*/
+ public synchronized final String getSpeassistantemail() {
+	// log.info("the spe assistant email"+speassistantemail);
 	return speassistantemail;
 }
 
-public void setSpeassistantemail(String speassistantemail) {
+public synchronized void setSpeassistantemail(String speassistantemail) {
 	this.speassistantemail = speassistantemail;
 }
-
+/*
 public String getSpemobile2() {
 	return spemobile2;
 }
@@ -660,7 +663,7 @@ public String getSpeviasataccess() {
 public void setSpeviasataccess(String speviasataccess) {
 	this.speviasataccess = speviasataccess;
 }
-
+/*
 public String getSpepercussionaccess() {
 	return spepercussionaccess;
 }
@@ -2515,6 +2518,103 @@ public static long getSerialversionuid() {
 	return serialVersionUID;
 }
 
+public  String getSpeifdsaccess() {
+	return speifdsaccess;
+}
+
+public void setSpeifdsaccess(String speifdsaccess) {
+	this.speifdsaccess = speifdsaccess;
+}
+
+public  String getSpeIFDSReportLanguage() {
+	return speIFDSReportLanguage;
+}
+
+public  void setSpeIFDSReportLanguage(String speIFDSReportLanguage) {
+	this.speIFDSReportLanguage = speIFDSReportLanguage;
+}
+
+public  String getSpeifdstemporaryuser() {
+	return speifdstemporaryuser;
+}
+
+public  void setSpeifdstemporaryuser(String speifdstemporaryuser) {
+	this.speifdstemporaryuser = speifdstemporaryuser;
+}
+
+public  String getSpeifdsuseraccessenddate() {
+	return speifdsuseraccessenddate;
+}
+
+public  void setSpeifdsuseraccessenddate(
+		String speifdsuseraccessenddate) {
+	this.speifdsuseraccessenddate = speifdsuseraccessenddate;
+}
+
+public  String getSpeifdsusertitle() {
+	return speifdsusertitle;
+}
+
+public  void setSpeifdsusertitle(String speifdsusertitle) {
+	this.speifdsusertitle = speifdsusertitle;
+}
+
+public  String getSpeOperatingCompany() {
+	return speOperatingCompany;
+}
+
+public  void setSpeOperatingCompany(String speOperatingCompany) {
+	this.speOperatingCompany = speOperatingCompany;
+}
+
+public  String getSpePhysicalLocale() {
+	return spePhysicalLocale;
+}
+
+public  void setSpePhysicalLocale(String spePhysicalLocale) {
+	this.spePhysicalLocale = spePhysicalLocale;
+}
+
+public  String getSpeTerritory() {
+	return speTerritory;
+}
+
+public  void setSpeTerritory(String speTerritory) {
+	this.speTerritory = speTerritory;
+}
+
+public  String getSt() {
+	return st;
+}
+
+public  void setSt(String st) {
+	this.st = st;
+}
+
+public  String getStreet() {
+	return street;
+}
+
+public  void setStreet(String street) {
+	this.street = street;
+}
+
+public  String gettitle() {
+	return title;
+}
+
+public  void settitle(String title) {
+	this.title = title;
+}
+
+//public  String getSpefcmaccess() {
+//	return spefcmaccess;
+//}*/
+
+//public  void setSpefcmaccess(String spefcmaccess) {
+//	this.spefcmaccess = spefcmaccess;
+//}
+
 /*
   * (non-Javadoc)
   *
@@ -2526,8 +2626,13 @@ public static long getSerialversionuid() {
   builder.append("User [");
   if (uid != null) {
    builder.append("uid=");
-   builder.append(uid);
-   builder.append(", ");
+  builder.append(uid);
+  builder.append(", ");
+  }
+  if(givenname != null){
+	  builder.append("givenname=");
+	  builder.append(givenname);
+	  builder.append(",");
   }
   if (cn != null) {
    builder.append("cn=");
@@ -2539,6 +2644,7 @@ public static long getSerialversionuid() {
    builder.append(sn);
    builder.append(", ");
   }
+  /*
   if (userPassword != null) {
    builder.append("userPassword=");
    builder.append(userPassword);
@@ -2554,13 +2660,13 @@ public static long getSerialversionuid() {
    builder.append(telephoneNumber);
    builder.append(", ");
   }
-  
+  */
   //ADD Extra attributes here
   if(speassistantemail != null){
 	  builder.append("speassistantemail=");
 	  builder.append(speassistantemail);
-	  builder.append(", ");
-  }
+	 // builder.append(", ");
+  }/*
   if(spemobile2 != null){
 	  builder.append("spemobile2=");
 	  builder.append("spemobile");
@@ -2736,6 +2842,7 @@ public static long getSerialversionuid() {
 	  builder.append(", ");
 	    
   }
+  /*
   if(spepercussionaccess != null){
 	  builder.append("spepercussionaccess=");
 	  builder.append("spepercussionaccess");
@@ -4134,13 +4241,77 @@ public static long getSerialversionuid() {
 	    
   }
   
+  if(speifdsaccess!=null){
+	  builder.append("speifdsaccess=");
+	  builder.append("speifdsaccess");
+	  builder.append(", ");
+  }
+  if(speIFDSReportLanguage!=null){
+	  builder.append("speIFDSReportLanguage=");
+	  builder.append("speIFDSReportLanguage");
+	  builder.append(", ");
+  }
+  if(speifdstemporaryuser!=null){
+	  builder.append("speifdstemporaryuser=");
+	  builder.append("speifdstemporaryuser");
+	  builder.append(", ");
+  }
+  if(speifdsuseraccessenddate!=null){
+	  builder.append("speifdsuseraccessenddate=");
+	  builder.append("speifdsuseraccessenddate");
+	  builder.append(", ");
+  }
   
+  if(speifdsusertitle!=null){
+	  builder.append("speifdsusertitle=");
+	  builder.append("speifdsusertitle");
+	  builder.append(", ");
+  }
+  if(speOperatingCompany!=null){
+	  builder.append("speOperatingCompany=");
+	  builder.append("speOperatingCompany");
+	  builder.append(", ");
+  }
+  if(spePhysicalLocale!=null){
+	  builder.append("spePhysicalLocale=");
+	  builder.append("spePhysicalLocale");
+	  builder.append(", ");
+  }
+  if(speTerritory!=null){
+	  builder.append("speTerritory=");
+	  builder.append("speTerritory");
+	  builder.append(", ");
+  }
+  if(st!=null){
+	  builder.append("st=");
+	  builder.append("st");
+	  builder.append(", ");
+  }
   
-  
- 
+  if(street!=null){
+	  builder.append("street=");
+	  builder.append("street");
+	  builder.append(", ");
+  }
+  if(title!=null){
+	  builder.append("title=");
+	  builder.append("title");
+	  //builder.append(", ");
+  }
+  else{
+	  builder.append("title=");
+	  builder.append("NIL");
+  }
+ // if(spefcmaccess!=null){
+	//  builder.append("spefcmaccess=");
+	//  builder.append("spefcmaccess");
+	  
+ // }*/
   
   builder.append("]");
   return builder.toString();
   
  }
+
+
 }

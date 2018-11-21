@@ -13,11 +13,10 @@ public class UserConverter {
 		 */
 		public static UserJson createUserDataForAdmin(User user){
 			UserJson userJson = new UserJson();
-			userJson.setFirstName(user.getFirstName());
-			userJson.setLastName(user.getLastName());
+			userJson.setFirstName(user.getGivenname());
+			userJson.setLastName(user.getSn());
 			userJson.setCn(user.getCn());
-			userJson.setSn(user.getSn());
-			userJson.setUserPassword(user.getUserPassword());
+			/*userJson.setUserPassword(user.getUserPassword());
 			userJson.setTelephoneNumber(user.getTelephoneNumber());
 			userJson.setPostalAddress(user.getPostalAddress());
 			userJson.setUid(user.getUid());
@@ -203,7 +202,7 @@ public class UserConverter {
 			userJson.setSpeacsproductionkwireless(user.getSpeacsproductionkwireless());
 			
 					
-		userJson.setSpeacsproductionl(user.getSpeacsproductionl());
+		    userJson.setSpeacsproductionl(user.getSpeacsproductionl());
 			userJson.setSpeacsproductionlvpnremote(user.getSpeacsproductionlvpnremote());
 			userJson.setSpeacsproductionlwired(user.getSpeacsproductionlwired());
 			userJson.setSpeacsproductionlwireless(user.getSpeacsproductionlwireless());
@@ -303,8 +302,20 @@ public class UserConverter {
 			userJson.setSpewdempid(user.getSpewdempid());
 			userJson.setSpeworktype(user.getSpeworktype());
 			userJson.setVPNEnabled(user.getVPNEnabled());
-			
+			userJson.setSpeifdsaccess(user.getSpeifdsaccess());
+			userJson.setSpeIFDSReportLanguage(user.getSpeIFDSReportLanguage());
+			userJson.setSpeifdstemporaryuser(user.getSpeifdstemporaryuser());
+			userJson.setSpeifdsuseraccessenddate(user.getSpeifdsuseraccessenddate());
+			userJson.setSpeifdsusertitle(user.getSpeifdsusertitle());
+			userJson.setSpeOperatingCompany(user.getSpeOperatingCompany());
+			userJson.setSpePhysicalLocale(user.getSpePhysicalLocale());
+			userJson.setSpeTerritory(user.getSpeTerritory());
+			userJson.setst(user.getSt());
+			userJson.setstreet(user.getStreet());
+			//userJson.settitle(user.gettitle());
+			//userJson.setSpefcmaccess(user.getSpefcmaccess());*/
 			return userJson;
+		}
 		
 		public static DatabaseTableJson createDatabaseTable(Object object)
 		{

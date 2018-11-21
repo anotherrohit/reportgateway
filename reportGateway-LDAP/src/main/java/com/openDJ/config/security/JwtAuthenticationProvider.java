@@ -32,7 +32,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
 		JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) authentication;
 		String token = jwtAuthenticationToken.getToken();
-		UserData parsedUser = jwtTokenValidator.parseToken(token);
+		UserData parsedUser = jwtTokenValidator.parseToken(token);//uSerData has user and role
 
 		// here you can retrive roles from database and pass as parameter
 		// rather

@@ -34,6 +34,9 @@
 <link href="/openDJ/assets/css/AdminLTE.min.css" rel="stylesheet" type="text/css" /> 
 <link href="/openDJ/assets/css/skin-blue.min.css" rel="stylesheet" type="text/css" />
 <link href="/openDJ/assets/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+<!--jQuery-->
+<script type="text/javascript" src="/openDJ/assets/jQuery/jquery-2.1.3.min.js"></script>
+
 <!-- DATA TABLES -->
     <link href="/openDJ/assets/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="/openDJ/assets/css/customCSS.css" rel="stylesheet" type="text/css" />
