@@ -27,22 +27,19 @@
 <!-- 				<td colspan="10" style="background-color: #fbc0c0;">No Records found!!</td> -->
 <!-- 			</tr> -->
 <!-- </table> -->
-	<table id="example" class="table display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th ng-repeat="(header, value) in ldapUserList[0]">
-      {{header}}
-    </th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th ng-repeat="(header, value) in ldapUserList[0]" ng-init="$last && initLDAPUserTbl()">
-     <input type="text" placeholder="Search  {{header}}" />
-    </th>
-            </tr>
-        </tfoot>
-           </table> 
+		<table id="example" class="table display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th ng-repeat="(header, value) in ldapUserList[0]">{{header}}
+					</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th ng-repeat="(header, value) in ldapUserList[0]" ng-init="$last && initLDAPUserTbl()"><input type="text" placeholder="Search  {{header}}" /></th>
+				</tr>
+			</tfoot>
+		</table>
 	</div>
 </div>
     

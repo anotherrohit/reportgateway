@@ -24,7 +24,8 @@ public class BaseHibernateDomainDAOAbstract extends BaseHibernateDAO {
 		});
 	}
 	
-	public  List<Object> getData(String name) {
+	@SuppressWarnings("unchecked")
+	public  List<Object> getData(final String name) {
 		return getHibernateTemplate().execute(new HibernateCallback<List>() {
 			@Override
 			public List doInHibernate(Session session) throws HibernateException {

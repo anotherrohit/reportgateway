@@ -13,8 +13,8 @@ public class UserConverter {
 		 */
 		public static UserJson createUserDataForAdmin(User user){
 			UserJson userJson = new UserJson();
-			userJson.setFirstName(user.getFirstName());
-			userJson.setLastName(user.getLastName());
+			userJson.setFirstName(user.getGivenName());
+			userJson.setLastName(user.getSn());
 			userJson.setCn(user.getCn());
 			userJson.setSn(user.getSn());
 			userJson.setUserPassword(user.getUserPassword());
@@ -305,6 +305,7 @@ public class UserConverter {
 			userJson.setVPNEnabled(user.getVPNEnabled());
 			
 			return userJson;
+		}
 		
 		public static DatabaseTableJson createDatabaseTable(Object object)
 		{
