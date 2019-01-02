@@ -21,7 +21,7 @@ http://www.springframework.org/schema/util/spring-util.xsd">
        <bean id="simpleDirContextAuthenticationStrategy" class="org.springframework.ldap.core.support.SimpleDirContextAuthenticationStrategy" />
 
        <ldap:context-source url="ldap://localhost:389"
-             base="ou=Internal,ou=spe,o=sca"
+             base="ou=Internal"
              username="cn=Directory Manager"
              password="password"
              authentication-strategy-ref="simpleDirContextAuthenticationStrategy"
