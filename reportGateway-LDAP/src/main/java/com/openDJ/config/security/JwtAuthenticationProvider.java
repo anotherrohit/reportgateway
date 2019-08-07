@@ -1,5 +1,6 @@
 package com.openDJ.config.security;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,12 +35,11 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 		String token = jwtAuthenticationToken.getToken();
 		UserData parsedUser = jwtTokenValidator.parseToken(token);
 
-		// here you can retrive roles from database and pass as parameter
-		// rather
-		// than extract from token
+		// here you can retrive roles from database and pass as parameter rather than extract from token
 		List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(parsedUser.getRole());
 		AuthenticatedUser user = new AuthenticatedUser(parsedUser.getId(), parsedUser.getUsername(), token, authorityList);
-		// user.setIsAdmin(parsedUser.getIsAdmin());
+		
+		//user.setIsAdmin(parsedUser.getIsAdmin()); 
 		return user;
 	}
 

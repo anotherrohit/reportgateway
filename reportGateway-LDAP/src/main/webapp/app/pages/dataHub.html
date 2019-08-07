@@ -1,0 +1,167 @@
+<script type="text/javascript">
+    
+</script>
+
+<!--<div class="panel panel-primary" ng-init="getDataHub()">-->
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-sm-12">
+				<span>Data Hub</span>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<form class=''>
+			<div class="form-group">
+			
+				<label for="data-source" class='control-label'>Select Primary Data Source</label>
+				<br/>
+				<span class="data-source-option" onclick="showDBAttr();">
+					<input ng-model="datasource" style="cursor:pointer" type="radio" name="datasource" id="database" value="database" checked>
+					<label style="cursor:pointer" style="font-weight:500" onclick="showDBAttr();" for="database">Database</label>
+				</span>
+				
+				<span class="data-source-option" onclick="showLDAPAttr();">
+					<input ng-model="datasource" style="cursor:pointer" type="radio" name="datasource" id="ldap" value="ldap" disabled>
+					<label style="cursor:pointer" style="font-weight:500" for="ldap">LDAP</label>
+				</span><br>
+				
+				<label for="status" class='control-label'>Select attribute/s</label>
+				<div class="data-source-db-div">
+					<select id="status" ng-model="datasourceAttr" class='data-source-db' multiple="multiple">
+						<option value="WORKDAY_ID">WORKDAY_ID</option>
+						<option value="EMPLOYEE_ID">EMPLOYEE_ID</option>
+						<option value="MIIS_ID">MIIS_ID</option>
+						<option value="USERNAME">USERNAME</option>
+						<option value="EMAIL_PRIMARY_WORK">EMAIL_PRIMARY_WORK</option>
+						<option value="WORKER_TYPE">WORKER_TYPE</option>
+						<option value="LEGAL_FIRST_NAME">LEGAL_FIRST_NAME</option>
+						<option value="LEGAL_LAST_NAME">LEGAL_LAST_NAME</option>
+						<option value="LEGAL_MIDDLE_NAME">LEGAL_MIDDLE_NAME</option>
+						<option value="PREFERRED_FIRST_NAME">PREFERRED_FIRST_NAME</option>
+						<option value="PREFERRED_LAST_NAME">PREFERRED_LAST_NAME</option>
+						<option value="PREFERRED_MIDDLE_NAME">PREFERRED_MIDDLE_NAME</option>
+						<option value="MAIDEN_FIRST_NAME">MAIDEN_FIRST_NAME</option>
+						<option value="MAIDEN_MIDDLE_NAME">MAIDEN_MIDDLE_NAME</option>
+						<option value="MAIDEN_LAST_NAME">MAIDEN_LAST_NAME</option>
+						<option value="OTHER_FIRST_NAME">OTHER_FIRST_NAME</option>
+						<option value="OTHER_MIDDLE_NAME">OTHER_MIDDLE_NAME</option>
+						<option value="OTHER_LAST_NAME">OTHER_LAST_NAME</option>
+						<option value="ACTIVE_STATUS">ACTIVE_STATUS</option>
+						<option value="EXEMPT">EXEMPT</option>
+						<option value="ISMANAGER">ISMANAGER</option>
+						<option value="EXECUTIVE_MANAGEMENT_FLAG">EXECUTIVE_MANAGEMENT_FLAG</option>
+						<option value="BUSINESS_SITE">BUSINESS_SITE</option>
+						<option value="BUSINESS_SITE_COUNTRY">BUSINESS_SITE_COUNTRY</option>
+						<option value="BUSINESS_TITLE">BUSINESS_TITLE</option>
+						<option value="JOB_CODE">JOB_CODE</option>
+						<option value="JOB_PROFILE_NAME">JOB_PROFILE_NAME</option>
+						<option value="JOB_TITLE">JOB_TITLE</option>
+						<option value="POSITION_ID">POSITION_ID</option>
+						<option value="POSITION">POSITION</option>
+						<option value="SPE_BUSINESS_PARTNER_LOCAL">SPE_BUSINESS_PARTNER_LOCAL</option>
+						<option value="SPE_BUSINESS_PARTNER_GLOBAL">SPE_BUSINESS_PARTNER_GLOBAL</option>
+						<option value="PRIMARY_BUSINESS_PARTNER">PRIMARY_BUSINESS_PARTNER</option>
+						<option value="MANAGER_NAME">MANAGER_NAME</option>
+						<option value="MANAGER_MIIS_ID">MANAGER_MIIS_ID</option>
+						<option value="BUSINESS_UNIT_ID">BUSINESS_UNIT_ID</option>
+						<option value="BUSNIESS_UNIT_NAME">BUSNIESS_UNIT_NAME</option>
+						<option value="DIVISION_ID">DIVISION_ID</option>
+						<option value="DIVISION_NAME">DIVISION_NAME</option>
+						<option value="SUB_DIVISION_ID">SUB_DIVISION_ID</option>
+						<option value="SUB_DIVISION_NAME">SUB_DIVISION_NAME</option>
+						<option value="SUPERVISORY_ORGANIZATION_ID">SUPERVISORY_ORGANIZATION_ID</option>
+						<option value="SUPERVISORY_ORGANIZATION_NAME">SUPERVISORY_ORGANIZATION_NAME</option>
+						<option value="EMPLOYEE_TYPE">EMPLOYEE_TYPE</option>
+						<option value="MANAGEMENT_LEVEL">MANAGEMENT_LEVEL</option>
+						<option value="HIRE_DATE">HIRE_DATE</option>
+						<option value="ORIGINAL_HIRE_DATE">ORIGINAL_HIRE_DATE</option>
+						<option value="SPE_HIRE_DATE">SPE_HIRE_DATE</option>
+						<option value="CONTINUOUS_SERVICE_DATE">CONTINUOUS_SERVICE_DATE</option>
+						<option value="LENGTH_OF_SERVICE">LENGTH_OF_SERVICE</option>
+						<option value="END_EMPLOYMENT_DATE">END_EMPLOYMENT_DATE</option>
+						<option value="TERMINATION_DATE">TERMINATION_DATE</option>
+						<option value="LAST_DAY_OF_WORK">LAST_DAY_OF_WORK</option>
+						<option value="PAY_THROUGH_DATE">PAY_THROUGH_DATE</option>
+						<option value="SAP_COMPANY_ID">SAP_COMPANY_ID</option>
+						<option value="SAP_COMPANY_NAME">SAP_COMPANY_NAME</option>
+						<option value="SAP_COST_CENTER_ID">SAP_COST_CENTER_ID</option>
+						<option value="SAP_COST_CENTER_NAME">SAP_COST_CENTER_NAME</option>
+						<option value="GL_ACCOUNT_ID">GL_ACCOUNT_ID</option>
+						<option value="GL_ACCOUNT_NAME">GL_ACCOUNT_NAME</option>
+						<option value="PAY_COMPANY_ID">PAY_COMPANY_ID</option>
+						<option value="PAY_COMPANY">PAY_COMPANY</option>
+						<option value="PAY_GROUP">PAY_GROUP</option>
+						<option value="TIME_TYPE">TIME_TYPE</option>
+						<option value="ON_LEAVE">ON_LEAVE</option>
+						<option value="FIRST_DAY_OF_LEAVE">FIRST_DAY_OF_LEAVE</option>
+						<option value="LAST_DAY_OF_LEAVE">LAST_DAY_OF_LEAVE</option>
+						<option value="LOB_INDICATOR">LOB_INDICATOR</option>
+						<option value="BUSINESS_SITE_CODE">BUSINESS_SITE_CODE</option>
+						<option value="ORGANIZATION_LEVEL">ORGANIZATION_LEVEL</option>
+						<option value="WORK_REGION">WORK_REGION</option>
+						<option value="WORK_COUNTRY">WORK_COUNTRY</option>
+						<option value="MANAGER_USER_NAME">MANAGER_USER_NAME</option>
+					</select>
+				</div>
+				
+				<div class="data-source-ldap-div" style="display:none">
+					<select id="status" class='data-source-ldap' multiple="multiple">
+						<option value="NOT AVAILABLE">---NOT AVAILABLE---</option>
+					</select>
+				</div>
+			</div>	
+			<span ng-click="submit()" class="get-data">Get Data</span>
+			<br/>
+		</form>
+	</div>
+	<br/><br/><hr/>
+	
+	<table id="example" class="table display" cellspacing="0" width="100%">
+		<thead>
+			<tr>
+				<th ng-repeat="(header, value) in ldapUserList[0]">{{header}}
+				</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th ng-repeat="(header, value) in ldapUserList[0]" ng-init="$last && initLDAPUserTbl()"><input type="text" placeholder="Search  {{header}}" /></th>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<style>
+.get-data{
+	text-align: -webkit-center;
+    padding: 5px 10px 5px 10px;
+    background: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.get-data:hover{	
+    background: #3c8dbc;
+}
+.panel{
+	padding-bottom: 30pt;
+}
+
+.data-source-option{
+	cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 3pt;
+    margin: 1pt;
+    background: #eee;
+    font-family: bold;
+}
+.data-source-option:hover{	
+    background: #3c8dbc;
+}
+
+</style>
+
+

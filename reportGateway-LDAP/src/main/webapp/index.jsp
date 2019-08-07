@@ -109,5 +109,7 @@
 <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js" type="text/javascript"></script>
 <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js" type="text/javascript"></script>
 <script src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js" type="text/javascript"></script>
-    
+
+<!-- Added by vikash -->    
+<script src="https://cdn.datatables.net/scroller/1.5.1/js/dataTables.scroller.min.js"></script>      
 </html>

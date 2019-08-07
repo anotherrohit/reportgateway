@@ -227,6 +227,14 @@ openDJ.config(function($stateProvider, $urlRouterProvider) {
 			label : 'DataBase Table',
 			parent : 'dashboard.main'
 		}
+	}).state('dashboard.dataHub', {
+		url : '/dataHub',
+		templateUrl : urlHelper('/app/pages/dataHub.html'),
+		controller : 'dashboardController',
+		ncyBreadcrumb : {
+			label : 'Data Hub',
+			parent : 'dashboard.main'
+		}
 	}).state('dashboard.tableData', {
 		url : '/tableData/:name',
 		templateUrl : urlHelper('/app/pages/tableData.html'),

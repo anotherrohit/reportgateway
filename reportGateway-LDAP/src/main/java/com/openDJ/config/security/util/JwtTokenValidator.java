@@ -31,7 +31,7 @@ public class JwtTokenValidator {
 	 *         is invalid.
 	 */
 	public UserData parseToken(String token) {
-
+		
 		if (isTokenExpired(token)) {
 			throw new JwtTokenExpired("Token is expired");
 		}

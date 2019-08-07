@@ -8,41 +8,27 @@
 		</div>
 	</div>
 	<div class="panel-body">
+	
+		<table id="example" class="table display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th ng-repeat="(header,value) in ldapUserList[0]">{{header}}
+					</th>
+				</tr>
+			</thead>
 			
-
-<!-- 		<table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt"> -->
-<!-- <table ng-table="userListTable" class="table" show-filter="true"> -->
-			
-<!-- 			<tr ng-repeat="user in $data"> -->
-
-<!--  				<td data-title="'#'">{{($index+1) + (userListTable.page() - 1) * userListTable.count() }}</td> --> 
-<!-- 				<td title="'First Name'" filter="{'first_name': 'text'}" sortable="'first_name'"> {{user.first_name}}</td> -->
-<!-- 				<td title="'Last Name'" filter="{'last_name': 'text'}" sortable="'last_name'"> {{user.last_name || '-'}}</td> -->
-<!-- 				<td title="'Common Name'" filter="{'common_name': 'text'}" sortable="'common_name'"> {{user.common_name || '-'}}</td> -->
-<!-- 				<td title="'Ser Name'" filter="{'ser_name': 'text'}" sortable="'ser_name'"> {{user.ser_name}}</td> -->
-<!-- 				<td title="'Address'" filter="{'address': 'text'}" sortable="'address'"> {{user.address}}</td> -->
-<!-- 				<td title="'Contact Number'" filter="{'contact_number': 'text'}" sortable="'contact_number'"> {{user.contact_number}}</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr ng-if="$data.length <= 0" style="text-align: center;"> -->
-<!-- 				<td colspan="10" style="background-color: #fbc0c0;">No Records found!!</td> -->
-<!-- 			</tr> -->
-<!-- </table> -->
-	<table id="example" class="table display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th ng-repeat="(header, value) in ldapUserList[0]">
-      {{header}}
-    </th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th ng-repeat="(header, value) in ldapUserList[0]" ng-init="$last && initLDAPUserTbl()">
-     <input type="text" placeholder="Search  {{header}}" />
-    </th>
-            </tr>
-        </tfoot>
-           </table> 
+			<tfoot>
+				<tr>
+					<th ng-repeat="(header,value) in ldapUserList[0]" ng-init="$last && initLDAPUserTbl()"><input type="text" placeholder="Search  {{header}}" /></th>
+				</tr>
+			</tfoot>
+		</table>
+		
+		<!--Added by vikash
+		<p>Showing {{from}} to {{to}} records.</p>
+		<a href="javascript:{}" ng-click="getPagedData('prev')" id="prev" data-id="prev" style="background: #ddd; border-radius: 3px; padding-left: 5pt; padding-right: 5pt; font-size: 15pt; font-family: bold; border: 1px solid #ccc;">Prev</a>
+		<a href="javascript:{}" ng-click="getPagedData('next')" data-id="next" style="background: #ddd; border-radius: 3px; padding-left: 5pt; padding-right: 5pt; font-size: 15pt; font-family: bold; border: 1px solid #ccc;">Next</a>
+		-->
 	</div>
 </div>
     

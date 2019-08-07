@@ -17,7 +17,8 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
     
 		log.info(this.getClass().getName() + " Method : onAuthenticationSuccess --------> Enter ");
-    	log.info(this.getClass().getName() + " Method : onAuthenticationSuccess --------> Exit ");
+
+		log.info(this.getClass().getName() + " Method : onAuthenticationSuccess --------> Exit ");
     	
     }
 

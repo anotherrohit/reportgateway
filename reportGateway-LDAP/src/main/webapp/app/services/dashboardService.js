@@ -15,4 +15,15 @@ openDJ.service('dashboardService', function($http, Server)
 	{
 		return $http.post(Server.url + "admin/database/table/data",data);
 	}
+	
+	this.getDataHub = function(data)
+	{
+		return $http.post(Server.url + "admin/user/datahub",data);
+	}
+	
+	//Added by vikash
+	this.getPagedLdapData = function(url)
+	{
+		return $http.post(Server.url + url);
+	}
 });

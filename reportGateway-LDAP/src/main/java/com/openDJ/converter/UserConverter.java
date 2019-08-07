@@ -305,6 +305,7 @@ public class UserConverter {
 			userJson.setVPNEnabled(user.getVPNEnabled());
 			
 			return userJson;
+		}
 		
 		public static DatabaseTableJson createDatabaseTable(Object object)
 		{
