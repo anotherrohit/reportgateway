@@ -43,7 +43,7 @@
 	</build>
 
 	<properties>
-		<spring.security.version>4.0.3.RELEASE</spring.security.version>
+		<spring.security.version>5.5.7</spring.security.version>
 		<encoding>UTF-8</encoding>
 		<spring-ldap.version>2.0.2.RELEASE</spring-ldap.version>
 		<!-- Defaults -->
